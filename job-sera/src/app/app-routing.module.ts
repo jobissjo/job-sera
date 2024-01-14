@@ -10,7 +10,12 @@ const routes: Routes = [
   {
     path: 'jobs',
     loadChildren: () => import('./modules/jobs/jobs.module').then(m => m.JobsModule)
-  }
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: 'employer', loadChildren: () => import('./modules/employer/employer.module').then(m => m.EmployerModule) }
 ];
 
 
