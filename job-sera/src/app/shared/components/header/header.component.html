@@ -1,17 +1,18 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
+<mat-toolbar color="primary">
+  <span>Job Sera</span>
+  <button mat-button (click)="routeToHome()">Home</button>
+  <button mat-button (click)="routeToCompany()">Companies</button>
+  <button mat-button (click)="routeToJobs()">Jobs</button>
+  
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>notifications</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
-    </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
-    </button>
-  </mat-menu>
+  <button mat-icon-button class="example-icon" aria-label="Employer Icon">
+    <mat-icon>work</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
+

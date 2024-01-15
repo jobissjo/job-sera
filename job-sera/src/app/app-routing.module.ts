@@ -15,7 +15,14 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
-  { path: 'employer', loadChildren: () => import('./modules/employer/employer.module').then(m => m.EmployerModule) }
+  {
+    path: 'employer',
+    loadChildren: () => import('./modules/employer/employer.module').then(m => m.EmployerModule)
+  },
+  {
+    path: 'company',
+    loadChildren: () => import('./modules/company/company.module').then(m => m.CompanyModule)
+  }
 ];
 
 
