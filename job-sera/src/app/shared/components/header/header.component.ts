@@ -21,5 +21,8 @@ export class HeaderComponent {
   routeToJobs(){
     this.router.navigate(['jobs'])
   }
+  routeToEmployer(){
+    this.router.navigate(['employer'])
+  }
 
 }
