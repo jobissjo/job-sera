@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { AngularMaterialModule } from 'src/app/shared/module/angular-material/an
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }
