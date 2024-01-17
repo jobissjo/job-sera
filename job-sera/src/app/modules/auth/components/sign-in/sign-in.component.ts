@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Login } from '../../Models/login.model';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -20,11 +20,8 @@ export class SignInComponent implements OnInit{
 
   onSubmitForm(){
     if(this.signInForm.valid){
-      // new Login();
       
       console.log();
-      
-      
 
     }
   }
