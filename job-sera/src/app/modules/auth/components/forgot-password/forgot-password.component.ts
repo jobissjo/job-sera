@@ -8,7 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ForgotPasswordComponent implements OnInit{
   forgotPasswordForm!:FormGroup;
-
+  isSendOTP:boolean= false;
+  verifyOTP:boolean = false;
   constructor(private fb:FormBuilder){}
   ngOnInit(){
     this.forgotPasswordForm = this.fb.group({

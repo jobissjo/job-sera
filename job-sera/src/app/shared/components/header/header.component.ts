@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  isLogin:boolean = false;
   constructor(private router:Router){}
   routeToAuth(){
     this.router.navigate(['auth'])

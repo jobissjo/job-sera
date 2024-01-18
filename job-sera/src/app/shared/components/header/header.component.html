@@ -11,8 +11,11 @@
   <button mat-icon-button class="example-icon" aria-label="Employer Icon" (click)="routeToEmployer()">
     <mat-icon>work</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
+  <button *ngIf="!isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
     <mat-icon>person</mat-icon>
+  </button>
+  <button *ngIf="isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
+    <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
 
