@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Jobs Era</span>
+  <span #mainTitle (click)="routeToHome()" (mouseover)="changeCursor()" (mouseout)="resetCursor()">Jobs Era</span>
   <button mat-button (click)="routeToHome()">Home</button>
   <button mat-button (click)="routeToCompany()">Companies</button>
   <button mat-button (click)="routeToJobs()">Jobs</button>
@@ -14,7 +14,7 @@
   <button *ngIf="!isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
     <mat-icon>person</mat-icon>
   </button>
-  <button *ngIf="isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
+  <button *ngIf="!isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="clickToUser()">
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>

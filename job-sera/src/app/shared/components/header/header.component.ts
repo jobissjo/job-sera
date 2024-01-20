@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   isLogin:boolean = false;
+  @ViewChild('mainTitle') mainTitle!:ElementRef<HTMLSpanElement>
   constructor(private router:Router){}
   routeToAuth(){
     this.router.navigate(['auth'])
@@ -26,4 +27,15 @@ export class HeaderComponent {
     this.router.navigate(['employer'])
   }
 
+  changeCursor(): void {
+    this.mainTitle?.nativeElement.classList.add('hand-pointer');
+  }
+
+  resetCursor(): void {
+    this.mainTitle?.nativeElement.classList.remove('hand-pointer');
+  }
+
+  clickToUser():void{
+    this.router.navigate(['user'])
+  }
 }
