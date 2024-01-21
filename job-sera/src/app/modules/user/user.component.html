@@ -1,1 +1,26 @@
-<p>user works!</p>
+<div>
+  <mat-card layout-align="center" class="profile-container">
+    <!-- class="user-profile-container" -->
+    <mat-card-header>
+      <mat-card-title>User Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="user-profile">
+        <div class="user-profile__avatar">
+          <!--  -->
+          <img class="user-image" src="./../../../assets/img/user.png" alt="User Avatar" />
+        </div>
+        <div class="user-profile__details">
+          <h2 class="user-profile__name">{{user.name | titlecase}}</h2>
+          <p class="user-profile__email">{{user.email}}</p>
+          <p class="user-profile__phone">{{user.phoneNumber}}</p>
+          <p class="user-profile__location">{{user.location}}</p>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary">Edit Profile</button>
+      <button mat-button color="accent">Change Password</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
