@@ -9,6 +9,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
