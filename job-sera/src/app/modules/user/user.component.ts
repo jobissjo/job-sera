@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/shared/Models/user.type';
 
 @Component({
@@ -7,11 +8,16 @@ import { User } from 'src/app/shared/Models/user.type';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
+  constructor(private router:Router){}
   user:User = {
     name:'Jobi tobi',
     email:'jobisj@gmail.com',
     phoneNumber:1234567890,
     gender:'male',
     location:'kanniya kumari, Tamil Nadu'
+  }
+
+  routeToChangePwd(){
+    this.router.navigate(['auth', 'change-password'])
   }
 }

@@ -4,12 +4,14 @@ import { AuthComponent } from './auth.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   {path:'sign-in',component:SignInComponent},
   {path:'sign-up', component:SignUpComponent},
-  {path:'forgot-password', component:ForgotPasswordComponent}
+  {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'change-password', component:ChangePasswordComponent}
 ];
 
 @NgModule({
