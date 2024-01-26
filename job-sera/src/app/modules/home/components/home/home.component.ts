@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  ngOnInit(){
+    // debugger
+    console.log("Hello this is from home component");
+    
+  }
 }
