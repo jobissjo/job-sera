@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { JobSearchService } from 'src/app/shared/service/job-search.service';
 
 @Component({
   selector: 'app-jobs-details',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./jobs-details.component.scss']
 })
 export class JobsDetailsComponent {
-
+  jobSearchService:JobSearchService = inject(JobSearchService);
+  onCreateJobClicked(){
+    this.jobSearchService.createJobDetails()
+  }
 }

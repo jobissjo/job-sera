@@ -14,8 +14,11 @@ import {MatSelectModule} from '@angular/material/select';
     CommonModule,
     MatIconModule,
     MatMenuModule,
-    MatButtonModule
-    
+    MatButtonModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports:[
     MatIconModule,

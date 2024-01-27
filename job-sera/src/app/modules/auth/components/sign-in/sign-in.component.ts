@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/service/auth.service';
 
 
 @Component({
@@ -10,7 +11,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignInComponent implements OnInit{
 
   signInForm !: FormGroup;
+  constructor(private authService:AuthService,
+    @Inject('FIREBASE_CONFIG') public firebaseConfig: any){
 
+    }
   ngOnInit(){
     this.signInForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -20,9 +24,8 @@ export class SignInComponent implements OnInit{
 
   onSubmitForm(){
     if(this.signInForm.valid){
-      
-      console.log();
-
+      const {email, password} = this.signInForm.value;
+      this.authService.loginUser(email, password);
     }
   }
 
