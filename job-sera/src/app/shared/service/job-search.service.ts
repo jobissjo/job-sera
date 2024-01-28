@@ -51,7 +51,7 @@ export class JobSearchService {
       Authorization: `Bearer ${authToken}`,
     });
   
-    this.http.post(`${this.jobUrl}job-details.json`, this.jobDetails, { headers }).subscribe(
+    this.http.post(`${this.jobUrl}jobs    .json`, this.jobDetails, { headers }).subscribe(
       (response) => {
         console.log(response);
       },
