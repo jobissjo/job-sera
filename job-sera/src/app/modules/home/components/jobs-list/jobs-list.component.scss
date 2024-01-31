@@ -1,22 +1,26 @@
-/* job-list.component.css */
-/* job-list.component.css */
+// /* job-list.component.css */
+// /* job-list.component.css */
 
 .job-list {
-    flex: 1;
-    padding: 20px;
-    border-right: 1px solid #ddd; /* Add a border to separate the columns */
-  }
-  
-  .job-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    width: 300px;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #007BFF;
-    cursor: pointer;
-  }
-  
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: 60vh;
+}
+
+.job-card {
+  border: 1px solid #ddd;
+  background-color: #E3E1D9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #007BFF;
+  cursor: pointer;
+}

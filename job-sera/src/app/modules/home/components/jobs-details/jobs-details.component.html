@@ -1,6 +1,5 @@
-<!-- job-details.component.html -->
-
-<div class="job-details">
+<div class="job-details-conatiner">
+  <div class="job-details" *ngIf="selectedJob; else noSelectedJob">
     <h1>{{ selectedJob.title }}</h1>
     <p>{{ selectedJob.companyName }}</p>
     <p>{{ selectedJob.salary }}</p>
@@ -24,3 +23,9 @@
     </ul>
   </div>
   
+<ng-template #noSelectedJob>
+  <div class="no-jobs">
+    <p>No Jobs Has been Selected</p>
+  </div>
+</ng-template>
+</div>

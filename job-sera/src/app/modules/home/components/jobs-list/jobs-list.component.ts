@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { JobDetails } from 'src/app/shared/Models/job.type';
-import { JobSearchService } from 'src/app/shared/service/job-search.service';
+import { JobSearchService } from '../../services/job-search.service';
+
 
 @Component({
   selector: 'app-jobs-list',
@@ -15,9 +16,15 @@ export class JobsListComponent implements OnInit{
     this.jobSearchService.jobObs$.subscribe((res:JobDetails[])=>{
       this.jobDetails = res
       console.log(this.jobDetails);
+      if (this.jobDetails.length)
+        this.onSelectedJob(this.jobDetails[0])
       
     })
   };
+
+  onSelectedJob(jobDetail:JobDetails){
+    this.jobSearchService.onSelectedJob(jobDetail);
+  }
 
   
 }

@@ -1,8 +1,17 @@
 /* job-details.component.css */
-
-.job-details {
+.job-details-conatiner{
+  padding: 20px;
+  overflow-y: auto;
+  height: 60vh;
+}
+.job-details,.no-jobs {
+    background-color: #E3E1D9;
     flex: 2;
     padding: 20px;
+    width: 80%;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
   }
   
   h1, h2 {
@@ -17,4 +26,3 @@
   li {
     margin-bottom: 5px;
   }
-  
