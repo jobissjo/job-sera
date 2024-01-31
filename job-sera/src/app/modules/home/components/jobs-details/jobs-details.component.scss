@@ -1,4 +1,20 @@
-.job-details-container{
-    background-color: rgb(255, 244, 219);
-    height: 200px;
-}
+/* job-details.component.css */
+
+.job-details {
+    flex: 2;
+    padding: 20px;
+  }
+  
+  h1, h2 {
+    color: #007BFF;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  

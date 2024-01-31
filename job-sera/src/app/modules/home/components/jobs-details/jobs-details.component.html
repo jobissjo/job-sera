@@ -1,3 +1,26 @@
-<div class="job-details-container">
-    <button (click)="onCreateJobClicked()">Create Job</button>
-</div>
+<!-- job-details.component.html -->
+
+<div class="job-details">
+    <h1>{{ selectedJob.title }}</h1>
+    <p>{{ selectedJob.companyName }}</p>
+    <p>{{ selectedJob.salary }}</p>
+    <p>{{ selectedJob.location }}</p>
+    <p>{{ selectedJob.jobType }}</p>
+    <p>{{ selectedJob.shift }}</p>
+  
+    <h2>Description:</h2>
+    <ul>
+      <li *ngFor="let description of selectedJob.description">{{ description }}</li>
+    </ul>
+  
+    <h2>Qualifications:</h2>
+    <ul>
+      <li *ngFor="let qualification of selectedJob.qualifications">{{ qualification }}</li>
+    </ul>
+  
+    <h2>Additional Details:</h2>
+    <ul>
+      <li *ngFor="let detail of selectedJob.additionalDetails">{{ detail }}</li>
+    </ul>
+  </div>
+  

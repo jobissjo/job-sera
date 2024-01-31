@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 export class SignInComponent implements OnInit{
 
   signInForm !: FormGroup;
-  constructor(private authService:AuthService,
-    @Inject('FIREBASE_CONFIG') public firebaseConfig: any){
+  constructor(private authService:AuthService
+    ){
 
     }
   ngOnInit(){

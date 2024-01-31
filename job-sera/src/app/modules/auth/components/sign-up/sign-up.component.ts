@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 
@@ -11,8 +11,7 @@ export class SignUpComponent {
 
   signupForm!: FormGroup;
   constructor(private fb:FormBuilder, 
-    private authService:AuthService, 
-    @Inject('FIREBASE_CONFIG') public firebaseConfig: any){
+    private authService:AuthService){
 
   }
 

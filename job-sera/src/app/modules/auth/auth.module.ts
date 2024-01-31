@@ -28,7 +28,6 @@ import { environment } from 'src/environment/environment';
     ReactiveFormsModule
   ],
   providers:[
-    { provide: 'FIREBASE_CONFIG', useValue: environment.firebase }
   ]
 })
 export class AuthModule { }
