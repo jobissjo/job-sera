@@ -2,16 +2,16 @@
     <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
         <h2>Sign Up</h2>
         <label for="username">Username</label>
-        <input type="text" id="username" formControlName="username">
+        <input type="text" id="username" formControlName="username" placeholder="username">
     
         <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email">
+        <input type="email" id="email" formControlName="email" placeholder="abc12@gmail.com">
     
         <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password">
+        <input type="password" id="password" formControlName="password" placeholder="********">
     
         <label for="password">Confirm Password</label>
-        <input type="password" id="cpassword" formControlName="cPassword">
+        <input type="password" id="cpassword" formControlName="cPassword" placeholder="********">
     
         <button type="submit">Sign Up</button>
 

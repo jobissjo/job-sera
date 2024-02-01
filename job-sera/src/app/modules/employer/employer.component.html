@@ -1,1 +1,12 @@
-<p>employer works!</p>
+<div class="employer-home-container">
+    <div class="employer-container">
+        <h1>Welcome to Employer Login</h1>
+        <p>If you don't have a employer account</p>
+        <a mat-raised-button color="accent"
+          [routerLink]="'create-employer'">Create Account</a>
+        <p>If you already have a employer account</p>
+        <a mat-raised-button class="sign-in-btn"
+        [routerLink]="'sign-in'">Login</a>
+    </div>
+    <p class="user-route" >Go to User <a class="go-to-user" mat-flat-button [routerLink]="'/auth'">Login</a></p>
+</div>

@@ -4,7 +4,7 @@ form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px 30px;
-    width: 300px;
+    width: 40%;
     text-align: center;
     margin: 20px auto;
 }
@@ -20,10 +20,12 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     margin-bottom: 15px;
     box-sizing: border-box;
+    border-radius: 5px;
+    height: 40px;
 }
 
 button {
