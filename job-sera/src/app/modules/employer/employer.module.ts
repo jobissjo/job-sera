@@ -9,6 +9,7 @@ import { LoginEmployerComponent } from './components/login-employer/login-employ
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { AdditionalInfoComponent } from './components/additional-info/additional
   imports: [
     CommonModule,
     EmployerRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class EmployerModule { }

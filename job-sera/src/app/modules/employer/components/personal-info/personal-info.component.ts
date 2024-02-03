@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-info',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./personal-info.component.scss']
 })
 export class PersonalInfoComponent {
+  @Input() personalInformation!:FormGroup;
+
+  address!:FormGroup;
+
+  ngOnInit(){
+    this.address = <FormGroup> this.personalInformation.get('address')
+  }
 
 }

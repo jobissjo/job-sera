@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-company-info',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./company-info.component.scss']
 })
 export class CompanyInfoComponent {
+  @Input() companyInformation!:FormGroup;
 
 }

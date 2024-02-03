@@ -1,18 +1,18 @@
-<form>
+<form [formGroup]="employerForm">
     <mat-tab-group class="create-employer-container">
         <mat-tab label="Personal Information">
-            <div class="personalInformation">
-
+            <div class="personal-information">
+                <app-personal-info [personalInformation]="personalInformation"></app-personal-info>
             </div>
         </mat-tab>
         <mat-tab label="Company Information">
             <div class="company-information">
-                
+                <app-company-info [companyInformation]="companyInformation"></app-company-info>    
             </div>
         </mat-tab>
         <mat-tab label="Additional Information">
             <div class="additional-information">
-                
+                <app-additional-info [additionalInformation]="additionalInformation"></app-additional-info>
             </div>
         </mat-tab>
     </mat-tab-group>
