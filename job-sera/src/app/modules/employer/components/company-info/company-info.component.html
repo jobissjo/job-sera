@@ -1,1 +1,61 @@
-<p>company-info works!</p>
+<div [formGroup]="companyInformation" class="form">
+    <div class="form-control-row">
+        <mat-form-field>
+            <input matInput placeholder="Company Name" formControlName="companyName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Industry" formControlName="industry" required>
+        </mat-form-field>
+    </div>
+    <div class="form-control-row">
+        <mat-form-field>
+            <input matInput placeholder="Company Size" formControlName="companySize" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Business Type" formControlName="businessType" required>
+        </mat-form-field>
+    </div>
+    <div class="form-control-row">
+        <mat-form-field>
+            <input matInput placeholder="Company Phone Number" formControlName="companyPhoneNumber" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Company Website Link" formControlName="companyWebsite" required>
+        </mat-form-field>
+    </div>
+    <div [formGroup]="address">
+        <div class="form-control-row">
+            <mat-form-field>
+                <input matInput placeholder="Street" formControlName="street" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="City" formControlName="city" required>
+            </mat-form-field>
+        </div>
+        <div class="form-control-row">
+            <mat-form-field>
+                <input matInput placeholder="Landmark" formControlName="landmark" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="State" formControlName="state" required>
+            </mat-form-field>
+        </div>
+        <div class="form-control-row">
+            <mat-form-field>
+                <input matInput placeholder="Country" formControlName="country" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Postal Code" formControlName="postalCode" required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <mat-form-field>
+            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+    </div>
+    <div class="form-button-controls">
+        <button mat-flat-button (click)="clickGoToPrev()" color="primary">Previous Page</button>
+        <button mat-flat-button (click)="clickGoToNext()" color="accent">Next Page</button>
+    </div>
+</div>

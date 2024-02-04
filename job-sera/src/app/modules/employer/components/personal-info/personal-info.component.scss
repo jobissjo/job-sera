@@ -1,0 +1,62 @@
+/* Apply basic styling to the form container */
+.personal-information-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Style form control rows */
+.form-control-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Style form fields */
+mat-form-field {
+    width: 45%; /* Adjust the width as needed */
+}
+
+/* Style buttons and button controls */
+.form-button-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Add spacing between buttons */
+.form-button-controls button {
+    margin-right: 10px;
+}
+
+// mat-form-field input {
+//     width: 100%;
+//     background-color: #b5b5b5;
+// }
+// mat-form-field{
+//     background-color: #b5b5b5;
+// }
+
+/* Optional: Style the form field labels */
+.mat-form-field-label {
+    color: #ffffff;
+}
+
+
+/* Optional: Style the form field outline */
+.mat-form-field-outline {
+    border-color: #2196F3; /* Change color as needed */
+}
+
+/* Optional: Style the button colors */
+button {
+    min-width: 100px;
+}
+
+/* Optional: Style the "Next" button with a different color */
+// button[color="accent"] {
+//     background-color: #4CAF50; /* Change color as needed */
+//     color: #fff;
+// }

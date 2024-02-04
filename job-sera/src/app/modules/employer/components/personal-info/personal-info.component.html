@@ -1,5 +1,6 @@
-<div [formGroup]="personalInformation">
-    <div>
+<div [formGroup]="personalInformation" class="personal-information-form form">
+    <h2>Personal Details </h2>
+    <div class="form-control-row">
         <mat-form-field>
             <input matInput placeholder="First Name" formControlName="firstName" required>
         </mat-form-field>
@@ -7,7 +8,7 @@
             <input matInput placeholder="Last Name" formControlName="lastName" required>
         </mat-form-field>
     </div>
-    <div>
+    <div class="form-control-row">
         <mat-form-field>
             <input matInput placeholder="Email" formControlName="email" required>
         </mat-form-field>
@@ -15,7 +16,7 @@
             <input matInput placeholder="Username" formControlName="username" required>
         </mat-form-field>
     </div>
-    <div>
+    <div class="form-control-row">
         <mat-form-field>
             <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
         </mat-form-field>
@@ -23,12 +24,16 @@
             <input matInput placeholder="Social Media Link" formControlName="socialMediaLink" required>
         </mat-form-field>
     </div>
-    <div>
+    <div  class="form-control-row">
         <mat-form-field>
             <input matInput placeholder="Password" formControlName="lastName" required>
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="Confirm Password" formControlName="lastName" required>
         </mat-form-field>
+    </div>
+    <div class="form-button-controls">
+        <button type="button" mat-flat-button color="warn">Back</button>
+        <button type="button" mat-flat-button (click)="nextTab()" color="accent">Next Page</button>
     </div>
 </div>
