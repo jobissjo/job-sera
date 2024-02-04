@@ -10,6 +10,7 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateJobComponent } from './components/create-job/create-job.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PersonalInfoComponent,
     CompanyInfoComponent,
     AdditionalInfoComponent,
+    CreateJobComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,45 @@
+<form [formGroup]="createJobForm" (ngSubmit)="onCreateJobSubmit()">
+    <h1>Create a Job</h1>
+    <mat-stepper #stepper class="stepper">
+        <mat-step  class="step">
+            <ng-template matStepLabel>Fill out basic details</ng-template>
+            <h2>Basic Details</h2>
+            <div>
+                <mat-form-field>
+                    <mat-label>Job Title</mat-label>
+                    <input matInput placeholder="Python Developer" formControlName="jobTitle" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Company Name</mat-label>
+                    <input matInput placeholder="Jo4Tech" formControlName="company" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Nagercoil" formControlName="location" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label> Schedule</mat-label>
+                    <input matInput placeholder="Day Shift" formControlName="shift" />
+                </mat-form-field>
+            </div>
+
+            <div>
+                <button type="button" mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step label="Fill out qualification details">
+            <div>
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</form>
