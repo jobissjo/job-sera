@@ -1,6 +1,32 @@
 .stepper{
-    background-color: rgb(0, 0, 0);
 
     color: rgb(244, 33, 33);
 }
+.basic-details-container, .qualification-details-container{
+    width: 50%;
+    margin: auto
+}
+.form-fields{
+    margin-right: auto;
+    width: 100%;
+    
+}
+mat-form-field{
+    width: 90%;
+}
+.title{
+    text-align: center;
+    color: brown;
+}
 
+.form-arrays{
+    margin-right: auto;
+    width: 100%;
+    mat-form-field{
+        width: 80%;
+    }
+}
+
+.desc-container{
+    padding-top: 1rem;
+}
