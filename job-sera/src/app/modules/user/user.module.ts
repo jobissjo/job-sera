@@ -7,6 +7,7 @@ import { AngularMaterialModule } from 'src/app/shared/module/angular-material/an
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { MyJobsComponent } from './components/my-jobs/my-jobs.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     UserComponent,
     EditProfileComponent,
     MyJobsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SavedJobsComponent
   ],
   imports: [
     CommonModule,

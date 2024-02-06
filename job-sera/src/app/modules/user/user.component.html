@@ -1,8 +1,8 @@
-<div>
-  <mat-card layout-align="center" class="profile-container">
+<div class="profile-container">
+  <mat-card layout-align="center">
     <!-- class="user-profile-container" -->
     <mat-card-header>
-      <mat-card-title>User Profile</mat-card-title>
+      <mat-card-title><h2 class="user-profile-title">User Profile</h2></mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="user-profile">
@@ -19,8 +19,18 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary">Edit Profile</button>
+      <button mat-button color="primary" (click)="routeToEditProfile()">Edit Profile</button>
       <button mat-button color="accent" (click)="routeToChangePwd()">Change Password</button>
     </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <a routerLink="my-jobs"> <mat-list-item>Your Jobs</mat-list-item></a>
+      <mat-divider></mat-divider>
+      <a routerLink="saved-pages"> <mat-list-item>Saved Pages</mat-list-item></a>
+      <mat-divider></mat-divider>
+      <a routerLink="notifications"> <mat-list-item>Notifications</mat-list-item></a>
+    </mat-list>
   </mat-card>
 </div>

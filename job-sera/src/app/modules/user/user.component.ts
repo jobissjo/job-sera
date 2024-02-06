@@ -20,4 +20,8 @@ export class UserComponent {
   routeToChangePwd(){
     this.router.navigate(['auth', 'change-password'])
   }
+
+  routeToEditProfile(){
+    this.router.navigate(['user', 'edit-profile'])
+  }
 }

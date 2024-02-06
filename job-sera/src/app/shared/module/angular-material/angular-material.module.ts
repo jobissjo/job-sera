@@ -12,6 +12,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -37,7 +39,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatInputModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    MatListModule,
+    MatDividerModule
   ]
 })
 export class AngularMaterialModule { }

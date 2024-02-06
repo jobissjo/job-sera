@@ -26,6 +26,9 @@ export class HeaderComponent {
   routeToEmployer(){
     this.router.navigate(['employer'])
   }
+  routeToNotification(){
+    this.router.navigate(['user', 'notifications'])
+  }
 
   changeCursor(): void {
     this.mainTitle?.nativeElement.classList.add('hand-pointer');

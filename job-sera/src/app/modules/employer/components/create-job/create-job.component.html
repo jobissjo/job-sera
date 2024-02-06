@@ -38,7 +38,7 @@
                 </div>
 
                 <div>
-                    <button type="button" mat-button matStepperNext>Next</button>
+                    <button type="button" mat-flat-button color="accent" matStepperNext>Next</button>
                 </div>
             </div>
         </mat-step>
@@ -55,8 +55,10 @@
                             <button type="button" mat-flat-button color="warn"
                                 (click)="deleteQualification(i)">Delete</button>
                         </ng-container>
-                        <button type="button" mat-flat-button (click)="addQualification()" color="primary">Add
-                            Qualification</button>
+                        <div>
+                            <button type="button" mat-flat-button (click)="addQualification()" color="primary">Add
+                                Qualification</button>
+                        </div>
                     </div>
 
                     <!-- Skills Array Container -->
@@ -69,11 +71,13 @@
                             </mat-form-field>
                             <button type="button" mat-flat-button color="warn" (click)="deleteSkill(i)">Delete</button>
                         </ng-container>
-                        <button type="button" mat-flat-button (click)="addSkill()" color="primary">Add Skills</button>
+                        <div>
+                            <button type="button" mat-flat-button (click)="addSkill()" color="primary">Add Skills</button>
+                        </div>
                     </div>
 
                     <!-- Responsibilities Array Container -->
-                    <div class="skills" formArrayName="responsibilities">
+                    <div class="responsibilities" formArrayName="responsibilities">
                         <h2>Responsibilities</h2>
                         <ng-container *ngFor="let control of responsibilityArray.controls; let i=index">
                             <mat-form-field>
@@ -82,7 +86,9 @@
                             </mat-form-field>
                             <button type="button" mat-flat-button color="warn" (click)="deleteResponsibility(i)">Delete</button>
                         </ng-container>
-                        <button type="button" mat-flat-button (click)="addResponsibility()" color="primary">Add Responsibility</button>
+                        <div>
+                            <button type="button" mat-flat-button (click)="addResponsibility()" color="primary">Add Responsibility</button>
+                        </div>
                     </div>
 
                     <!-- Description -->
