@@ -18,7 +18,7 @@ export class MyJobsComponent {
     {
       status: "Applied", company: "Mentor Thesis",
       position: "Python Programmer", place: "Kanyakumari, Tamilnadu",
-      appliedCount: 50,  appliedOn: "Feb 04"
+      appliedCount: 70,  appliedOn: "Feb 04"
     },
     {
       status: "Applied", company: "Inmakes infotech pvt ltd",
