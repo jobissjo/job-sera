@@ -1,1 +1,14 @@
-<p>notifications works!</p>
+<mat-card class="notification-card">
+    <mat-card-header>
+        <mat-card-title >
+            <h2>Notifications</h2>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <ng-container *ngFor="let notification of notifications">
+        <mat-card-content>
+            my content
+        </mat-card-content>
+        <mat-divider></mat-divider>
+    </ng-container>
+</mat-card>
