@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NotificationType } from 'src/app/shared/Models/notification.type';
+import { NotificationEnum, NotificationType } from 'src/app/shared/Models/notification.type';
 
 @Component({
   selector: 'app-notifications',
@@ -7,21 +7,35 @@ import { NotificationType } from 'src/app/shared/Models/notification.type';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent {
-
+  
   notifications: NotificationType[] = [
     {
-      title: "Notification 1",
-      message: "This is notification 1.",
+      title: "You've invited to apply",
+      message: "Hi Jobi, We found your CV and thought you would be a great match for the following job.",
       from: "User 1",
-      date: "2024-02-02"
+      date: "2024-02-02",
+      position:"Python Developer",
+      type:NotificationEnum.JobRecommendation
+      
     },
     {
-      title: "Notification 2",
+      title: "Haven't heard back?",
       message: "This is notification 2.",
       from: "User 2",
-      date: "2024-02-03"
+      date: "2024-02-03",
+      position:"Python Developer",
+      type:NotificationEnum.MessageToEmployer
     },
-    // Add more objects as needed
   ];
+
+  daysAgoFn(date:string):number{
+    let jobDate = new Date(date);
+    let currentDate = new Date();
+
+    const diffInMilliSeconds = currentDate.getTime() - jobDate.getTime();
+    let msToDays:number = 1000*60*60*24;
+
+    return Math.floor(diffInMilliSeconds/msToDays);
+  }
 
 }

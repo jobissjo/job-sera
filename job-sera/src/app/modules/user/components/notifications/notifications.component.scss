@@ -2,6 +2,23 @@
     width: 50vw;
     margin: auto;
 }
-h2{
+h1{
     text-align: center;
+}
+.mat-card{
+    margin-bottom: 10px;
+}
+.header-details{
+    display: flex;
+    justify-content: space-between;
+}
+.subtitle{
+    font-size: 16px;
+}
+.btn-container{
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.footer{
+    margin-top: 5px;
 }
