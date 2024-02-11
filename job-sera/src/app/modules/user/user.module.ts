@@ -8,6 +8,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { MyJobsComponent } from './components/my-jobs/my-jobs.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component
   imports: [
     CommonModule,
     UserRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

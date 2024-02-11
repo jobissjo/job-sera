@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   isLogin:boolean = false;
+  notificationCount:number = 5;
   @ViewChild('mainTitle') mainTitle!:ElementRef<HTMLSpanElement>
   constructor(private router:Router){}
   routeToAuth(){

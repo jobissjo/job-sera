@@ -19,12 +19,18 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="primary" (click)="routeToEditProfile()">Edit Profile</button>
-      <button mat-button color="accent" (click)="routeToChangePwd()">Change Password</button>
+      <button mat-stroked-button color="primary" (click)="routeToEditProfile()">Edit Profile</button>
+      <button mat-stroked-button color="accent" (click)="routeToChangePwd()">Change Password</button>
     </mat-card-actions>
   </mat-card>
   <mat-card>
     <mat-list>
+      <mat-divider></mat-divider>
+      <a routerLink="my-jobs"> <mat-list-item>Education</mat-list-item></a>
+      <mat-divider></mat-divider>
+      <a routerLink="my-jobs"> <mat-list-item>Skills</mat-list-item></a>
+      <mat-divider></mat-divider>
+      <a routerLink="my-jobs"> <mat-list-item>Qualification</mat-list-item></a>
       <mat-divider></mat-divider>
       <a routerLink="my-jobs"> <mat-list-item>Your Jobs</mat-list-item></a>
       <mat-divider></mat-divider>

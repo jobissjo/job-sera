@@ -1,0 +1,24 @@
+.title{
+    text-align: center;
+    color: #3f51b5;
+}
+
+.education-details-container, .qualification-details-container{
+    width: 60%;
+    margin: auto
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+mat-form-field{
+    width: 40%;
+}
+[class^="education-detail-"], [class^="certification-detail-"]{
+    padding: 10px;
+    background-color: rgb(210, 210, 210);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+    
+}

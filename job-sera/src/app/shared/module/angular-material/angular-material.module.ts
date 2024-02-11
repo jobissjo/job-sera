@@ -14,7 +14,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +41,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatCheckboxModule,
     MatStepperModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatBadgeModule
   ]
 })
 export class AngularMaterialModule { }

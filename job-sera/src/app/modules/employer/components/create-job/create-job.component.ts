@@ -27,8 +27,6 @@ export class CreateJobComponent {
       qualification: this._formBuilder.array([]),
       skills: this._formBuilder.array([]),
       responsibilities:this._formBuilder.array([]),
-      
-      // Add more form controls as needed
     });
   }
 
