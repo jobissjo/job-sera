@@ -7,7 +7,7 @@
                 <div class="education-details" formArrayName="education">
                     <h2>Education</h2>
                     <ng-container *ngFor="let control of educationArray.controls; let i=index">
-                        <div [formGroupName]="i"  [class]="'education-detail-'+i">
+                        <div [formGroupName]="i" [class]="'education-detail-'+i">
                             <div class="row">
                                 <mat-form-field>
                                     <mat-label>Level</mat-label>
@@ -31,13 +31,16 @@
                         </div>
                     </ng-container>
                     <div>
-                        <button type="button" mat-stroked-button (click)="addEducation()" color="primary">Add Education</button>
+                        <button type="button" mat-stroked-button (click)="addEducation()" color="primary">
+                            Add Education
+                            <mat-icon>add</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="certification-details" formArrayName="certifications">
                     <h2>Certifications</h2>
                     <ng-container *ngFor="let control of certificationArray.controls; let i=index">
-                        <div [formGroupName]="i"  [class]="'certification-detail-'+i">
+                        <div [formGroupName]="i" [class]="'certification-detail-'+i">
                             <div class="row">
                                 <mat-form-field>
                                     <mat-label>Title</mat-label>
@@ -60,7 +63,7 @@
                             </div>
                             <div class="row">
                                 <mat-form-field>
-                                    <mat-label>Started Date</mat-label>
+                                    <mat-label>Start Date</mat-label>
                                     <input matInput placeholder="June 2021" formControlName="startDate">
                                 </mat-form-field>
                                 <mat-form-field>
@@ -72,7 +75,10 @@
                     </ng-container>
 
                     <div>
-                        <button type="button" mat-stroked-button (click)="addEducation()" color="primary">Add Education</button>
+                        <button type="button" mat-stroked-button (click)="addCertifications()" color="primary">
+                            Add Certification
+                            <mat-icon>add</mat-icon>
+                        </button>
                     </div>
 
                 </div>
@@ -84,12 +90,12 @@
         </mat-step>
         <mat-step label="Skills & Experiences">
             <div class="qualification-details-container">
-                <div class="form-arrays">
 
 
-                    <!-- Skills Array Container -->
-                    <!-- <div class="skills" formArrayName="skills">
-                        <h2>Skills</h2>
+                <!-- Skills Array Container -->
+                <div class="skills" formArrayName="skills">
+                    <h2>Skills</h2>
+                    <div>
                         <ng-container *ngFor="let control of skillsArray.controls; let i=index">
                             <mat-form-field>
                                 <mat-label>Skills {{i+1}}</mat-label>
@@ -98,31 +104,78 @@
                             <button type="button" mat-flat-button color="warn" (click)="deleteSkill(i)">Delete</button>
                         </ng-container>
                         <div>
-                            <button type="button" mat-flat-button (click)="addSkill()" color="primary">Add Skills</button>
+                            <button type="button" mat-flat-button (click)="addSkills()" color="primary">Add
+                                Skills</button>
                         </div>
-                    </div> -->
+                    </div>
+                </div>
 
-                    <!-- Responsibilities Array Container -->
-                    <!-- <div class="responsibilities" formArrayName="responsibilities">
-                        <h2>Responsibilities</h2>
-                        <ng-container *ngFor="let control of responsibilityArray.controls; let i=index">
-                            <mat-form-field>
-                                <mat-label>Responsibility {{i+1}}</mat-label>
-                                <input matInput placeholder="Django">
-                            </mat-form-field>
-                            <button type="button" mat-flat-button color="warn" (click)="deleteResponsibility(i)">Delete</button>
-                        </ng-container>
-                        <div>
-                            <button type="button" mat-flat-button (click)="addResponsibility()" color="primary">Add Responsibility</button>
+                <div class="experience-details" formArrayName="experience">
+                    <h2>Experiences</h2>
+                    <ng-container *ngFor="let control of experienceArray.controls; let i=index">
+                        <div [formGroupName]="i" [class]="'experience-detail-'+i">
+                            <div class="row">
+                                <mat-form-field>
+                                    <mat-label>Title</mat-label>
+                                    <input matInput placeholder="Python Developer" formControlName="position">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Certificate Id</mat-label>
+                                    <input matInput placeholder="Jo4Tech" formControlName="companyName">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row">
+                                <mat-form-field>
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput placeholder="June 2021" formControlName="startDate">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>End Date</mat-label>
+                                    <input matInput placeholder="March 2023" formControlName="endDate">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div> -->
+                    </ng-container>
 
-                  
+                    <div>
+                        <button type="button" mat-stroked-button (click)="addExperience()" color="primary">
+                            Add Experience
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
 
                 </div>
+
+                <div formArrayName="knownLanguages">
+                    <h2>Known Languages</h2>
+                    <ng-container *ngFor="let control of knownLanguageArray.controls; let i=index">
+                        <div [formGroupName]="i" [class]="'languages-detail-'+i">
+                            <div class="row">
+                                <mat-form-field>
+                                    <mat-label>Language</mat-label>
+                                    <input matInput placeholder="English" formControlName="language">
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Level</mat-label>
+                                    <input matInput placeholder="Beginner" formControlName="level">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div>
+                        <button type="button" mat-stroked-button (click)="addLanguage()" color="primary">
+                            Add Language
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
                 <button type="button" mat-button matStepperPrevious color="primary">Back</button>
                 <button type="button" mat-button matStepperNext color="accent">Next</button>
+
             </div>
+
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Other Preference</ng-template>

@@ -107,4 +107,15 @@ export class EditProfileComponent {
     )
   }
 
+  addLanguage(){
+    this.knownLanguageArray.push(
+      this.languageModel
+    )
+  }
+
+  deleteSkill(index:number){
+    console.log(index);
+    
+  }
+
 }
