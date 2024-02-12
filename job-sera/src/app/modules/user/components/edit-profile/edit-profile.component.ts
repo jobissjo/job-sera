@@ -13,14 +13,15 @@ export class EditProfileComponent {
   educationModel!: FormGroup;
   certificationModel!: FormGroup;
   languageModel!: FormGroup;
-  experienceModel!:FormGroup;
+  experienceModel!: FormGroup;
 
   // All the FormArrays
-  educationArray!:FormArray;
-  certificationArray!:FormArray;
-  skillsArray!:FormArray;
-  experienceArray!:FormArray;
-  knownLanguageArray!:FormArray;
+  educationArray!: FormArray;
+  certificationArray!: FormArray;
+  skillsArray!: FormArray;
+  experienceArray!: FormArray;
+  knownLanguageArray!: FormArray;
+  preferredLocationArray!: FormArray;
 
 
   constructor(private fb: FormBuilder) { }
@@ -36,24 +37,28 @@ export class EditProfileComponent {
     this.certificationModel = this.fb.group({
       title: ['', Validators.required],
       certificateId: [''],
-      mode:['', Validators.required],
-      institution:['', Validators.required],
+      mode: ['', Validators.required],
+      institution: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
     })
 
     this.languageModel = this.fb.group({
       language: ['', Validators.required],
-      level: ['', Validators.required]
+      level: ['', Validators.required],
+      reading: [false, Validators.required],
+      writing: [false, Validators.required],
+      speaking: [false, Validators.required]
     })
 
     this.experienceModel = this.fb.group({
       position: ['', Validators.required],
-      companyName:['', Validators.required],
+      companyName: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate:['', Validators.required]
+      endDate: ['', Validators.required]
     })
 
+    // main form
     this.userDetail = this.fb.group({
       education: this.fb.array([
         this.educationModel
@@ -68,54 +73,75 @@ export class EditProfileComponent {
       ]),
       knownLanguages: this.fb.array([
         this.languageModel
+      ]),
+      preferredLocations: this.fb.array([
+
       ])
     });
 
+    // get a value of all form Arrays
     this.educationArray = this.userDetail.get('education') as FormArray;
     this.certificationArray = this.userDetail.get('certifications') as FormArray;
     this.skillsArray = this.userDetail.get('skills') as FormArray;
     this.experienceArray = this.userDetail.get('experience') as FormArray;
     this.knownLanguageArray = this.userDetail.get('knownLanguages') as FormArray;
+    this.preferredLocationArray = this.userDetail.get('preferredLocations') as FormArray;
   }
 
   onSubmitProfileEdit() {
+    console.log(this.userDetail.value);
 
   }
 
 
-  addEducation(){
+  addEducation() {
     this.educationArray.push(
       this.educationModel
     )
   }
 
-  addCertifications(){
+  addCertifications() {
     this.certificationArray.push(
       this.certificationModel
     )
   }
 
-  addSkills(){
+  addSkills() {
     this.skillsArray.push(
       new FormControl('', Validators.required)
     )
   }
 
-  addExperience(){
+  addPreferredLocations() {
+    if (this.preferredLocationArray.length < 5){
+      this.preferredLocationArray.push(
+        new FormControl('', Validators.required)
+      )
+    }else{
+      alert("Upto 5 preferred locations are available")
+    }
+
+  }
+
+  addExperience() {
     this.experienceArray.push(
       this.experienceModel
     )
   }
 
-  addLanguage(){
+  addLanguage() {
     this.knownLanguageArray.push(
       this.languageModel
     )
   }
 
-  deleteSkill(index:number){
+  deleteSkill(index: number) {
     console.log(index);
-    
+
+  }
+
+  deletePrefLocations(index: number) {
+    this.preferredLocationArray.removeAt(index);
   }
 
 }

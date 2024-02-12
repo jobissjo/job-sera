@@ -15,6 +15,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [],
   imports: [
@@ -42,7 +43,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatStepperModule,
     MatListModule,
     MatDividerModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatRadioModule
   ]
 })
 export class AngularMaterialModule { }

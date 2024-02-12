@@ -161,6 +161,15 @@
                                     <input matInput placeholder="Beginner" formControlName="level">
                                 </mat-form-field>
                             </div>
+                            <div class="checkbox-container">
+                                <h4>Select knowledgeable Area</h4>
+                                <section class="checkboxes">
+                                    <mat-checkbox formControlName="reading">Reading</mat-checkbox>
+                                    <mat-checkbox formControlName="writing">Writing</mat-checkbox>
+                                    <mat-checkbox formControlName="speaking">Speaking</mat-checkbox>
+                                </section>
+
+                            </div>
                         </div>
                     </ng-container>
                     <div>
@@ -179,12 +188,57 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Other Preference</ng-template>
-            <p>Please verify you entered all the details and Submit</p>
-            <div>
-                <button type="button" color="primary" mat-button matStepperPrevious>Back</button>
-                <!-- <button type="button" color="warn" mat-button (click)="stepper.reset()">Reset</button> -->
-                <button type="submit" color="warn" mat-button>Submit</button>
+            <div class="other-preference-container">
+                <div class="job-preference">
+                    <div>
+                        <label for="">Job Type</label>
+                        <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button value="1">Full-time</mat-radio-button>
+                            <mat-radio-button value="2">Part-time</mat-radio-button>
+                            <mat-radio-button value="3">Work From Home</mat-radio-button>
+                            <mat-radio-button value="3">Hybrid</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="skills" formArrayName="preferredLocations">
+                        <h2>Preferred Location</h2>
+                        <div>
+                            <ng-container *ngFor="let control of preferredLocationArray.controls; let i=index">
+                                <mat-form-field>
+                                    <mat-label>Locations {{i+1}}</mat-label>
+                                    <input matInput placeholder="Django">
+                                </mat-form-field>
+                                <button type="button" mat-flat-button color="warn"
+                                    (click)="deletePrefLocations(i)">Delete</button>
+                            </ng-container>
+                            <div>
+                                <button type="button" mat-flat-button (click)="addPreferredLocations()"
+                                    color="primary">Add
+                                    Skills</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+
+                    </div>
+                </div>
+                <div class="profile-photo">
+                    <label for="">Profile Photo </label>
+                    <input type="file" class="file-upload" placeholder="whatever">
+                </div>
+                <div class="resume-container">
+                    <label for="">Resume </label>
+                    <input type="file" class="file-upload" placeholder="whatever">
+                </div>
+
+                <p>Please verify you entered all the details and Submit</p>
+                <div>
+                    <button type="button" color="primary" mat-button matStepperPrevious>Back</button>
+                    <!-- <button type="button" color="warn" mat-button (click)="stepper.reset()">Reset</button> -->
+                    <button type="submit" color="warn" mat-button>Submit</button>
+                </div>
             </div>
+
         </mat-step>
     </mat-stepper>
 </form>
