@@ -1,1 +1,16 @@
-<p>company works!</p>
+<div class="company-container">
+    <h1>Search Your Dream company </h1>
+    <div class="search-container">
+            <mat-form-field>
+                <mat-label for="">Company Title</mat-label>
+                <input matInput placeholder="Zoho">
+            </mat-form-field>
+            <button class="btn" mat-stroked-button type="submit" color="primary" (click)="findCompanies()">Find Companies</button>
+    </div>
+    <div *ngIf="!isSearched; else searchComp">
+       <app-popular-companies></app-popular-companies> 
+    </div>
+    <ng-template #searchComp>
+        <app-company-search></app-company-search>
+    </ng-template>
+</div>

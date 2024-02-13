@@ -6,14 +6,14 @@ export interface CompanyDetails {
     address: string;
     employeesCount: number;
     reviewsCount: number;
-    review: string;
+    reviews: CompanyReview[];
     openings: JobDetails[];
     companyType: string;
     followerCount: number;
     about: string;
     location:string,
     industry:string,
-    HRDetails:HRDetails
+    HRDetails?:HRDetails
 }
 
 interface HRDetails{
@@ -21,5 +21,12 @@ interface HRDetails{
     email:string,
     phoneNumber:string,
     linkedInPage?:string
+}
+
+interface CompanyReview{
+    username:string,
+    reviewText:string,
+    reviewScore:number,
+    reviewedDate:string,
 }
 
