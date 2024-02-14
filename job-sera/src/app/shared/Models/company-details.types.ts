@@ -13,7 +13,9 @@ export interface CompanyDetails {
     about: string;
     location:string,
     industry:string,
-    HRDetails?:HRDetails
+    HRDetails?:HRDetails,
+    logoUrl:string,
+    totalReviewRating:number
 }
 
 interface HRDetails{
