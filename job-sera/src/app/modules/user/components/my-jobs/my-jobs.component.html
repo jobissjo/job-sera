@@ -1,3 +1,6 @@
+<app-update-status *ngIf="showUpdateStatus" 
+[selectedUpdateJobStatus]="updateJobStatus"
+(closeUpdateStatus)="closeUpdateStatus()"></app-update-status>
 <mat-card class="main-container">
     <mat-card-header class="mat-card-header">
         <h1 class="title">My Jobs</h1>
@@ -8,11 +11,11 @@
             <div class="row">
                 <mat-card-title>{{job.status}}</mat-card-title>
                 <div>
-                    <button mat-flat-button>Update Status</button>
+                    <button (click)="clickUpdateStatus(job)" mat-flat-button>Update Status</button>
                 </div>
             </div>
             <div class="applied-job-details">
-                <a routerLink="job-details">
+                <a routerLink="details">
                     <h3>{{job.position}}</h3>
                 </a>
 

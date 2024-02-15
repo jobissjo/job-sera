@@ -9,6 +9,9 @@ import { MyJobs } from '../../models/my-jobs';
 })
 export class MyJobsComponent {
 
+  showUpdateStatus:boolean = false;
+  updateJobStatus!:MyJobs;
+
   appliedJobs: MyJobs[] = [
     {
       status: "Applied", company: "Whatever company",
@@ -26,5 +29,15 @@ export class MyJobsComponent {
       appliedCount:43, appliedOn: "Feb 03"
     }
   ]
+
+  clickUpdateStatus(job: MyJobs){
+    this.showUpdateStatus = true;
+    this.updateJobStatus = job;
+  }
+
+  closeUpdateStatus(){
+    this.showUpdateStatus = false;
+  }
+  
 
 }
