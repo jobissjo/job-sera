@@ -11,6 +11,7 @@ import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { MyJobDetailsComponent } from './components/my-job-details/my-job-details.component';
 import { UpdateStatusComponent } from './components/update-status/update-status.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UpdateStatusComponent } from './components/update-status/update-status.
     NotificationsComponent,
     SavedJobsComponent,
     MyJobDetailsComponent,
-    UpdateStatusComponent
+    UpdateStatusComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,

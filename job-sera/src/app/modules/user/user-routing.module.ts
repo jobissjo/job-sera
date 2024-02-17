@@ -6,16 +6,19 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { SavedJobsComponent } from './components/saved-jobs/saved-jobs.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { MyJobDetailsComponent } from './components/my-job-details/my-job-details.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 const routes: Routes = [
   { path: '', component: UserComponent },
   
   { path: 'notifications', component: NotificationsComponent },
   { path: 'saved-pages', component: SavedJobsComponent },
+  {path:'user-details', component:UserDetailsComponent},
   {path: 'edit-profile', component:EditProfileComponent},
   { path: 'my-jobs', component: MyJobsComponent ,
 children:[
-  {path:'details', component:MyJobDetailsComponent}
+  {path:'details', component:MyJobDetailsComponent},
+  
 ]},
 ];
 

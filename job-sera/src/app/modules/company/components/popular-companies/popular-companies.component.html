@@ -18,9 +18,9 @@
                     </div>
                 </mat-card-content>
                 <mat-card-footer>
-                    <a class="url" routerLink="details">company details</a>
-                    <a class="url" routerLink="details">open jobs</a>
-                    <a class="url" routerLink="details">employer</a>
+                    <a class="url" (click)="onSelectedCompanyDetail(company)">company details</a>
+                    <a class="url" (click)="onSelectedCompanyDetail(company)">open jobs</a>
+                    <a class="url" (click)="onSelectedCompanyDetail(company)">employer</a>
                 </mat-card-footer>
             </mat-card>
         </div>

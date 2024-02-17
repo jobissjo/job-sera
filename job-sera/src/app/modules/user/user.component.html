@@ -26,11 +26,14 @@
   <mat-card>
     <mat-list>
       <mat-divider></mat-divider>
-      <a routerLink="my-jobs"> <mat-list-item>Education</mat-list-item></a>
+      <a routerLink="user-details" [queryParams]="{'section':'education'}"> 
+        <mat-list-item >Education</mat-list-item></a>
       <mat-divider></mat-divider>
-      <a routerLink="my-jobs"> <mat-list-item>Skills</mat-list-item></a>
+      <a routerLink="user-details" [queryParams]="{'section':'skills'}"> 
+        <mat-list-item>Skills</mat-list-item></a>
       <mat-divider></mat-divider>
-      <a routerLink="my-jobs"> <mat-list-item>Qualification</mat-list-item></a>
+      <a routerLink="user-details" [queryParams]="{'section':'skills'}"> 
+        <mat-list-item>Qualification</mat-list-item></a>
       <mat-divider></mat-divider>
       <a routerLink="my-jobs"> <mat-list-item>Your Jobs</mat-list-item></a>
       <mat-divider></mat-divider>

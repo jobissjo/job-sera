@@ -1,1 +1,17 @@
-<p>company-details works!</p>
+
+<div class="company-details-container" *ngIf="selectedCompany">
+    <div class="company-card">
+      <div class="logo">
+        <img [src]="selectedCompany.logoUrl" alt="Company Logo">
+      </div>
+      <div class="details">
+        <h2>{{ selectedCompany.companyName }}</h2>
+        <p><strong>Address:</strong> {{ selectedCompany.address }}</p>
+        <p><strong>Employees Count:</strong> {{ selectedCompany.employeesCount }}</p>
+        <p><strong>Reviews Count:</strong> {{ selectedCompany.reviewsCount }}</p>
+        <!-- Add more details as needed -->
+      </div>
+    </div>
+  </div>
+
+  
