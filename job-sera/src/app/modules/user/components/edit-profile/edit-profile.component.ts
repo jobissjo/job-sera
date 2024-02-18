@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,8 +25,9 @@ export class EditProfileComponent {
   preferredLocationArray!: FormArray;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private activeRoute:ActivatedRoute) { }
 
+  focusSection:string = ''
   ngOnInit() {
     this.educationModel = this.fb.group({
       level: ['', Validators.required],
@@ -86,6 +88,24 @@ export class EditProfileComponent {
     this.experienceArray = this.userDetail.get('experience') as FormArray;
     this.knownLanguageArray = this.userDetail.get('knownLanguages') as FormArray;
     this.preferredLocationArray = this.userDetail.get('preferredLocations') as FormArray;
+
+    // get section-id
+    // this.focusSection =  this.activeRoute.snapshot.queryParams['section'];
+    this.focusSection = this.activeRoute.snapshot.queryParamMap.get('section') ?? '';
+    setTimeout(()=>{
+      this.focusSection && this.onGoToSection(this.focusSection);
+    }, 50)
+
+  }
+
+  onGoToSection(section:string){
+    if (!section.length)
+      return;
+    const element = document.getElementById(section+'-section');
+    
+    if (element) {  
+      element.scrollIntoView({ behavior: 'smooth', block:'start', inline:'nearest' });
+    }
   }
 
   onSubmitProfileEdit() {

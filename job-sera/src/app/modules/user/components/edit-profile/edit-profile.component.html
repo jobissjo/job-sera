@@ -3,7 +3,7 @@
     <mat-stepper #stepper class="stepper">
         <mat-step class="step">
             <ng-template matStepLabel>Education & Certification Details</ng-template>
-            <div class="education-details-container">
+            <div class="education-details-container" id="education-section">
                 <div class="education-details" formArrayName="education">
                     <h2>Education</h2>
                     <ng-container *ngFor="let control of educationArray.controls; let i=index">
@@ -37,7 +37,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="certification-details" formArrayName="certifications">
+                <div class="certification-details" formArrayName="certifications" id="certification-section">
                     <h2>Certifications</h2>
                     <ng-container *ngFor="let control of certificationArray.controls; let i=index">
                         <div [formGroupName]="i" [class]="'certification-detail-'+i">
@@ -89,7 +89,7 @@
             </div>
         </mat-step>
         <mat-step label="Skills & Experiences">
-            <div class="qualification-details-container">
+            <div class="qualification-details-container" id="qualification-section">
 
 
                 <!-- Skills Array Container -->
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <div class="experience-details" formArrayName="experience">
+                <div class="experience-details" formArrayName="experience" id="experience-section">
                     <h2>Experiences</h2>
                     <ng-container *ngFor="let control of experienceArray.controls; let i=index">
                         <div [formGroupName]="i" [class]="'experience-detail-'+i">
@@ -147,7 +147,7 @@
 
                 </div>
 
-                <div formArrayName="knownLanguages">
+                <div formArrayName="knownLanguages" id="language-section">
                     <h2>Known Languages</h2>
                     <ng-container *ngFor="let control of knownLanguageArray.controls; let i=index">
                         <div [formGroupName]="i" [class]="'languages-detail-'+i">

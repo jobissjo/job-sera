@@ -1,7 +1,1 @@
-fastapi 
-uvicorn[standard]
-python-jose[pyjwt]
-python-dotenv
-python-multipart
-sqlalchemy
-passlib
+litestar[standard]

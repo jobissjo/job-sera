@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserDetail } from '../../models/my-jobs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailsComponent {
 
-  userDetails:UserDetail = {
+  userDetails: UserDetail = {
     education: [
       {
         level: 'HSC',
@@ -67,21 +67,27 @@ export class UserDetailsComponent {
     preferredLocations: ['New York', 'San Francisco', 'London']
   };
 
-  sectionToFocus:string = '';
-  constructor(private activeRoute:ActivatedRoute){}
-  ngOnInit(){
+  sectionToFocus: string = '';
+  constructor(private activeRoute: ActivatedRoute, private router:Router) { }
+  ngOnInit() {
     this.sectionToFocus = this.activeRoute.snapshot.queryParams['section'];
 
-    setTimeout(()=>{
-    this.focusOnSection(this.sectionToFocus);
-    },50)
+    setTimeout(() => {
+      this.sectionToFocus && this.focusOnSection(this.sectionToFocus);
+    }, 50)
   }
 
-  focusOnSection(sectionId:string){
+  focusOnSection(sectionId: string) {
     const element = document.getElementById(sectionId);
 
-    if(element){
-      element.scrollIntoView({behavior:'smooth'});
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  onEditDetail(section:string){
+    // console.log(section);
+    
+    this.router.navigate(['user', 'edit-profile'], {queryParams:{'section':section}})
   }
 }
