@@ -10,7 +10,6 @@ import { AngularMaterialModule } from 'src/app/shared/module/angular-material/an
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { environment } from 'src/environment/environment';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 
 @NgModule({

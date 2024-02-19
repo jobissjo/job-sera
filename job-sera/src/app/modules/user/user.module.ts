@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MyJobDetailsComponent } from './components/my-job-details/my-job-details.component';
 import { UpdateStatusComponent } from './components/update-status/update-status.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
     CommonModule,
     UserRoutingModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class UserModule { }

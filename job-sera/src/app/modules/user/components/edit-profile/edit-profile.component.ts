@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,7 +27,8 @@ export class EditProfileComponent {
   preferredLocationArray!: FormArray;
 
 
-  constructor(private fb: FormBuilder, private activeRoute:ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private activeRoute:ActivatedRoute,
+    private toaster:ToastrService) { }
 
   focusSection:string = ''
   ngOnInit() {
@@ -98,14 +101,27 @@ export class EditProfileComponent {
 
   }
 
+  
+  @ViewChild('stepper') stepper!:MatStepper;
   onGoToSection(section:string){
     if (!section.length)
       return;
     const element = document.getElementById(section+'-section');
-    
-    if (element) {  
-      element.scrollIntoView({ behavior: 'smooth', block:'start', inline:'nearest' });
+    if(section == 'experience' || section == 'language'){
+      this.goToNextStep(1);
     }
+    else if (section == 'location'){
+      this.goToNextStep(2);
+    }
+    if (element) {  
+      setTimeout(()=> {
+        element.scrollIntoView({ behavior: 'smooth', block:'start', inline:'nearest' });
+      },0)
+    }
+  }
+
+  goToNextStep(num:number){
+    this.stepper.selectedIndex = num;
   }
 
   onSubmitProfileEdit() {
@@ -138,7 +154,17 @@ export class EditProfileComponent {
         new FormControl('', Validators.required)
       )
     }else{
-      alert("Upto 5 preferred locations are available")
+      console.warn("hello")
+      
+      this.toaster.warning("Upto 5 preferred locations are available","Maximum Locations",
+      {
+        timeOut: 1000,
+        positionClass: 'toast-top-center',
+        progressBar: true,
+        progressAnimation: 'decreasing',
+        tapToDismiss: true,
+        closeButton: true,
+      });
     }
 
   }

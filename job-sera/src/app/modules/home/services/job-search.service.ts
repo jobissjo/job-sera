@@ -61,27 +61,27 @@ export class JobSearchService {
     });
   }
   createJobDetails() {
-    const authToken = this.authService.getLoginToken();
-    console.log(authToken);
+    // const authToken = this.authService.getLoginToken();
+    // console.log(authToken);
 
-    if (!authToken) {
-      console.error('Authentication token is undefined.');
-      return;
-    }
+    // if (!authToken) {
+    //   console.error('Authentication token is undefined.');
+    //   return;
+    // }
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${authToken}`,
-    });
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   Authorization: `Bearer ${authToken}`,
+    // });
 
-    this.http.post(`${this.jobUrl}jobs.json`, this.jobDetails, { headers }).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error('Error creating job details:', error);
-      }
-    );
+    // this.http.post(`${this.jobUrl}jobs.json`, this.jobDetails, { headers }).subscribe(
+    //   (response) => {
+    //     console.log(response);
+    //   },
+    //   (error) => {
+    //     console.error('Error creating job details:', error);
+    //   }
+    // );
   }
 
   onClickedJob() {

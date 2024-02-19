@@ -203,9 +203,9 @@
                         <h2>Preferred Location</h2>
                         <div>
                             <ng-container *ngFor="let control of preferredLocationArray.controls; let i=index">
-                                <mat-form-field>
+                                <mat-form-field class="form-field">
                                     <mat-label>Locations {{i+1}}</mat-label>
-                                    <input matInput placeholder="Django">
+                                    <input matInput placeholder="Chennai">
                                 </mat-form-field>
                                 <button type="button" mat-flat-button color="warn"
                                     (click)="deletePrefLocations(i)">Delete</button>
@@ -213,7 +213,7 @@
                             <div>
                                 <button type="button" mat-flat-button (click)="addPreferredLocations()"
                                     color="primary">Add
-                                    Skills</button>
+                                    Location</button>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@ export class SignUpComponent {
     if (this.signupForm.valid){
       const {username, email, password, cPassword} = this.signupForm.value;
       if(password == cPassword){
-        this.authService.registerUser(email, password);
+        // this.authService.registerUser(email, password);
 
         console.log('Form is valid and created user\nusername: ', username);
       }
