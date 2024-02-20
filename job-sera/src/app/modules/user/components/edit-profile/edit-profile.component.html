@@ -62,10 +62,21 @@
                                 </mat-form-field>
                             </div>
                             <div class="row">
-                                <mat-form-field>
+                                <!-- <mat-form-field>
                                     <mat-label>Start Date</mat-label>
                                     <input matInput placeholder="June 2021" formControlName="startDate">
-                                </mat-form-field>
+                                </mat-form-field> -->
+                                <mat-form-field>
+                                    <mat-label>Month and Year</mat-label>
+                                    <input placeholder="date" matInput [matDatepicker]="dp" formControlName="startDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, dp,i)"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
+                                  </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>End Date</mat-label>
                                     <input matInput placeholder="March 2023" formControlName="endDate">

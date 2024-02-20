@@ -1,13 +1,39 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as _moment from 'moment';
+import {Moment} from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+// import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+
+const moment = _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+  styleUrls: ['./edit-profile.component.scss'],
+  providers:[
+    // {
+    // provide: DateAdapter,
+    // useClass: MomentDateAdapter,
+    // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+  // },
+  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},]
 })
 export class EditProfileComponent {
 
@@ -44,7 +70,7 @@ export class EditProfileComponent {
       certificateId: [''],
       mode: ['', Validators.required],
       institution: ['', Validators.required],
-      startDate: ['', Validators.required],
+      startDate: [moment(), Validators.required],
       endDate: ['', Validators.required]
     })
 
@@ -158,7 +184,7 @@ export class EditProfileComponent {
       
       this.toaster.warning("Upto 5 preferred locations are available","Maximum Locations",
       {
-        timeOut: 1000,
+        timeOut: 2000,
         positionClass: 'toast-top-center',
         progressBar: true,
         progressAnimation: 'decreasing',
@@ -189,5 +215,17 @@ export class EditProfileComponent {
   deletePrefLocations(index: number) {
     this.preferredLocationArray.removeAt(index);
   }
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, i:number) {
+    const currentStartDate  = this.certificationArray.controls[i].get('startDate')?.value;
+    const ctrlValue = currentStartDate || moment();
+    ctrlValue.month(normalizedMonthAndYear.month);
+    ctrlValue.year(normalizedMonthAndYear.year);
+    ctrlValue.startOf('month');
+    
+    this.certificationArray.controls[i].get('startDate')?.setValue(ctrlValue, { emitEvent: true });
+    datepicker.close();
+  }
+
 
 }

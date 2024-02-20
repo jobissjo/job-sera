@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,7 @@ import { AngularMaterialModule } from './shared/module/angular-material/angular-
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { IgxDialogModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,11 @@ import { ToastrModule } from 'ngx-toastr';
     AngularMaterialModule,
     SharedModule,
     HttpClientModule,
-    
+    IgxDialogModule
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+}

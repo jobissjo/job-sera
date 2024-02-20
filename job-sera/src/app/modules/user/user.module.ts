@@ -13,6 +13,7 @@ import { MyJobDetailsComponent } from './components/my-job-details/my-job-detail
 import { UpdateStatusComponent } from './components/update-status/update-status.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { ToastrModule } from 'ngx-toastr';
+import { IgxDialogModule } from 'igniteui-angular';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
     AngularMaterialModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    IgxDialogModule
   ]
 })
 export class UserModule { }

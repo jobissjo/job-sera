@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { NotificationEnum, NotificationType } from 'src/app/shared/Models/notification.type';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styleUrls: ['./notifications.component.scss'],
+
 })
 export class NotificationsComponent {
   
@@ -38,4 +41,27 @@ export class NotificationsComponent {
     return Math.floor(diffInMilliSeconds/msToDays);
   }
 
+  constructor(private dialogue:MatDialog){}
+  openDialogue(){
+    this.dialogue.open(DeleteNotificationDialog, {
+      width:'300px',
+      enterAnimationDuration:'100ms',
+      exitAnimationDuration:'100ms'
+    }) 
+  }
+
+}
+
+@Component({
+  selector: 'delete-notification-dialog',
+  templateUrl: './delete-notification-dialog.html',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule],
+  styles:[`.actions{
+    display:'flex';
+    justify-content:'space-between'
+  }`]
+})
+export class DeleteNotificationDialog {
+  constructor(public dialogRef: MatDialogRef<DeleteNotificationDialog>) {}
 }
