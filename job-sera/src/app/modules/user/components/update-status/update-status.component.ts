@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MyJobs } from '../../models/my-jobs';
+interface Status {
+  title: string, icon: string, color: string, status: string
+}
 
 @Component({
   selector: 'app-update-status',
@@ -19,12 +22,21 @@ export class UpdateStatusComponent {
     this.closeUpdateStatus.emit()
   }
 
-  applicationStatus: { title: string, icon: string, color:string, status:string }[] = [
-    { title:"Interviewing", icon:'receipt_list',color:"accent", status:"interviewing"},
-  { title:"Offer Received", icon:'thumb_up',color:"primary", status:"offer received"},
-    { title:"Hired", icon:'person',color:"primary", status:"hired"},
-    { title:"Not Selected by Employer", icon:'close',color:"warn", status:"not selected"},
-    { title:"No Longer Interested", icon:'thumb_down',color:"warn", status:"rejected"}
+
+  applicationStatus: Status[] = [
+    { title: "Interviewing", icon: 'receipt_list', color: "accent", status: "interviewing" },
+    { title: "Offer Received", icon: 'thumb_up', color: "primary", status: "offer received" },
+    { title: "Hired", icon: 'person', color: "primary", status: "hired" },
+    { title: "Not Selected by Employer", icon: 'close', color: "warn", status: "not selected" },
+    { title: "No Longer Interested", icon: 'thumb_down', color: "warn", status: "rejected" }
   ]
+
+  onUpdatedStatus(status:string) {
+    // logic for update status
+
+
+    //close the page
+    this.onCloseDetail()
+  }
 
 }

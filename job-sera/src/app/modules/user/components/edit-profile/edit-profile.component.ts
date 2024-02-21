@@ -5,11 +5,11 @@ import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _moment from 'moment';
-import {Moment} from 'moment';
+import {default as _rollupMoment, Moment} from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-// import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 
-const moment = _moment;
+const moment = _moment || _rollupMoment;
 
 export const MY_FORMATS = {
   parse: {
@@ -28,11 +28,11 @@ export const MY_FORMATS = {
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
   providers:[
-    // {
-    // provide: DateAdapter,
-    // useClass: MomentDateAdapter,
-    // deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  // },
+    {
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+  },
   {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},]
 })
 export class EditProfileComponent {
@@ -61,8 +61,8 @@ export class EditProfileComponent {
     this.educationModel = this.fb.group({
       level: ['', Validators.required],
       fieldOfStudy: [''],
-      startedDate: ['', Validators.required],
-      endedDate: ['', Validators.required]
+      startedDate: [moment(), Validators.required],
+      endedDate: [moment(), Validators.required]
     })
 
     this.certificationModel = this.fb.group({
@@ -70,8 +70,8 @@ export class EditProfileComponent {
       certificateId: [''],
       mode: ['', Validators.required],
       institution: ['', Validators.required],
-      startDate: [moment(), Validators.required],
-      endDate: ['', Validators.required]
+      startDate: [moment()],
+      endDate: [moment(), Validators.required]
     })
 
     this.languageModel = this.fb.group({
@@ -85,8 +85,8 @@ export class EditProfileComponent {
     this.experienceModel = this.fb.group({
       position: ['', Validators.required],
       companyName: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      startDate: [moment(), Validators.required],
+      endDate: [moment(), Validators.required]
     })
 
     // main form
@@ -216,15 +216,18 @@ export class EditProfileComponent {
     this.preferredLocationArray.removeAt(index);
   }
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, i:number) {
-    const currentStartDate  = this.certificationArray.controls[i].get('startDate')?.value;
-    const ctrlValue = currentStartDate || moment();
-    ctrlValue.month(normalizedMonthAndYear.month);
-    ctrlValue.year(normalizedMonthAndYear.year);
-    ctrlValue.startOf('month');
-    
-    this.certificationArray.controls[i].get('startDate')?.setValue(ctrlValue, { emitEvent: true });
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, 
+    datepicker: MatDatepicker<Moment>, 
+    i:number, formArray:FormArray,formControl:string) {
+
+    const currentStartDate  = formArray.controls[i].get(formControl)?.value;
+    const ctrlValue = currentStartDate;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    formArray.controls[i].get(formControl)?.setValue(ctrlValue);
     datepicker.close();
+    
   }
 
 

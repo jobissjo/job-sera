@@ -7,35 +7,10 @@
             <section class="container">
                 <mat-list role="list">
                     <!-- ARIA (Accessible Rich Internet Applications) role and its associated children in your HTML code. ARIA roles help improve the accessibility of web content for users with disabilities. -->
-                    <mat-list-item *ngFor="let status of applicationStatus" role="listitem" class="list-item">
+                    <mat-list-item *ngFor="let status of applicationStatus" role="listitem" class="list-item" (click)="onUpdatedStatus(status.status)">
                         <mat-icon aria-hidden="false" [color]="status.color">{{status.icon}}</mat-icon> {{status.title}}
                     </mat-list-item>
                 </mat-list>
-
-                <!-- <h3>Description</h3>
-                <p>
-                    {{selectedUpdateJobStatus.company}}
-                </p>
-                <div style="display: flex; margin-top: 20px;">
-                    <div style="width: 50%;">
-                        <strong>Assigned To: </strong>
-                        {{selectedUpdateJobStatus.place}}
-                    </div>
-                    <div style="width: 50%;">
-                        <strong>Created At: </strong>
-                        {{selectedUpdateJobStatus.appliedOn}}
-                    </div>
-                </div>
-                <div style="display: flex; margin-top: 20px;">
-                    <div style="width: 50%;">
-                        <strong>Priority: </strong>
-                        {{selectedUpdateJobStatus.status}}
-                    </div>
-                    <div style="width: 50%;">
-                        <strong>Current Status: </strong>
-                        {{selectedUpdateJobStatus.status}}
-                    </div>
-                </div> -->
             </section>
         </div>
     </div>

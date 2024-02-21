@@ -19,13 +19,36 @@
                                 </mat-form-field>
                             </div>
                             <div class="row">
-                                <mat-form-field>
+                                <!-- <mat-form-field>
                                     <mat-label>Started Date</mat-label>
                                     <input matInput placeholder="June 2021" formControlName="startedDate">
+                                </mat-form-field> -->
+                                <mat-form-field>
+                                    <mat-label>Started Date</mat-label>
+                                    <input placeholder="date" matInput [matDatepicker]="esdp" 
+                                    formControlName="startedDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="esdp"></mat-datepicker-toggle>
+                                    <mat-datepicker #esdp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, esdp,i, 
+                                                    educationArray,'startedDate')"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
                                 </mat-form-field>
+
                                 <mat-form-field>
                                     <mat-label>End Date</mat-label>
-                                    <input matInput placeholder="March 2023" formControlName="endedDate">
+                                    <input placeholder="date" matInput [matDatepicker]="eddp" 
+                                    formControlName="endedDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="eddp"></mat-datepicker-toggle>
+                                    <mat-datepicker #eddp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, eddp,i, 
+                                                    educationArray,'endedDate')"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -62,24 +85,31 @@
                                 </mat-form-field>
                             </div>
                             <div class="row">
-                                <!-- <mat-form-field>
-                                    <mat-label>Start Date</mat-label>
-                                    <input matInput placeholder="June 2021" formControlName="startDate">
-                                </mat-form-field> -->
+                                
                                 <mat-form-field>
-                                    <mat-label>Month and Year</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="dp" formControlName="startDate" >
+                                    <mat-label>Started Date</mat-label>
+                                    <input placeholder="date" matInput [matDatepicker]="sdp" formControlName="startDate" >
                                     <mat-hint>MM/YYYY</mat-hint>
-                                    <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-                                    <mat-datepicker #dp
+                                    <mat-datepicker-toggle matIconSuffix [for]="sdp"></mat-datepicker-toggle>
+                                    <mat-datepicker #sdp
                                                     startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, dp,i)"
+                                                    (monthSelected)="setMonthAndYear($event, sdp,i, 
+                                                    certificationArray,'startDate')"
                                                     panelClass="month-picker">
                                     </mat-datepicker>
                                   </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>End Date</mat-label>
-                                    <input matInput placeholder="March 2023" formControlName="endDate">
+                                    <input placeholder="date" matInput [matDatepicker]="dp" 
+                                    formControlName="endDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+                                    <mat-datepicker #dp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, dp,i, 
+                                                    certificationArray,'endDate')"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -130,6 +160,7 @@
                                     <mat-label>Title</mat-label>
                                     <input matInput placeholder="Python Developer" formControlName="position">
                                 </mat-form-field>
+                                
                                 <mat-form-field>
                                     <mat-label>Certificate Id</mat-label>
                                     <input matInput placeholder="Jo4Tech" formControlName="companyName">
@@ -139,11 +170,33 @@
                             <div class="row">
                                 <mat-form-field>
                                     <mat-label>Start Date</mat-label>
-                                    <input matInput placeholder="June 2021" formControlName="startDate">
+                                    <input placeholder="date" matInput [matDatepicker]="xsdp" 
+                                    formControlName="startDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="xsdp"></mat-datepicker-toggle>
+                                    <mat-datepicker #xsdp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, xsdp,i, 
+                                                    experienceArray,'startDate')"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
                                 </mat-form-field>
-                                <mat-form-field>
+                                <!-- <mat-form-field>
                                     <mat-label>End Date</mat-label>
                                     <input matInput placeholder="March 2023" formControlName="endDate">
+                                </mat-form-field> -->
+                                <mat-form-field>
+                                    <mat-label>Start Date</mat-label>
+                                    <input placeholder="date" matInput [matDatepicker]="xedp" 
+                                    formControlName="endDate" >
+                                    <mat-hint>MM/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="xedp"></mat-datepicker-toggle>
+                                    <mat-datepicker #xedp
+                                                    startView="multi-year"
+                                                    (monthSelected)="setMonthAndYear($event, xedp,i, 
+                                                    experienceArray,'endDate')"
+                                                    panelClass="month-picker">
+                                    </mat-datepicker>
                                 </mat-form-field>
                             </div>
                         </div>
