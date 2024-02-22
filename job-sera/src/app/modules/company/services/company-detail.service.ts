@@ -37,7 +37,7 @@ export class CompanyDetailService {
     address: "456 Elm St, Townsville",
     employeesCount: 500,
     reviewsCount: 80,
-    totalReviewRating: 4,
+    totalReviewRating: 4.5,
     reviews: [
       {
         username: "anonymous1",
@@ -58,7 +58,7 @@ export class CompanyDetailService {
     address: "789 Oak St, Village town",
     employeesCount: 200,
     reviewsCount: 30,
-    totalReviewRating: 4,
+    totalReviewRating: 5,
     reviews: [
       {
         username: "anonymous1",
