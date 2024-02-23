@@ -10,15 +10,15 @@ import { CompanyDetailService } from '../../services/company-detail.service';
 export class CompanyDetailsComponent {
 
   selectedCompany!:CompanyDetails;
+  isCompanySelected:boolean = false;
   constructor(private companyDetailService:CompanyDetailService){}
   ngOnInit(){
     this.companyDetailService.selectCompanyDetailObs$.subscribe((response:CompanyDetails)=>{
       this.selectedCompany = response;
-      console.log("service",this.selectedCompany);
+      console.log("service",this.selectedCompany, response);
+      this.isCompanySelected = true;
       
-    })
-    console.log("Selected Company",this.selectedCompany);
-    
+    }) 
   }
 
   

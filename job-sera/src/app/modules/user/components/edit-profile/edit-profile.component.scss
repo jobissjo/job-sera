@@ -12,6 +12,11 @@
     display: flex;
     justify-content: space-between;
 }
+.delete-btn-conatiner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 mat-form-field{
     width: 40%;
 }

@@ -22,3 +22,15 @@ h1{
 .footer{
     margin-top: 5px;
 }
+
+@media only screen and (max-width: 800px) {
+    .notification-card {
+        width: 70vw;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .notification-card {
+        width: 60vw;
+    }
+}
