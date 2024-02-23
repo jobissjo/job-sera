@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { IgxDialogModule } from 'igniteui-angular';
+import { StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,11 @@ import { IgxDialogModule } from 'igniteui-angular';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AngularMaterialModule,
+    StarRatingModule.forRoot(),
     SharedModule,
     HttpClientModule,
-    IgxDialogModule
+    IgxDialogModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

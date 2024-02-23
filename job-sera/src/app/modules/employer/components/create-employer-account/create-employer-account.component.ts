@@ -29,6 +29,7 @@ export class CreateEmployerAccountComponent implements OnInit {
         cPassword: [''],
         position: [''],
         socialMediaLink: [''],
+        gender:['']
 
       }),
       companyInformation: this.fb.group({

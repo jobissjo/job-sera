@@ -133,11 +133,15 @@ export class EditProfileComponent {
     if (!section.length)
       return;
     const element = document.getElementById(section+'-section');
+    console.log("element",element);
+    
     if(section == 'experience' || section == 'language'){
-      this.goToNextStep(1);
+      this.goToNextStep();
     }
     else if (section == 'location'){
-      this.goToNextStep(2);
+      this.goToNextStep();
+      this.goToNextStep();
+
     }
     if (element) {  
       setTimeout(()=> {
@@ -146,8 +150,8 @@ export class EditProfileComponent {
     }
   }
 
-  goToNextStep(num:number){
-    this.stepper.selectedIndex = num;
+  goToNextStep(){
+    this.stepper.next()
   }
 
   onSubmitProfileEdit() {
@@ -180,7 +184,7 @@ export class EditProfileComponent {
         new FormControl('', Validators.required)
       )
     }else{
-      console.warn("hello")
+      // console.warn("hello")
       
       this.toaster.warning("Upto 5 preferred locations are available","Maximum Locations",
       {
@@ -214,6 +218,10 @@ export class EditProfileComponent {
 
   deletePrefLocations(index: number) {
     this.preferredLocationArray.removeAt(index);
+  }
+
+  deleteFormArrayElements(formArray:FormArray, index:number){
+    formArray.removeAt(index)
   }
 
 

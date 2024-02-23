@@ -33,15 +33,29 @@
     <div  class="form-control-row">
         <mat-form-field>
             <mat-label>Password</mat-label>
-            <input matInput placeholder="********" formControlName="lastName" required>
+            <input matInput placeholder="********" formControlName="password" required>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Confirm Password</mat-label>
-            <input matInput placeholder="********" formControlName="lastName" required>
+            <input matInput placeholder="********" formControlName="cPassword" required>
+        </mat-form-field>
+    </div>
+    <div  class="form-control-row">
+        <mat-form-field>
+            <mat-label>Position</mat-label>
+            <input matInput placeholder="Hiring Manager" formControlName="position" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+                <mat-option value="prefer not to say">Prefer not to say</mat-option>
+            </mat-select>
         </mat-form-field>
     </div>
     <div class="form-button-controls">
-        <button type="button" mat-flat-button color="warn">Back</button>
-        <button type="button" mat-flat-button (click)="nextTab()" color="accent">Next Page</button>
+        <button type="button" mat-stroked-button color="warn">Back</button>
+        <button type="button" mat-stroked-button (click)="nextTab()" color="primary">Next Page</button>
     </div>
 </div>

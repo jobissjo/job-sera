@@ -1,4 +1,5 @@
 export interface NotificationType {
+    notificationId:string,
     title: string,
     message: string,
     from: string,

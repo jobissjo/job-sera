@@ -7,6 +7,7 @@ import { CompanyDetailsComponent } from './components/company-details/company-de
 import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 import { CompanySearchComponent } from './components/company-search/company-search.component';
 import { PopularCompaniesComponent } from './components/popular-companies/popular-companies.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PopularCompaniesComponent } from './components/popular-companies/popula
   imports: [
     CommonModule,
     CompanyRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    StarRatingModule.forRoot()
   ]
 })
 export class CompanyModule { }

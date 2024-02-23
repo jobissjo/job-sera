@@ -11,7 +11,6 @@ export class HomeComponent {
   
   router = inject(Router);
   ngOnInit(){
-    // debugger
 
     console.log("Hello this is from home component");
     

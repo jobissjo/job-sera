@@ -57,7 +57,7 @@ export class JobSearchService {
     of(this.jobDetails).subscribe((value) => {
       setTimeout(() => {
         this.jobObs$.next(value)
-      }, 500)
+      }, 50)
     });
   }
   createJobDetails() {

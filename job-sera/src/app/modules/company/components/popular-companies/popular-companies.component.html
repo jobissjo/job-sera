@@ -11,10 +11,12 @@
                 </mat-card-header> 
                 <mat-card-content>
                     <div class="rating-container">
-                        <!-- Display star icons based on rating -->
-                        <mat-icon *ngFor="let _ of generateArray(company.totalReviewRating)" color="accent">star</mat-icon>
+                        <star-rating direction="ltr" [readOnly]="true" [showHalfStars]="true" 
+                        [rating]="company.totalReviewRating"></star-rating>
+                        <!-- <mat-icon *ngFor="let _ of generateArray(company.totalReviewRating)" color="accent">star</mat-icon> -->
                         <!-- Display number of ratings -->
                         <span class="rating-count">  ({{company.reviewsCount}} reviews)</span>
+                        
                     </div>
                 </mat-card-content>
                 <mat-card-footer>

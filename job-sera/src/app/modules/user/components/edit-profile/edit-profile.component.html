@@ -51,6 +51,9 @@
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
+                            <div class="delete-btn-conatiner">
+                                <button (click)="deleteFormArrayElements(educationArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                            </div>
                         </div>
                     </ng-container>
                     <div>
@@ -112,6 +115,9 @@
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
+                            <div class="delete-btn-conatiner">
+                                <button (click)="deleteFormArrayElements(certificationArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                            </div>
                         </div>
                     </ng-container>
 
@@ -125,7 +131,7 @@
                 </div>
 
                 <div>
-                    <button type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
+                    <button  type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
                 </div>
             </div>
         </mat-step>
@@ -199,6 +205,9 @@
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
+                            <div class="delete-btn-conatiner">
+                                <button (click)="deleteFormArrayElements(experienceArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                            </div>
                         </div>
                     </ng-container>
 
@@ -232,7 +241,9 @@
                                     <mat-checkbox formControlName="writing">Writing</mat-checkbox>
                                     <mat-checkbox formControlName="speaking">Speaking</mat-checkbox>
                                 </section>
-
+                            </div>
+                            <div class="delete-btn-conatiner">
+                                <button (click)="deleteFormArrayElements(knownLanguageArray, i)" type="button" mat-stroked-button color="warn"> Delete</button>
                             </div>
                         </div>
                     </ng-container>
