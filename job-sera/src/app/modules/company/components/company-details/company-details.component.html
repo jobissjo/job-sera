@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="company-details-container" *ngIf="isCompanySelected">
     <div class="company-card">
       <div class="logo">
@@ -9,9 +9,45 @@
         <p><strong>Address:</strong> {{ selectedCompany.address }}</p>
         <p><strong>Employees Count:</strong> {{ selectedCompany.employeesCount }}</p>
         <p><strong>Reviews Count:</strong> {{ selectedCompany.reviewsCount }}</p>
-        <!-- Add more details as needed -->
+
       </div>
     </div>
+  </div> -->
+
+
+<mat-card *ngIf="isCompanySelected" class="card">
+  <div class="custom-header">
+    <img class="img" mat-card-image [src]="selectedCompany.logoUrl" alt="Company Logo">
+    <mat-card-header>
+
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{ selectedCompany.companyName }}</mat-card-title>
+      <mat-card-subtitle>{{ selectedCompany.location }}</mat-card-subtitle>
+    </mat-card-header>
   </div>
 
-  
+
+  <mat-card-content>
+    <p>{{ selectedCompany.about }}</p>
+    <p>Industry: {{ selectedCompany.industry }}</p>
+    <p>Company Type: {{ selectedCompany.companyType }}</p>
+    <p>Total Employees: {{ selectedCompany.employeesCount }}</p>
+    <p>Follower Count: {{ selectedCompany.followerCount }}</p>
+    <p>Reviews Count: {{ selectedCompany.reviewsCount }}</p>
+    <p>Total Review Rating: {{ selectedCompany.totalReviewRating }}</p>
+    <div *ngIf="selectedCompany.reviews.length > 0">
+      <h3>Reviews:</h3>
+      <ul>
+        <li *ngFor="let review of selectedCompany.reviews">
+          <p><strong>{{ review.username }}</strong></p>
+          <p>{{ review.reviewText }}</p>
+          <p style="display: flex; align-items: center;">Rating: <star-rating direction="ltr" [readOnly]="true"
+              [showHalfStars]="true" [rating]="review.reviewScore"></star-rating></p>
+        </li>
+      </ul>
+
+
+
+    </div>
+  </mat-card-content>
+</mat-card>

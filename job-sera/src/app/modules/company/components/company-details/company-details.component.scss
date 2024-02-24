@@ -41,3 +41,19 @@
     background-color: #e0e0e0;
   }
   
+  .example-header-image {
+    background-size: cover;
+  }
+  .img{
+    height: 100px;
+    width: 100px;
+  }
+  .card{
+    display: flex;
+    width: 70%;
+    margin: auto;
+  }
+  .custom-header{
+    display: flex;
+    justify-content: safe;
+  }

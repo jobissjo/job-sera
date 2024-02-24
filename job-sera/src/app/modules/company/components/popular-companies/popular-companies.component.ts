@@ -6,7 +6,7 @@ import { CompanyDetailService } from '../../services/company-detail.service';
 @Component({
   selector: 'app-popular-companies',
   templateUrl: './popular-companies.component.html',
-  styleUrls: ['./popular-companies.component.scss']
+  styleUrls: ['./popular-companies.component.scss', './../company-common.scss']
 })
 export class PopularCompaniesComponent {
 // Array(arg0: number) {
@@ -19,8 +19,10 @@ export class PopularCompaniesComponent {
 }
 
   onSelectedCompanyDetail(company:CompanyDetails){
+    
     this.router.navigate(['company', 'details']);
-    this.companyDetailService.onSelectedDetail(company);
+    setTimeout(()=> { this.companyDetailService.onSelectedDetail(company); },50 )
+    
   }
 
 }

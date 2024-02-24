@@ -15,7 +15,6 @@ export class CompanyDetailsComponent {
   ngOnInit(){
     this.companyDetailService.selectCompanyDetailObs$.subscribe((response:CompanyDetails)=>{
       this.selectedCompany = response;
-      console.log("service",this.selectedCompany, response);
       this.isCompanySelected = true;
       
     }) 
