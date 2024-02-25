@@ -50,10 +50,24 @@
   }
   .card{
     display: flex;
-    width: 70%;
+    width: 60%;
     margin: auto;
   }
   .custom-header{
     display: flex;
     justify-content: safe;
   }
+li{
+  list-style-type: none;
+}
+@media only screen  and (max-width: 767px)  {
+  .card{
+    width: 80%;
+  }
+}
+
+@media only screen  and (max-width: 1000px)  {
+  .card{
+    width: 70%;
+  }
+}

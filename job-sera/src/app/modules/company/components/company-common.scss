@@ -55,3 +55,23 @@ mat-card-footer{
         cursor: pointer;
     }
 }
+
+
+
+@media screen and (max-width: 1000px) {
+    .company-short-details {
+        width: 50%; /* Adjusted width for smaller screens */
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .company-short-details {
+        width: 80%; /* Adjusted width for smaller screens */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .company-short-details {
+        width: 100%; /* Adjusted width for smaller screens */
+    }
+}

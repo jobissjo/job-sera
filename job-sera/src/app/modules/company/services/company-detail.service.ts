@@ -24,13 +24,32 @@ export class CompanyDetailService {
         reviewedDate: "",
       }
     ],
-    openings: [],
+    openings: [
+      {
+        title: "Data Analyst",
+        companyName: "Data Analytics Co.",
+        experience: "2+ years",
+        qualifications: ["Bachelor's degree in Statistics or related field", "Proficiency in SQL and Python"],
+        salary: "$60,000 - $80,000",
+        location: "New York, NY",
+        jobType: "Full-time",
+        shift: "Day",
+        description: ["We are looking for a skilled Data Analyst to join our team.", "The ideal candidate will have experience with data visualization and analysis."],
+    },
+    
+    ],
     companyType: "Tech",
     followerCount: 200,
     about: "ABC Corporation is a leading tech company specializing in software development.",
     location: "Trivandrum",
     industry: "Information technology",
-    logoUrl: "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+    logoUrl: "https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg",
+    HRDetails:{
+      name: 'Hiring Manager',
+      email: "whatever@mail.com",
+      phoneNumber: '+91 1234567890',
+      linkedInPage: 'linkedin/@whatever'
+    }
   },
   {
     companyName: "XYZ Industries",
