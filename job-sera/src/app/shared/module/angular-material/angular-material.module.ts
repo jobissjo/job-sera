@@ -21,6 +21,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MatCommonModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatNativeDateModule,
     MatCommonModule,
     MatMomentDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule
     
   ]
 })

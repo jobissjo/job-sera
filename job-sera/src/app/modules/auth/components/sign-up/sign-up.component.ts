@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 export class SignUpComponent {
 
   signupForm!: FormGroup;
+  isLoading:boolean = false;
   constructor(private fb:FormBuilder, 
     private authService:AuthService){
 
@@ -31,10 +32,18 @@ export class SignUpComponent {
         // this.authService.registerUser(email, password);
 
         console.log('Form is valid and created user\nusername: ', username);
+        this.isLoading = true
+        this.hideProgressBar()
       }
-      
     }
+
+    
   }
 
+  hideProgressBar(){
+    setTimeout(()=> {
+      this.isLoading = false;
+    }, 3000)
+  }
 
 }

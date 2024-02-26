@@ -1,3 +1,4 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <div class="container">
     <h2>Sign In</h2>
     <form action="" [formGroup]="signInForm" (ngSubmit)="onSubmitForm()">

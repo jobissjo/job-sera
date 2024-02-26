@@ -212,7 +212,7 @@ export class EditProfileComponent {
   }
 
   deleteSkill(index: number) {
-    console.log(index);
+    this.skillsArray.removeAt(index);
 
   }
 

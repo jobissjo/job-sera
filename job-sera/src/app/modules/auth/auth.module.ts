@@ -26,7 +26,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     AuthRoutingModule,
     SharedModule,
     AngularMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularMaterialModule
   ],
   providers:[
   ]

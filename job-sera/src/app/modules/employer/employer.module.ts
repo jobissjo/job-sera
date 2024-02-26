@@ -11,6 +11,7 @@ import { CompanyInfoComponent } from './components/company-info/company-info.com
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateJobComponent } from './components/create-job/create-job.component';
+import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { CreateJobComponent } from './components/create-job/create-job.component
     CompanyInfoComponent,
     AdditionalInfoComponent,
     CreateJobComponent,
+    EmployerProfileComponent,
   ],
   imports: [
     CommonModule,

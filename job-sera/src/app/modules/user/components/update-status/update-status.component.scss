@@ -55,6 +55,11 @@
       width: 70%;
     }
   }
+  @media screen and (max-width: 1000px){
+    .popup{
+      width: 60%;
+    }
+  }
   hr{
     border: #28282B 3px solid;
     margin: 15px 0px;

@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 export class SignInComponent implements OnInit{
 
   signInForm !: FormGroup;
+  isLoading:boolean = false;
   constructor(private authService:AuthService
     ){
 
@@ -26,7 +27,15 @@ export class SignInComponent implements OnInit{
     if(this.signInForm.valid){
       const {email, password} = this.signInForm.value;
       // this.authService.loginUser(email, password);
+      this.isLoading = true;
+      this.hideProgressBar()
     }
+  }
+
+  hideProgressBar(){
+    setTimeout(()=>{
+      this.isLoading = false;
+    }, 3000)
   }
 
 }
