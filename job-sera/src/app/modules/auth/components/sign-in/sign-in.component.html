@@ -4,14 +4,18 @@
     <form action="" [formGroup]="signInForm" (ngSubmit)="onSubmitForm()">
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" formControlName="email" placeholder="abc12@gmail.com">
+            <input class="input-box" [ngClass]="{'error-input': checkInValid('email')}" type="email" id="email" formControlName="email" placeholder="abc12@gmail.com">
+            <span class="error-msg" *ngIf="checkInValid('email')">
+            please enter the correct email</span>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="text" id="password" formControlName="password" placeholder="********">
+            <input class="input-box" [ngClass]="{'error-input': checkInValid('password')}" type="text" id="password" formControlName="password" placeholder="********">
+            <span class="error-msg" *ngIf="checkInValid('password')">
+                please enter the password (8) letters</span>
         </div>
         <div class="form-group">
-            <button type="submit">Sign In</button>
+            <button type="submit" [disabled]="signInForm.invalid">Sign In</button>
         </div>
         <div class="form-group signup-link">
             Don't have an account? <a class="" [routerLink]="'/auth/sign-up'">Sign Up</a>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { JobDetails } from 'src/app/shared/Models/job.type';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from 'src/app/shared/service/auth.service';
 import { Subject, of } from 'rxjs';
+import { AuthService } from '../../auth/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })

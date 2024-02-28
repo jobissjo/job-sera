@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/shared/service/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,7 +37,17 @@ export class SignUpComponent {
       }
     }
 
-    
+  }
+
+  protected checkSamePassword(){
+    const password =  this.signupForm.value.password;
+    const cPassword =  this.signupForm.value.cPassword;
+
+    return password === cPassword;
+  }
+
+  protected checkControlInValid(control:string){
+    return this.signupForm.get(control)?.touched && this.signupForm.get(control)?.invalid;
   }
 
   hideProgressBar(){
