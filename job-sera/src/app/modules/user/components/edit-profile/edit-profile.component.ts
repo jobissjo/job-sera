@@ -5,9 +5,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _moment from 'moment';
-import {default as _rollupMoment, Moment} from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 const moment = _moment || _rollupMoment;
 
@@ -27,18 +27,20 @@ export const MY_FORMATS = {
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers:[
+  providers: [
     {
-    provide: DateAdapter,
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  },
-  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},]
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },]
 })
 export class EditProfileComponent {
 
   // Model Form Groups
   userDetail !: FormGroup;
+
+  personalDetail!: FormGroup;
   educationModel!: FormGroup;
   certificationModel!: FormGroup;
   languageModel!: FormGroup;
@@ -53,11 +55,24 @@ export class EditProfileComponent {
   preferredLocationArray!: FormArray;
 
 
-  constructor(private fb: FormBuilder, private activeRoute:ActivatedRoute,
-    private toaster:ToastrService) { }
+  constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute,
+    private toaster: ToastrService) { }
 
-  focusSection:string = ''
+  focusSection: string = ''
   ngOnInit() {
+    this.personalDetail = this.fb.group({
+      name: ['', Validators.required],
+      heading: ['',],
+      email: [''],
+      phoneNumber: ['', Validators.required],
+      socialMediaLink: ['', Validators.required],
+      githubLink: [''],
+      country: ['', Validators.required],
+      state: ['', Validators.required],
+      district: ['', Validators.required],
+      postalCode: ['']
+    })
+
     this.educationModel = this.fb.group({
       level: ['', Validators.required],
       fieldOfStudy: [''],
@@ -91,6 +106,7 @@ export class EditProfileComponent {
 
     // main form
     this.userDetail = this.fb.group({
+      personalDetail: this.personalDetail,
       education: this.fb.array([
         this.educationModel
       ]),
@@ -121,36 +137,40 @@ export class EditProfileComponent {
     // get section-id
     // this.focusSection =  this.activeRoute.snapshot.queryParams['section'];
     this.focusSection = this.activeRoute.snapshot.queryParamMap.get('section') ?? '';
-    setTimeout(()=>{
+    setTimeout(() => {
       this.focusSection && this.onGoToSection(this.focusSection);
     }, 50)
 
   }
 
-  
-  @ViewChild('stepper') stepper!:MatStepper;
-  onGoToSection(section:string){
+
+  @ViewChild('stepper') stepper!: MatStepper;
+  onGoToSection(section: string) {
     if (!section.length)
       return;
-    const element = document.getElementById(section+'-section');
-    console.log("element",element);
-    
-    if(section == 'experience' || section == 'language'){
+    const element = document.getElementById(section + '-section');
+    console.log("element", element);
+    if (section == 'education' || section == 'certification') {
       this.goToNextStep();
     }
-    else if (section == 'location'){
+    else if (section == 'experience' || section == 'language') {
+      this.goToNextStep();
+      this.goToNextStep();
+    }
+    else if (section == 'location') {
+      this.goToNextStep();
       this.goToNextStep();
       this.goToNextStep();
 
     }
-    if (element) {  
-      setTimeout(()=> {
-        element.scrollIntoView({ behavior: 'smooth', block:'start', inline:'nearest' });
-      },0)
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+      }, 0)
     }
   }
 
-  goToNextStep(){
+  goToNextStep() {
     this.stepper.next()
   }
 
@@ -179,22 +199,22 @@ export class EditProfileComponent {
   }
 
   addPreferredLocations() {
-    if (this.preferredLocationArray.length < 5){
+    if (this.preferredLocationArray.length < 5) {
       this.preferredLocationArray.push(
         new FormControl('', Validators.required)
       )
-    }else{
+    } else {
       // console.warn("hello")
-      
-      this.toaster.warning("Upto 5 preferred locations are available","Maximum Locations",
-      {
-        timeOut: 2000,
-        positionClass: 'toast-top-center',
-        progressBar: true,
-        progressAnimation: 'decreasing',
-        tapToDismiss: true,
-        closeButton: true,
-      });
+
+      this.toaster.warning("Upto 5 preferred locations are available", "Maximum Locations",
+        {
+          timeOut: 2000,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          tapToDismiss: true,
+          closeButton: true,
+        });
     }
 
   }
@@ -220,22 +240,22 @@ export class EditProfileComponent {
     this.preferredLocationArray.removeAt(index);
   }
 
-  deleteFormArrayElements(formArray:FormArray, index:number){
+  deleteFormArrayElements(formArray: FormArray, index: number) {
     formArray.removeAt(index)
   }
 
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, 
-    datepicker: MatDatepicker<Moment>, 
-    i:number, formArray:FormArray,formControl:string) {
+  setMonthAndYear(normalizedMonthAndYear: Moment,
+    datepicker: MatDatepicker<Moment>,
+    i: number, formArray: FormArray, formControl: string) {
 
-    const currentStartDate  = formArray.controls[i].get(formControl)?.value;
+    const currentStartDate = formArray.controls[i].get(formControl)?.value;
     const ctrlValue = currentStartDate;
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
     formArray.controls[i].get(formControl)?.setValue(ctrlValue);
     datepicker.close();
-    
+
   }
 
 

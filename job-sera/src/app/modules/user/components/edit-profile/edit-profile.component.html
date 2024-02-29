@@ -1,8 +1,71 @@
 <form [formGroup]="userDetail" (ngSubmit)="onSubmitProfileEdit()">
     <h1 class="title">User Details</h1>
     <mat-stepper #stepper class="stepper">
+        <mat-step>
+            <ng-template matStepLabel>Personal Information</ng-template>
+            <div class="personal-information-container" formGroupName="personalDetail" >
+                <div class="personal-details">
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="+12" formControlName="name">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Heading</mat-label>
+                            <input matInput placeholder="Python Developer" formControlName="heading">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="John Smith" formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput placeholder="Python Developer" formControlName="phoneNumber">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Social Media Link</mat-label>
+                            <input matInput placeholder="www.linkedin/@jobito" formControlName="socialMediaLink">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Github Link</mat-label>
+                            <input matInput placeholder="www.github/@jobito" formControlName="githubLink">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="location-details">
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Country</mat-label>
+                            <input matInput placeholder="India" formControlName="country">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="TamilNadu" formControlName="state">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>District</mat-label>
+                            <input matInput placeholder="Kanniyakumari" formControlName="district">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Postal Code</mat-label>
+                            <input matInput placeholder="629***" formControlName="postalCode">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-step>
         <mat-step class="step">
-            <ng-template matStepLabel>Education & Certification Details</ng-template>
+            <ng-template matStepLabel>Education & Certification</ng-template>
             <div class="education-details-container" id="education-section">
                 <div class="education-details" formArrayName="education">
                     <h2>Education</h2>

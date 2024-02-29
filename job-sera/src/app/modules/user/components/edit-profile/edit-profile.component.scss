@@ -3,7 +3,10 @@
     color: #3f51b5;
 }
 
-.education-details-container, .qualification-details-container,.other-preference-container{
+.personal-information-container,
+.education-details-container, 
+.qualification-details-container,
+.other-preference-container{
     width: 60%;
     margin: auto
 }
@@ -20,6 +23,7 @@
 mat-form-field{
     width: 40%;
 }
+.personal-details,.location-details,
 [class^="education-detail-"], [class^="certification-detail-"], 
 [class^="experience-detail-"],[class^="languages-detail-"]{
     padding: 10px;
