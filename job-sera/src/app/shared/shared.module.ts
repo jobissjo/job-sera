@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     HeaderComponent,
     FooterComponent,
-
   ],
   imports: [
     CommonModule,

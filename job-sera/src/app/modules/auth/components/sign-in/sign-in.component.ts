@@ -1,7 +1,8 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 
 @Component({
@@ -9,50 +10,54 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit{
+export class SignInComponent implements OnInit {
 
   signInForm !: FormGroup;
-  isLoading:boolean = false;
-  constructor(private authService:AuthService,
-    private toastr: ToastrService
-    ){
+  isLoading: boolean = false;
+  constructor(private authService: AuthService,
+    private router: Router,
+    private handleMsgService: HandleMessageService
+  ) {
 
-    }
-  ngOnInit(){
+  }
+  ngOnInit() {
     this.signInForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     })
   }
 
-  onSubmitForm(){
-    console.log("form is submitted");
-    
-    if(this.signInForm.valid){
-      const {email, password} = this.signInForm.value;
+  onSubmitForm() {
+
+    if (this.signInForm.valid) {
+      const { email, password } = this.signInForm.value;
       this.authService.signIn(email, password).subscribe({
-        next: (res)=> {
-          console.log(res);
-          
+        next: (_res) => {
+          this.handleMsgService.warningMessage("User is successfully logged in", "Login Success");
+          this.router.navigate(['user'])
+
         },
-        error: err=> {
-          this.toastr.error(err, "Error", {
-            positionClass: 'toast-top-center' // Set specific position for this toast
-          })
+        error: err => {
+          this.handleMsgService.errorMessage(err, "Login Error")
 
         }
       })
       this.isLoading = true;
       this.hideProgressBar()
     }
+    else{
+      this.handleMsgService.warningMessage(
+        "Enter all correct details in the form", "Form Not Valid"
+      )
+    }
   }
 
-  checkInValid(control:string){
+  checkInValid(control: string) {
     return this.signInForm.get(control)?.touched && this.signInForm.get(control)?.invalid;
   }
 
-  hideProgressBar(){
-    setTimeout(()=>{
+  hideProgressBar() {
+    setTimeout(() => {
       this.isLoading = false;
     }, 1500)
   }

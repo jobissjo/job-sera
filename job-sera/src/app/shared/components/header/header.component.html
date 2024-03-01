@@ -15,7 +15,7 @@
   <button *ngIf="!isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="routeToAuth()">
     <mat-icon>person</mat-icon>
   </button>
-  <button *ngIf="!isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="clickToUser()">
+  <button *ngIf="isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="clickToUser()">
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +15,8 @@ export class SignUpComponent {
   isLoading: boolean = false;
   constructor(private fb: FormBuilder,
     private authService: AuthService,
-    private toaster: ToastrService) {
+    private router: Router, 
+    private handleMsgService:HandleMessageService) {
 
   }
 
@@ -36,23 +38,26 @@ export class SignUpComponent {
       const { username, email, password, cPassword } = this.signupForm.value;
       if (password == cPassword) {
         this.authService.signUp(email, password).subscribe({
-          next: res => {
-            this.toaster.success("User created for " + username, "Message", this.common_toast_style)
-
+          next: _res => {
+            this.handleMsgService.successMessage("User created for " + username, "User Created")
+            this.signupForm.reset();
+            this.router.navigate([''])
           },
           error: err => {
-            this.toaster.error(err, "Error", this.common_toast_style);
+            this.handleMsgService.errorMessage(err, "Error")
           }
         })
         this.isLoading = true
         this.hideProgressBar();
       }
       else {
-        this.toaster.warning("Password and Confirm Password not match", "Password Not Matched",this.common_toast_style)
+        this.handleMsgService.warningMessage("Password and Confirm Password not match", "Password Not Matched")
       }
     }
     else {
-      this.toaster.warning("Enter all details in the form", "Form Not Valid", this.common_toast_style);
+      this.handleMsgService.warningMessage(
+        "Enter all details in the form", "Form Not Valid"
+      )
     }
 
   }

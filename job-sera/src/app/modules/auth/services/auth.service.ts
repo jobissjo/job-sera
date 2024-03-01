@@ -12,8 +12,9 @@ export class AuthService {
   constructor(private http: HttpClient) { }
   private apiKey: string = 'AIzaSyAdkex8qVnKhQBbgl_ehfuOpOCzspBoDrU';
 
-  user = new UserFireResponse('dummy@gmail.com', '32423', 'fdsfgdskj234324', new Date());
-  userSub = new BehaviorSubject<UserFireResponse>(this.user);
+  user = new UserFireResponse('dummy@mail.com', '32423', '1234', new Date());
+  userSub$ = new BehaviorSubject<UserFireResponse>(this.user);
+  loggedInSub$ = new BehaviorSubject<boolean>(false);
 
 
   signUp(email: string, password: string) {
@@ -38,12 +39,17 @@ export class AuthService {
         }))
   }
 
+  signOut(){
+    this.loggedInSub$.next(false);
+  }
+
   private handleCreateUser(res: AuthResponse) {
     const expiresInTs = new Date().getTime() + res.expiresIn * 1000;
     const expiresIn = new Date(expiresInTs);
     const user = new UserFireResponse(res.email, res.localId, res.idToken, expiresIn);
 
-    this.userSub.next(user);
+    this.userSub$.next(user);
+    this.loggedInSub$.next(true);
 
   }
 
@@ -67,6 +73,14 @@ export class AuthService {
         break;
     }
     return throwError(() => errorMsg);
+  }
+
+  isAuthenticated() {
+    let loggedIn: boolean = false;
+    this.loggedInSub$.subscribe(res => {
+      loggedIn = res;
+    })
+    return loggedIn;
   }
 
 }
