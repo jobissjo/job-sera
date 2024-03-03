@@ -26,7 +26,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": [
-              "lodash"
+              "lodash",
+              "moment"
             ],
             "assets": [
               "src/favicon.ico",

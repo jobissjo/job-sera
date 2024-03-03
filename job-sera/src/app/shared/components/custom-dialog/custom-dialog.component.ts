@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { MatButtonModule } from '@angular/material/button';
-import {MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MessageModel } from "../../Models/message-model";
 @Component({
     selector: 'custom-dialog.component',
     templateUrl: './custom-dialog.component.html',
@@ -12,7 +13,14 @@ import {MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     }`]
 })
 export class CustomDialogComponent {
-    constructor(public dialogRef: MatDialogRef<CustomDialogComponent>) { }
+
+    title: string;
+    message:string;
+    constructor(public dialogRef: MatDialogRef<CustomDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: MessageModel) {
+        this.title = data.title;
+        this.message = data.message;
+    }
 
     noClick() {
         this.dialogRef.close(false);

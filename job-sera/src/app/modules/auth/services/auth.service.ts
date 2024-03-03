@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { AuthResponse } from '../Models/authResponse.model';
 import { UserFireResponse } from '../Models/userFireResponse.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   private apiKey: string = 'AIzaSyAdkex8qVnKhQBbgl_ehfuOpOCzspBoDrU';
 
   user = new UserFireResponse('dummy@mail.com', '32423', '1234', new Date());
   userSub$ = new BehaviorSubject<UserFireResponse>(this.user);
   loggedInSub$ = new BehaviorSubject<boolean>(false);
+  timeFunctionId: any;
 
 
   signUp(email: string, password: string) {
@@ -39,8 +41,37 @@ export class AuthService {
         }))
   }
 
-  signOut(){
+  autoLogin() {
+    let user = localStorage.getItem('user');
+
+    if (user) {
+      let parsedUser = JSON.parse(user);
+      const userObj = new UserFireResponse(parsedUser.email, parsedUser.id, parsedUser._token, parsedUser._expiresIn);
+
+      if (userObj.token) {
+        this.userSub$.next(userObj)
+        this.loggedInSub$.next(true);
+        const expiresIn = parsedUser._expiresIn - new Date().getTime();
+        this.autoLogout(expiresIn)
+
+      }
+    }
+  }
+
+  autoLogout(expiresIn: number) {
+    this.timeFunctionId = setTimeout(() => {
+      this.signOut()
+    }, expiresIn)
+  }
+
+  signOut() {
     this.loggedInSub$.next(false);
+    localStorage.removeItem('user');
+    this.router.navigate([''])
+
+    if (this.timeFunctionId) {
+      clearTimeout(this.timeFunctionId)
+    }
   }
 
   private handleCreateUser(res: AuthResponse) {
@@ -51,7 +82,12 @@ export class AuthService {
     this.userSub$.next(user);
     this.loggedInSub$.next(true);
 
+    localStorage.setItem('user', JSON.stringify(user));
+    this.autoLogout(res.expiresIn * 1000)
+
   }
+
+
 
 
   private handleError(err: any) {
@@ -76,11 +112,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    let loggedIn: boolean = false;
-    this.loggedInSub$.subscribe(res => {
-      loggedIn = res;
-    })
-    return loggedIn;
+    return this.loggedInSub$.getValue();
   }
 
 }

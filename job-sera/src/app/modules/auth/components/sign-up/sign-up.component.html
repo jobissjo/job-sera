@@ -1,6 +1,7 @@
 <div class="signup-container">
-    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    
     <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit()">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
         <h2>Sign Up</h2>
         <div>
             <label for="username">Username</label>

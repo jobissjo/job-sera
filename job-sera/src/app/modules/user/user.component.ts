@@ -33,8 +33,9 @@ export class UserComponent {
     const dialogRef = this.dialogue.open(CustomDialogComponent, {
       width: '300px',
       enterAnimationDuration: '100ms',
-      exitAnimationDuration: '100ms'
-    })
+      exitAnimationDuration: '100ms',
+      data: {title: "Confirm to Logout?", message: "Are you really want to logout"}
+    });
 
     dialogRef.afterClosed().subscribe(res => {
       if(res){

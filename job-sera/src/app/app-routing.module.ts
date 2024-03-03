@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'jobs',
     loadChildren: () => import('./modules/jobs/jobs.module').then(m => m.JobsModule),
-    
+
   },
   {
     path: 'auth',
@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
-    canActivateChild:[canActivateChildLogin]
+    canActivateChild: [canActivateChildLogin]
   }
 ];
 
