@@ -32,9 +32,11 @@ export class SignInComponent implements OnInit {
     if (this.signInForm.valid) {
       const { email, password } = this.signInForm.value;
       this.authService.signIn(email, password).subscribe({
-        next: (_res) => {
+        next: (res) => {
           this.handleMsgService.successMessage("User is successfully logged in", "Login Success");
-          this.router.navigate(['user'])
+          this.router.navigate(['user']);
+          console.log(res);
+          
 
         },
         error: err => {

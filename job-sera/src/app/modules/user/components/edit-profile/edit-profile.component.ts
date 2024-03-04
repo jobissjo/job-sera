@@ -8,6 +8,9 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { UserProfileService } from '../../service/user-profile.service';
+import { UserDetail } from '../../models/my-jobs';
 
 const moment = _moment || _rollupMoment;
 
@@ -56,7 +59,9 @@ export class EditProfileComponent {
 
 
   constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute,
-    private toaster: ToastrService) { }
+    private toaster: ToastrService,
+    private authService:AuthService,
+    private userProfileService:UserProfileService) { }
 
   focusSection: string = ''
   ngOnInit() {
@@ -174,9 +179,19 @@ export class EditProfileComponent {
     this.stepper.next()
   }
 
-  onSubmitProfileEdit() {
-    console.log(this.userDetail.value);
 
+  onClickCreateUserProfile(){
+    if(this.userDetail.valid){
+      const userProfile:UserDetail = this.userDetail.value;
+      userProfile.userId = this.authService.currentUserIdSub.getValue();
+
+      console.log(userProfile);
+      
+    }
+    else{
+      console.log("form is valid");
+      
+    }
   }
 
 

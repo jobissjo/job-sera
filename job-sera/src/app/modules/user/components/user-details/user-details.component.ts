@@ -10,6 +10,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserDetailsComponent {
 
   userDetails: UserDetail = {
+    userId:'',
+    personalDetail: {
+      name: '',
+      heading: '',
+      email: 'string',
+      phoneNumber: 'string',
+      socialMediaLink: 'string',
+      githubLink: 'string',
+      country: 'string',
+      state: 'string',
+      district: 'string',
+      postalCode: 'string'
+    },
     education: [
       {
         level: 'HSC',
@@ -68,7 +81,7 @@ export class UserDetailsComponent {
   };
 
   sectionToFocus: string = '';
-  constructor(private activeRoute: ActivatedRoute, private router:Router) { }
+  constructor(private activeRoute: ActivatedRoute, private router: Router) { }
   ngOnInit() {
     this.sectionToFocus = this.activeRoute.snapshot.queryParams['section'];
 
@@ -85,9 +98,9 @@ export class UserDetailsComponent {
     }
   }
 
-  onEditDetail(section:string){
+  onEditDetail(section: string) {
     // console.log(section);
-    
-    this.router.navigate(['user', 'edit-profile'], {queryParams:{'section':section}})
+
+    this.router.navigate(['user', 'edit-profile'], { queryParams: { 'section': section } })
   }
 }

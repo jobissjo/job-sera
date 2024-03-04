@@ -19,6 +19,8 @@ interface PersonalDetail {
   postalCode?: string
 }
 export interface UserDetail {
+  userId:string,
+  profileId?:string,
   personalDetail: PersonalDetail,
   education: Education[];
   certifications: Certification[];

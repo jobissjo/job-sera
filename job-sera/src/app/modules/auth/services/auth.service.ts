@@ -17,6 +17,7 @@ export class AuthService {
   userSub$ = new BehaviorSubject<UserFireResponse>(this.user);
   loggedInSub$ = new BehaviorSubject<boolean>(false);
   timeFunctionId: any;
+  currentUserIdSub  = new BehaviorSubject<string>('');
 
 
   signUp(email: string, password: string) {
@@ -81,7 +82,8 @@ export class AuthService {
 
     this.userSub$.next(user);
     this.loggedInSub$.next(true);
-
+    console.log("response from handle user", res);
+    this.currentUserIdSub.next(res.localId);
     localStorage.setItem('user', JSON.stringify(user));
     this.autoLogout(res.expiresIn * 1000)
 
