@@ -62,7 +62,11 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <div>
+                    <button  type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
+                </div>
             </div>
+            
         </mat-step>
         <mat-step class="step">
             <ng-template matStepLabel>Education & Certification</ng-template>
@@ -78,7 +82,7 @@
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Field of Study</mat-label>
-                                    <input matInput placeholder="Computer Science">
+                                    <input matInput placeholder="Computer Science" formControlName="fieldOfStudy">
                                 </mat-form-field>
                             </div>
                             <div class="row">
@@ -209,7 +213,7 @@
                         <ng-container *ngFor="let control of skillsArray.controls; let i=index">
                             <mat-form-field>
                                 <mat-label>Skills {{i+1}}</mat-label>
-                                <input matInput placeholder="Django">
+                                <input matInput placeholder="Django" [formControlName]="i">
                             </mat-form-field>
                             <button type="button" mat-flat-button color="warn" (click)="deleteSkill(i)">Delete</button>
                         </ng-container>
@@ -231,7 +235,7 @@
                                 </mat-form-field>
                                 
                                 <mat-form-field>
-                                    <mat-label>Certificate Id</mat-label>
+                                    <mat-label>Company Name</mat-label>
                                     <input matInput placeholder="Jo4Tech" formControlName="companyName">
                                 </mat-form-field>
                             </div>
@@ -343,7 +347,7 @@
                             <ng-container *ngFor="let control of preferredLocationArray.controls; let i=index">
                                 <mat-form-field class="form-field">
                                     <mat-label>Locations {{i+1}}</mat-label>
-                                    <input matInput placeholder="Chennai">
+                                    <input matInput placeholder="Chennai" [formControlName]="i">
                                 </mat-form-field>
                                 <button type="button" mat-flat-button color="warn"
                                     (click)="deletePrefLocations(i)">Delete</button>

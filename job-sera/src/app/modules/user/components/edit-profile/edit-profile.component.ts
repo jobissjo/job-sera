@@ -181,15 +181,20 @@ export class EditProfileComponent {
 
 
   onClickCreateUserProfile(){
-    if(this.userDetail.valid){
+    if(this.userDetail.valid && this.authService.loggedInSub$.getValue()){
       const userProfile:UserDetail = this.userDetail.value;
+      const user = this.authService.userSub$.getValue();
+      userProfile.personalDetail.email = user.email;
       userProfile.userId = this.authService.currentUserIdSub.getValue();
 
       console.log(userProfile);
       
     }
     else{
-      console.log("form is valid");
+      console.log("form is valid", 
+      this.authService.loggedInSub$.getValue(), this.userDetail.valid);
+
+      console.log(this.userDetail.value);
       
     }
   }
