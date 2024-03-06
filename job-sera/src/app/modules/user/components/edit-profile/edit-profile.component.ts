@@ -128,7 +128,10 @@ export class EditProfileComponent {
       ]),
       preferredLocations: this.fb.array([
 
-      ])
+      ]),
+      otherPreference: this.fb.group({
+        jobType:['', Validators.required]
+      })
     });
 
     // get a value of all form Arrays
@@ -138,6 +141,7 @@ export class EditProfileComponent {
     this.experienceArray = this.userDetail.get('experience') as FormArray;
     this.knownLanguageArray = this.userDetail.get('knownLanguages') as FormArray;
     this.preferredLocationArray = this.userDetail.get('preferredLocations') as FormArray;
+    
 
     // get section-id
     // this.focusSection =  this.activeRoute.snapshot.queryParams['section'];
@@ -182,17 +186,21 @@ export class EditProfileComponent {
 
   onClickCreateUserProfile(){
     if(this.userDetail.valid && this.authService.loggedInSub$.getValue()){
-      const userProfile:UserDetail = this.userDetail.value;
+      const userProfile:UserDetail = {
+        ...this.userDetail.value
+      };
       const user = this.authService.userSub$.getValue();
       userProfile.personalDetail.email = user.email;
       userProfile.userId = this.authService.currentUserIdSub.getValue();
 
       console.log(userProfile);
+      this.userProfileService.createUserProfile(userProfile);
       
     }
     else{
       console.log("form is valid", 
-      this.authService.loggedInSub$.getValue(), this.userDetail.valid);
+      this.authService.loggedInSub$.getValue(), 
+      this.userDetail.valid);
 
       console.log(this.userDetail.value);
       

@@ -198,6 +198,7 @@
                 </div>
 
                 <div>
+                    <button type="button" mat-stroked-button matStepperPrevious color="primary">Back</button>
                     <button  type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
                 </div>
             </div>
@@ -332,9 +333,9 @@
             <ng-template matStepLabel>Other Preference</ng-template>
             <div class="other-preference-container">
                 <div class="job-preference">
-                    <div>
+                    <div formGroupName="otherPreference">
                         <label for="">Job Type</label>
-                        <mat-radio-group aria-label="Select an option">
+                        <mat-radio-group aria-label="Select an option" formControlName="jobType">
                             <mat-radio-button value="1">Full-time</mat-radio-button>
                             <mat-radio-button value="2">Part-time</mat-radio-button>
                             <mat-radio-button value="3">Work From Home</mat-radio-button>
