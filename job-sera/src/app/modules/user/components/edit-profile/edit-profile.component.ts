@@ -150,6 +150,12 @@ export class EditProfileComponent {
       this.focusSection && this.onGoToSection(this.focusSection);
     }, 50)
 
+    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res => {
+      console.log(res);
+      // "jobi@jml.com"
+      
+    })
+
   }
 
 
@@ -180,7 +186,7 @@ export class EditProfileComponent {
   }
 
   goToNextStep() {
-    this.stepper.next()
+    this.stepper.next();
   }
 
 
