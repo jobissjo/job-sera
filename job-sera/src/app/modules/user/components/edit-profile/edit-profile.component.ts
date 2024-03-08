@@ -11,7 +11,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
 import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
-import { UserDetail } from '../../models/my-jobs';
+import { EducationType, UserDetail } from '../../models/my-jobs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 const moment = _moment || _rollupMoment;
@@ -46,6 +46,7 @@ export class EditProfileComponent {
   focusSection: string = ''
   currentProfileId: string = ''
   updateMode: boolean = true;
+  isLoading: boolean = true;
   // Model Form Groups
   userDetail !: FormGroup;
   // All the FormArrays
@@ -59,13 +60,13 @@ export class EditProfileComponent {
   private currentUser: UserFireResponse = this.authService.userSub$.getValue();
 
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
-    private handleMsgService:HandleMessageService,
+    private handleMsgService: HandleMessageService,
     private authService: AuthService,
     private userProfileService: UserProfileService) {
 
-     }
+  }
 
   ngOnInit() {
 
@@ -152,7 +153,7 @@ export class EditProfileComponent {
         console.log(res);
         this.currentProfileId = res.profileId ?? '';
         this.updateUserDetailForm(res);
-
+        this.isLoading = false;
       }
       else {
         this.updateMode = false;
@@ -160,14 +161,14 @@ export class EditProfileComponent {
     })
   }
 
-  
-  
-  
 
 
-  private updateUserDetailForm(user:UserDetail){
+
+
+
+  private updateUserDetailForm(user: UserDetail) {
     this.userDetail.get('personalDetail')?.patchValue(user.personalDetail);
-    this.userDetail.get('otherPreference')?.patchValue(user.personalDetail);
+    this.userDetail.get('otherPreference')?.patchValue(user.otherPreference);
 
     this.updateUserDetailArrays(user.education, this.educationArray);
     this.updateUserDetailArrays(user.certifications, this.certificationArray);
@@ -178,19 +179,31 @@ export class EditProfileComponent {
     this.updateUserDetailControls(user.preferredLocations, this.preferredLocationArray);
   }
 
-  private updateUserDetailArrays(arr:Object[], formArray:FormArray){
+  private updateUserDetailArrays(arr: Object[], formArray: FormArray) {
+    console.log("arr", arr);
+
     arr.forEach((educationItem, index) => {
       if (index < formArray.length) {
+        console.log("items", educationItem);
+
         formArray.at(index).patchValue(educationItem);
       } else {
-        formArray.push(this.createNewFormGroup(educationItem));
+        console.log("Education Item", educationItem);
+        let temp = this.createNewFormGroup(educationItem)
+        temp.patchValue(educationItem)
+        formArray.push(temp);
+
+        // this.addEducation(this.getUserData(educationItem))
       }
     });
+  }
+  getUserData(obj: any): EducationType {
+    return obj as EducationType; // Type assertion
   }
 
 
 
-  private updateUserDetailControls(controls:string[], formArray:FormArray){
+  private updateUserDetailControls(controls: string[], formArray: FormArray) {
     if (controls) {
       formArray.clear();
       controls.forEach(control => {
@@ -293,7 +306,7 @@ export class EditProfileComponent {
       )
     } else {
       this.handleMsgService.warningMessage("Upto 5 Preferred Locations are available",
-      "Maximum Locations")
+        "Maximum Locations")
     }
 
   }

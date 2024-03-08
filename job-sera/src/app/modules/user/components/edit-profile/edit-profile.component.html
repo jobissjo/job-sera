@@ -1,4 +1,7 @@
-<form [formGroup]="userDetail" (ngSubmit)="onClickCreateUserProfile()">
+<div class="spinner-container" >
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>
+<form [formGroup]="userDetail" (ngSubmit)="onClickCreateUserProfile()" *ngIf="!isLoading">
     <h1 class="title">User Details</h1>
     <mat-stepper #stepper class="stepper">
         <mat-step>

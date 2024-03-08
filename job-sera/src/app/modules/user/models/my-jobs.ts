@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export interface MyJobs {
   status: string,
   position: string,
@@ -22,19 +24,24 @@ export interface UserDetail {
   userId:string,
   profileId?:string,
   personalDetail: PersonalDetail,
-  education: Education[];
+  education: EducationType[];
   certifications: CertificationType[];
   skills: string[]; 
   experience: Experience[];
   knownLanguages: Language[];
   preferredLocations: string[];
+  otherPreference: OtherPreference
 }
 
-interface Education {
+interface OtherPreference{
+  jobType:string
+}
+
+export interface EducationType {
   level: string;
   fieldOfStudy: string;
-  startedDate: Date;
-  endedDate: Date;
+  startedDate: Moment;
+  endedDate: Moment;
 }
 
 interface CertificationType {

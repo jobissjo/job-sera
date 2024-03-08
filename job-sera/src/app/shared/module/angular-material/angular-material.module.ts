@@ -22,7 +22,7 @@ import { MatNativeDateModule, MatCommonModule } from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -60,7 +60,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatCommonModule,
     MatMomentDateModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
     
   ]
 })
