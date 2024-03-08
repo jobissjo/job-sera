@@ -11,6 +11,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
 import { UserDetail } from '../../models/my-jobs';
+import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
 
 const moment = _moment || _rollupMoment;
 
@@ -40,6 +41,9 @@ export const MY_FORMATS = {
 })
 export class EditProfileComponent {
 
+  updateMode: boolean = true;
+  isDisableEmail: boolean = false;
+
   // Model Form Groups
   userDetail !: FormGroup;
 
@@ -60,15 +64,17 @@ export class EditProfileComponent {
 
   constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute,
     private toaster: ToastrService,
-    private authService:AuthService,
-    private userProfileService:UserProfileService) { }
+    private authService: AuthService,
+    private userProfileService: UserProfileService) { }
 
   focusSection: string = ''
+  currentProfileId:string = ''
+  private currentUser: UserFireResponse = this.authService.userSub$.getValue();
   ngOnInit() {
     this.personalDetail = this.fb.group({
       name: ['', Validators.required],
       heading: ['',],
-      email: [''],
+      email: { value: this.currentUser.email, disabled: true },
       phoneNumber: ['', Validators.required],
       socialMediaLink: ['', Validators.required],
       githubLink: [''],
@@ -108,7 +114,7 @@ export class EditProfileComponent {
       startDate: [moment(), Validators.required],
       endDate: [moment(), Validators.required]
     })
-
+    // skillControl
     // main form
     this.userDetail = this.fb.group({
       personalDetail: this.personalDetail,
@@ -119,6 +125,7 @@ export class EditProfileComponent {
         this.certificationModel
       ]),
       skills: this.fb.array([
+        new FormControl('', Validators.required)
       ]),
       experience: this.fb.array([
         this.experienceModel
@@ -130,7 +137,7 @@ export class EditProfileComponent {
 
       ]),
       otherPreference: this.fb.group({
-        jobType:['', Validators.required]
+        jobType: ['', Validators.required]
       })
     });
 
@@ -141,7 +148,7 @@ export class EditProfileComponent {
     this.experienceArray = this.userDetail.get('experience') as FormArray;
     this.knownLanguageArray = this.userDetail.get('knownLanguages') as FormArray;
     this.preferredLocationArray = this.userDetail.get('preferredLocations') as FormArray;
-    
+
 
     // get section-id
     // this.focusSection =  this.activeRoute.snapshot.queryParams['section'];
@@ -150,10 +157,19 @@ export class EditProfileComponent {
       this.focusSection && this.onGoToSection(this.focusSection);
     }, 50)
 
+    // update the form is edit Mode or Update Mode
     this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res => {
-      console.log(res);
-      // "jobi@jml.com"
-      
+      if (!res) {
+        this.updateMode = false;
+      }
+      else {
+        this.updateMode = true;
+        console.log(res);
+        this.currentProfileId = res.profileId ?? '';
+        this.userDetail.patchValue(res);
+
+      }
+
     })
 
   }
@@ -190,26 +206,34 @@ export class EditProfileComponent {
   }
 
 
-  onClickCreateUserProfile(){
-    if(this.userDetail.valid && this.authService.loggedInSub$.getValue()){
-      const userProfile:UserDetail = {
+  onClickCreateUserProfile() {
+    if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
+      const userProfile: UserDetail = {
         ...this.userDetail.value
       };
-      const user = this.authService.userSub$.getValue();
+      const user = this.currentUser;
       userProfile.personalDetail.email = user.email;
       userProfile.userId = this.authService.currentUserIdSub.getValue();
+      userProfile.profileId = this.currentProfileId
 
       console.log(userProfile);
-      this.userProfileService.createUserProfile(userProfile);
-      
+
+
+      if (this.updateMode) {
+        this.userProfileService.updateProfile(userProfile);
+      }
+      else {
+        this.userProfileService.createUserProfile(userProfile);
+      }
+
     }
-    else{
-      console.log("form is valid", 
-      this.authService.loggedInSub$.getValue(), 
-      this.userDetail.valid);
+    else {
+      console.log("form is valid",
+        this.authService.loggedInSub$.getValue(),
+        this.userDetail.valid);
 
       console.log(this.userDetail.value);
-      
+
     }
   }
 
@@ -275,7 +299,7 @@ export class EditProfileComponent {
   }
 
   deleteFormArrayElements(formArray: FormArray, index: number) {
-    formArray.removeAt(index)
+    formArray.removeAt(index);
   }
 
 

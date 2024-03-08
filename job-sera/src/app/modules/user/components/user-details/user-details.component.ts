@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserDetail } from '../../models/my-jobs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserProfileService } from '../../service/user-profile.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-user-details',
@@ -9,80 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserDetailsComponent {
 
-  userDetails: UserDetail = {
-    userId:'',
-    personalDetail: {
-      name: '',
-      heading: '',
-      email: 'string',
-      phoneNumber: 'string',
-      socialMediaLink: 'string',
-      githubLink: 'string',
-      country: 'string',
-      state: 'string',
-      district: 'string',
-      postalCode: 'string'
-    },
-    education: [
-      {
-        level: 'HSC',
-        fieldOfStudy: 'Computer Science',
-        startedDate: new Date('2010-09-01'),
-        endedDate: new Date('2014-06-30')
-      },
-      {
-        level: 'Bachelor',
-        fieldOfStudy: 'Computer Science',
-        startedDate: new Date('2010-09-01'),
-        endedDate: new Date('2014-06-30')
-      },
-      // Add more education details if needed
-    ],
-    certifications: [
-      {
-        title: 'Angular Certification',
-        certificateId: 'ANG2021',
-        mode: 'Online',
-        institution: 'XYZ Institute',
-        startDate: new Date('2021-01-01'),
-        endDate: new Date('2021-01-31')
-      },
-      {
-        title: 'Python Developer',
-        certificateId: 'PYD2022',
-        mode: 'Online',
-        institution: 'XYZ Institute',
-        startDate: new Date('2021-01-01'),
-        endDate: new Date('2021-01-31')
-      },
-      // Add more certification details if needed
-    ],
-    skills: ['JavaScript', 'Angular', 'HTML', 'CSS', 'TypeScript'],
-    experience: [
-      {
-        position: 'Software Engineer',
-        companyName: 'ABC Technologies',
-        startDate: new Date('2014-07-01'),
-        endDate: new Date('2020-12-31')
-      },
-      // Add more experience details if needed
-    ],
-    knownLanguages: [
-      {
-        language: 'English',
-        level: 'Fluent',
-        reading: true,
-        writing: true,
-        speaking: true
-      },
-      // Add more language details if needed
-    ],
-    preferredLocations: ['New York', 'San Francisco', 'London']
-  };
+  userDetails!: UserDetail;
 
   sectionToFocus: string = '';
-  constructor(private activeRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activeRoute: ActivatedRoute, private router: Router,
+    private userProfileService:UserProfileService, private authService:AuthService) { }
   ngOnInit() {
+    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res=> {
+      if(res){
+        this.userDetails = res;
+      }
+    })
+   
     this.sectionToFocus = this.activeRoute.snapshot.queryParams['section'];
 
     setTimeout(() => {
@@ -99,7 +39,6 @@ export class UserDetailsComponent {
   }
 
   onEditDetail(section: string) {
-    // console.log(section);
 
     this.router.navigate(['user', 'edit-profile'], { queryParams: { 'section': section } })
   }

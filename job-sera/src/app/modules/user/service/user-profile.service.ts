@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserDetail } from '../models/my-jobs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,13 @@ import { map } from 'rxjs';
 export class UserProfileService {
 
   constructor(private http: HttpClient, private handleMsgService: HandleMessageService) { }
-  private url: string = "https://job-sera-default-rtdb.firebaseio.com/"
+  private url: string = "https://job-sera-default-rtdb.firebaseio.com/";
+
+  // currentProfileIdSub$ = new BehaviorSubject<string>('')
   createUserProfile(user: UserDetail) {
     return this.http.post(`${this.url}user-profile.json`, user).subscribe((res) => {
+      console.log(res);
+      
       this.handleMsgService.successMessage(
         "User profile details are successfully update",
         "Profile Updated"
@@ -40,7 +44,8 @@ export class UserProfileService {
 
             if(profile.userId === userId){
               profile.profileId = profileId;
-
+              console.log("From by Userid", profile);
+              
               return profile
             }
           }
@@ -49,6 +54,19 @@ export class UserProfileService {
         return false;
       })
     )
+  }
+
+  updateProfile(userDetail:UserDetail){
+    const profileId = userDetail.profileId;
+    console.log("Profile id",profileId);
+    
+    return this.http.put(`${this.url}user-profile/${profileId}.json`,userDetail).subscribe((res) => {
+      console.log(res);
+      this.handleMsgService.successMessage(
+        "User profile details are successfully update",
+        "Profile Updated"
+      )
+    })
   }
 
 }
