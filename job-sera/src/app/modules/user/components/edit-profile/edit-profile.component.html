@@ -216,7 +216,7 @@
                                 <mat-label>Skills {{i+1}}</mat-label>
                                 <input matInput placeholder="Django" [formControlName]="i">
                             </mat-form-field>
-                            <button type="button" mat-flat-button color="warn" (click)="deleteSkill(i)">Delete</button>
+                            <button type="button" mat-flat-button color="warn" (click)="deleteFormArrayElements(skillsArray,i)">Delete</button>
                         </ng-container>
                         <div>
                             <button type="button" mat-flat-button (click)="addSkills()" color="primary">Add
@@ -339,7 +339,7 @@
                             <mat-radio-button value="1">Full-time</mat-radio-button>
                             <mat-radio-button value="2">Part-time</mat-radio-button>
                             <mat-radio-button value="3">Work From Home</mat-radio-button>
-                            <mat-radio-button value="3">Hybrid</mat-radio-button>
+                            <mat-radio-button value="4">Hybrid</mat-radio-button>
                         </mat-radio-group>
                     </div>
                     <div class="skills" formArrayName="preferredLocations">
@@ -351,7 +351,7 @@
                                     <input matInput placeholder="Chennai" [formControlName]="i">
                                 </mat-form-field>
                                 <button type="button" mat-flat-button color="warn"
-                                    (click)="deletePrefLocations(i)">Delete</button>
+                                    (click)="deleteFormArrayElements(preferredLocationArray, i)">Delete</button>
                             </ng-container>
                             <div>
                                 <button type="button" mat-flat-button (click)="addPreferredLocations()"

@@ -10,8 +10,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
-import { UserDetail } from '../../models/my-jobs';
 import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
+import { UserDetail } from '../../models/my-jobs';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 const moment = _moment || _rollupMoment;
 
@@ -41,18 +42,12 @@ export const MY_FORMATS = {
 })
 export class EditProfileComponent {
 
+  @ViewChild('stepper') stepper!: MatStepper;
+  focusSection: string = ''
+  currentProfileId: string = ''
   updateMode: boolean = true;
-  isDisableEmail: boolean = false;
-
   // Model Form Groups
   userDetail !: FormGroup;
-
-  personalDetail!: FormGroup;
-  educationModel!: FormGroup;
-  certificationModel!: FormGroup;
-  languageModel!: FormGroup;
-  experienceModel!: FormGroup;
-
   // All the FormArrays
   educationArray!: FormArray;
   certificationArray!: FormArray;
@@ -61,85 +56,79 @@ export class EditProfileComponent {
   knownLanguageArray!: FormArray;
   preferredLocationArray!: FormArray;
 
-
-  constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute,
-    private toaster: ToastrService,
-    private authService: AuthService,
-    private userProfileService: UserProfileService) { }
-
-  focusSection: string = ''
-  currentProfileId:string = ''
   private currentUser: UserFireResponse = this.authService.userSub$.getValue();
+
+
+  constructor(private fb: FormBuilder, 
+    private activeRoute: ActivatedRoute,
+    private handleMsgService:HandleMessageService,
+    private authService: AuthService,
+    private userProfileService: UserProfileService) {
+
+     }
+
   ngOnInit() {
-    this.personalDetail = this.fb.group({
-      name: ['', Validators.required],
-      heading: ['',],
-      email: { value: this.currentUser.email, disabled: true },
-      phoneNumber: ['', Validators.required],
-      socialMediaLink: ['', Validators.required],
-      githubLink: [''],
-      country: ['', Validators.required],
-      state: ['', Validators.required],
-      district: ['', Validators.required],
-      postalCode: ['']
-    })
 
-    this.educationModel = this.fb.group({
-      level: ['', Validators.required],
-      fieldOfStudy: [''],
-      startedDate: [moment(), Validators.required],
-      endedDate: [moment(), Validators.required]
-    })
-
-    this.certificationModel = this.fb.group({
-      title: ['', Validators.required],
-      certificateId: [''],
-      mode: ['', Validators.required],
-      institution: ['', Validators.required],
-      startDate: [moment()],
-      endDate: [moment(), Validators.required]
-    })
-
-    this.languageModel = this.fb.group({
-      language: ['', Validators.required],
-      level: ['', Validators.required],
-      reading: [false, Validators.required],
-      writing: [false, Validators.required],
-      speaking: [false, Validators.required]
-    })
-
-    this.experienceModel = this.fb.group({
-      position: ['', Validators.required],
-      companyName: ['', Validators.required],
-      startDate: [moment(), Validators.required],
-      endDate: [moment(), Validators.required]
-    })
-    // skillControl
-    // main form
+    // User Detail Form
     this.userDetail = this.fb.group({
-      personalDetail: this.personalDetail,
+      personalDetail: this.fb.group({
+        name: ['', Validators.required],
+        heading: ['',],
+        email: { value: this.currentUser.email, disabled: true },
+        phoneNumber: ['', Validators.required],
+        socialMediaLink: ['', Validators.required],
+        githubLink: [''],
+        country: ['', Validators.required],
+        state: ['', Validators.required],
+        district: ['', Validators.required],
+        postalCode: ['']
+      }),
       education: this.fb.array([
-        this.educationModel
+        this.fb.group({
+          level: ['', Validators.required],
+          fieldOfStudy: [''],
+          startedDate: [moment(), Validators.required],
+          endedDate: [moment(), Validators.required]
+        })
       ]),
       certifications: this.fb.array([
-        this.certificationModel
+        this.fb.group({
+          title: ['', Validators.required],
+          certificateId: [''],
+          mode: ['', Validators.required],
+          institution: ['', Validators.required],
+          startDate: [moment()],
+          endDate: [moment(), Validators.required]
+        })
       ]),
       skills: this.fb.array([
         new FormControl('', Validators.required)
       ]),
       experience: this.fb.array([
-        this.experienceModel
+        this.fb.group({
+          position: ['', Validators.required],
+          companyName: ['', Validators.required],
+          startDate: [moment(), Validators.required],
+          endDate: [moment(), Validators.required]
+        })
       ]),
       knownLanguages: this.fb.array([
-        this.languageModel
+        this.fb.group({
+          language: ['', Validators.required],
+          level: ['', Validators.required],
+          reading: [false, Validators.required],
+          writing: [false, Validators.required],
+          speaking: [false, Validators.required]
+        })
       ]),
       preferredLocations: this.fb.array([
-
+        new FormControl('', Validators.required)
       ]),
       otherPreference: this.fb.group({
         jobType: ['', Validators.required]
       })
     });
+
 
     // get a value of all form Arrays
     this.educationArray = this.userDetail.get('education') as FormArray;
@@ -151,7 +140,6 @@ export class EditProfileComponent {
 
 
     // get section-id
-    // this.focusSection =  this.activeRoute.snapshot.queryParams['section'];
     this.focusSection = this.activeRoute.snapshot.queryParamMap.get('section') ?? '';
     setTimeout(() => {
       this.focusSection && this.onGoToSection(this.focusSection);
@@ -159,23 +147,58 @@ export class EditProfileComponent {
 
     // update the form is edit Mode or Update Mode
     this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res => {
-      if (!res) {
-        this.updateMode = false;
-      }
-      else {
+      if (res) {
         this.updateMode = true;
         console.log(res);
         this.currentProfileId = res.profileId ?? '';
-        this.userDetail.patchValue(res);
+        this.updateUserDetailForm(res);
 
       }
-
+      else {
+        this.updateMode = false;
+      }
     })
+  }
 
+  
+  
+  
+
+
+  private updateUserDetailForm(user:UserDetail){
+    this.userDetail.get('personalDetail')?.patchValue(user.personalDetail);
+    this.userDetail.get('otherPreference')?.patchValue(user.personalDetail);
+
+    this.updateUserDetailArrays(user.education, this.educationArray);
+    this.updateUserDetailArrays(user.certifications, this.certificationArray);
+    this.updateUserDetailArrays(user.experience, this.experienceArray);
+    this.updateUserDetailArrays(user.knownLanguages, this.knownLanguageArray);
+
+    this.updateUserDetailControls(user.skills, this.skillsArray);
+    this.updateUserDetailControls(user.preferredLocations, this.preferredLocationArray);
+  }
+
+  private updateUserDetailArrays(arr:Object[], formArray:FormArray){
+    arr.forEach((educationItem, index) => {
+      if (index < formArray.length) {
+        formArray.at(index).patchValue(educationItem);
+      } else {
+        formArray.push(this.createNewFormGroup(educationItem));
+      }
+    });
   }
 
 
-  @ViewChild('stepper') stepper!: MatStepper;
+
+  private updateUserDetailControls(controls:string[], formArray:FormArray){
+    if (controls) {
+      formArray.clear();
+      controls.forEach(control => {
+        formArray.push(new FormControl(control, Validators.required));
+      });
+    }
+  }
+
   onGoToSection(section: string) {
     if (!section.length)
       return;
@@ -204,8 +227,6 @@ export class EditProfileComponent {
   goToNextStep() {
     this.stepper.next();
   }
-
-
   onClickCreateUserProfile() {
     if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
       const userProfile: UserDetail = {
@@ -215,10 +236,6 @@ export class EditProfileComponent {
       userProfile.personalDetail.email = user.email;
       userProfile.userId = this.authService.currentUserIdSub.getValue();
       userProfile.profileId = this.currentProfileId
-
-      console.log(userProfile);
-
-
       if (this.updateMode) {
         this.userProfileService.updateProfile(userProfile);
       }
@@ -228,27 +245,40 @@ export class EditProfileComponent {
 
     }
     else {
-      console.log("form is valid",
-        this.authService.loggedInSub$.getValue(),
-        this.userDetail.valid);
-
       console.log(this.userDetail.value);
 
     }
   }
 
+  // Add FormArrays
+  createNewFormGroup(formModel: any): FormGroup {
+    const formGroup = this.fb.group(formModel);
+    formGroup.reset();
+    return formGroup;
+  }
 
   addEducation() {
-    this.educationArray.push(
-      this.educationModel
-    )
+    const newEducationGroup = this.createNewFormGroup({
+      level: ['', Validators.required],
+      fieldOfStudy: [''],
+      startedDate: [moment(), Validators.required],
+      endedDate: [moment(), Validators.required]
+    });
+    this.educationArray.push(newEducationGroup);
   }
 
   addCertifications() {
-    this.certificationArray.push(
-      this.certificationModel
-    )
+    const newCertificationGroup = this.createNewFormGroup({
+      title: ['', Validators.required],
+      certificateId: [''],
+      mode: ['', Validators.required],
+      institution: ['', Validators.required],
+      startDate: [moment()],
+      endDate: [moment(), Validators.required]
+    });
+    this.certificationArray.push(newCertificationGroup);
   }
+
 
   addSkills() {
     this.skillsArray.push(
@@ -262,41 +292,34 @@ export class EditProfileComponent {
         new FormControl('', Validators.required)
       )
     } else {
-      // console.warn("hello")
-
-      this.toaster.warning("Upto 5 preferred locations are available", "Maximum Locations",
-        {
-          timeOut: 2000,
-          positionClass: 'toast-top-center',
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          tapToDismiss: true,
-          closeButton: true,
-        });
+      this.handleMsgService.warningMessage("Upto 5 Preferred Locations are available",
+      "Maximum Locations")
     }
 
   }
 
   addExperience() {
-    this.experienceArray.push(
-      this.experienceModel
-    )
+    const newExperienceGroup = this.createNewFormGroup({
+      position: ['', Validators.required],
+      companyName: ['', Validators.required],
+      startDate: [moment(), Validators.required],
+      endDate: [moment(), Validators.required]
+    });
+    this.experienceArray.push(newExperienceGroup);
   }
+
 
   addLanguage() {
-    this.knownLanguageArray.push(
-      this.languageModel
-    )
+    const newLanguageGroup = this.createNewFormGroup({
+      language: ['', Validators.required],
+      level: ['', Validators.required],
+      reading: [false, Validators.required],
+      writing: [false, Validators.required],
+      speaking: [false, Validators.required]
+    });
+    this.knownLanguageArray.push(newLanguageGroup);
   }
 
-  deleteSkill(index: number) {
-    this.skillsArray.removeAt(index);
-
-  }
-
-  deletePrefLocations(index: number) {
-    this.preferredLocationArray.removeAt(index);
-  }
 
   deleteFormArrayElements(formArray: FormArray, index: number) {
     formArray.removeAt(index);

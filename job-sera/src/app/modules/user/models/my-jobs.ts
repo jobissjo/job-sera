@@ -23,7 +23,7 @@ export interface UserDetail {
   profileId?:string,
   personalDetail: PersonalDetail,
   education: Education[];
-  certifications: Certification[];
+  certifications: CertificationType[];
   skills: string[]; 
   experience: Experience[];
   knownLanguages: Language[];
@@ -37,7 +37,7 @@ interface Education {
   endedDate: Date;
 }
 
-interface Certification {
+interface CertificationType {
   title: string;
   certificateId: string;
   mode: string;
