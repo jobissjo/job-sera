@@ -1,32 +1,44 @@
-.stepper{
-
-    color: rgb(244, 33, 33);
-}
-.basic-details-container, .qualification-details-container{
-    width: 50%;
-    margin: auto
-}
-.form-fields{
-    margin-right: auto;
-    width: 100%;
-    
-}
-mat-form-field{
-    width: 90%;
-}
-.title{
+/* Apply basic styling to the form container */
+.title {
     text-align: center;
     color: brown;
+    margin-bottom: 20px; /* Add some spacing below the title */
 }
 
-.form-arrays{
+/* Style the stepper component */
+.stepper {
+    color: rgb(244, 33, 33); /* Change color of stepper labels */
+}
+
+/* Style the containers for each step */
+.basic-details-container, .qualification-details-container {
+    width: 80%; /* Adjust width as needed */
+    margin: auto;
+}
+
+/* Style the form fields */
+.form-fields, .form-arrays {
     margin-right: auto;
     width: 100%;
-    mat-form-field{
-        width: 80%;
-    }
 }
 
-.desc-container{
+mat-form-field {
+    width: 100%; /* Set form fields to full width */
+}
+
+/* Add some padding to the description container */
+.desc-container {
     padding-top: 1rem;
+}
+
+/* Style buttons and button controls */
+.form-button-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between; /* Adjust button alignment */
+}
+
+/* Add some spacing between buttons */
+.form-button-controls button {
+    margin-right: 10px;
 }

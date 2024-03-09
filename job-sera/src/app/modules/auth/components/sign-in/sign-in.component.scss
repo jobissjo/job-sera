@@ -3,8 +3,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
-    width: 400px;
-    max-width: 100%;
+    width: 100%; /* Adjust width to fill the available space */
+    max-width: 400px; /* Set a maximum width to prevent the form from becoming too wide on larger screens */
     text-align: center;
     padding: 25px;
     box-sizing: border-box;
@@ -13,17 +13,15 @@
 
 .container h2 {
     color: #333;
-}
-
-.form-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Add some spacing below the heading */
 }
 
 .form-group label {
     display: block;
     font-size: 14px;
-    margin-bottom: 8px;
+    margin: 8px 0;
     color: #666;
+    text-align: left; /* Align labels to the left */
 }
 
 .input-box {
@@ -33,9 +31,11 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    
 }
 
 .form-group button {
+    margin-top: 10px;
     background-color: #4caf50;
     color: #fff;
     padding: 10px 20px;
@@ -43,28 +43,35 @@
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smoother hover effect */
 }
 
 .form-group button:hover {
     background-color: #45a049;
 }
 
-.form-group .signup-link {
+.signup-link {
     margin-top: 15px;
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
+    text-align: left; /* Align link to the left */
 }
 
-.form-group .signup-link a {
+.signup-link a {
     color: #4caf50;
     text-decoration: none;
     font-weight: bold;
 }
-.error-msg{
+
+.error-msg {
     color: red;
     font-size: 14px;
+    text-align: left; /* Align error messages to the left */
 }
 
-.error-input{
+.error-input {
     border: 1px solid #ff0000;
+}
+.form-group{
+    margin-top: 10px;
 }

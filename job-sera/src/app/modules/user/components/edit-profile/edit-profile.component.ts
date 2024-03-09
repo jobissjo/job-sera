@@ -157,6 +157,7 @@ export class EditProfileComponent {
       }
       else {
         this.updateMode = false;
+        this.isLoading = false;
       }
     })
   }

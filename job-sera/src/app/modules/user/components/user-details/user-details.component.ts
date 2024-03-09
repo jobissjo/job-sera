@@ -3,6 +3,8 @@ import { UserDetail } from '../../models/my-jobs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileService } from '../../service/user-profile.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-user-details',
@@ -28,6 +30,10 @@ export class UserDetailsComponent {
     setTimeout(() => {
       this.sectionToFocus && this.focusOnSection(this.sectionToFocus);
     }, 50)
+  }
+
+  formateMomentDate(momentDate: moment.Moment):string{
+    return momentDate.format('MM/YYYY')
   }
 
   focusOnSection(sectionId: string) {

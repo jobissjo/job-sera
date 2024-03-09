@@ -11,7 +11,7 @@
             <li *ngFor="let education of userDetails.education">
                 <strong>Level:</strong> {{ education.level }}<br>
                 <strong>Field of Study:</strong> {{ education.fieldOfStudy }}<br>
-                <!-- <strong>Started Date:</strong> {{ education.startedDate | date }}<br> -->
+                <!-- <strong>Started Date:</strong> {{formateMomentDate(education.startedDate)}} <br> -->
                 <!-- <strong>Ended Date:</strong> {{ education.endedDate | date }}<br> -->
             </li>
         </ul>
@@ -30,8 +30,8 @@
                 <strong>Certificate ID:</strong> {{ certification.certificateId }}<br>
                 <strong>Mode:</strong> {{ certification.mode }}<br>
                 <strong>Institution:</strong> {{ certification.institution }}<br>
-                <strong>Start Date:</strong> {{ certification.startDate | date }}<br>
-                <strong>End Date:</strong> {{ certification.endDate | date }}<br>
+                <strong>Start Date:</strong> {{ certification.startDate | date: "MMM - y" }}<br>
+                <strong>End Date:</strong> {{ certification.endDate | date: "MMM - y" }}<br>
             </li>
         </ul>
     </div>
@@ -58,8 +58,8 @@
             <li *ngFor="let experience of userDetails.experience">
                 <strong>Position:</strong> {{ experience.position }}<br>
                 <strong>Company Name:</strong> {{ experience.companyName }}<br>
-                <strong>Start Date:</strong> {{ experience.startDate | date }}<br>
-                <strong>End Date:</strong> {{ experience.endDate | date }}<br>
+                <strong>Start Date:</strong> {{ experience.startDate | date: "MMM - y" }}<br>
+                <strong>End Date:</strong> {{ experience.endDate | date: "MMM - y" }}<br>
             </li>
         </ul>
     </div>
