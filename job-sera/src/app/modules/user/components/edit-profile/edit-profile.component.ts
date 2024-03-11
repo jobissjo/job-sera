@@ -77,7 +77,10 @@ export class EditProfileComponent {
         heading: ['',],
         email: { value: this.currentUser.email, disabled: true },
         phoneNumber: ['', Validators.required],
+        dob:['', Validators.required],
+        gender:['', Validators.required],
         socialMediaLink: ['', Validators.required],
+        
         githubLink: [''],
         country: ['', Validators.required],
         state: ['', Validators.required],

@@ -13,6 +13,8 @@ interface PersonalDetail {
   heading: string,
   email: string,
   phoneNumber: string,
+  dob?:Date,
+  gender?:string,
   socialMediaLink?: string,
   githubLink?: string,
   country: string,

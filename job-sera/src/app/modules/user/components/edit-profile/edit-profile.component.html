@@ -1,4 +1,4 @@
-<div class="spinner-container" >
+<div class="spinner-container">
     <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
 <form [formGroup]="userDetail" (ngSubmit)="onClickCreateUserProfile()" *ngIf="!isLoading">
@@ -6,7 +6,7 @@
     <mat-stepper #stepper class="stepper">
         <mat-step>
             <ng-template matStepLabel>Personal Information</ng-template>
-            <div class="personal-information-container" formGroupName="personalDetail" >
+            <div class="personal-information-container" formGroupName="personalDetail">
                 <div class="personal-details">
                     <div class="row">
                         <mat-form-field>
@@ -40,7 +40,25 @@
                             <input matInput placeholder="www.github/@jobito" formControlName="githubLink">
                         </mat-form-field>
                     </div>
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Choose a date</mat-label>
+                            <input placeholder="whatever" matInput [matDatepicker]="picker" formControlName="dob">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Gender</mat-label>
+                            <mat-select title="gender" formControlName="gender">
+                                <mat-option value="male">Male </mat-option>
+                                <mat-option value="female">Female</mat-option>
+                                <mat-option value="prefer not to say">Prefer not to say</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
+
 
                 <div class="location-details">
                     <div class="row">
@@ -66,10 +84,10 @@
                     </div>
                 </div>
                 <div>
-                    <button  type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
+                    <button type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
                 </div>
             </div>
-            
+
         </mat-step>
         <mat-step class="step">
             <ng-template matStepLabel>Education & Certification</ng-template>
@@ -95,34 +113,29 @@
                                 </mat-form-field> -->
                                 <mat-form-field>
                                     <mat-label>Started Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="esdp" 
-                                    formControlName="startedDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="esdp"
+                                        formControlName="startedDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="esdp"></mat-datepicker-toggle>
-                                    <mat-datepicker #esdp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, esdp,i, 
-                                                    educationArray,'startedDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #esdp startView="multi-year" (monthSelected)="setMonthAndYear($event, esdp,i, 
+                                                    educationArray,'startedDate')" panelClass="month-picker">
                                     </mat-datepicker>
                                 </mat-form-field>
 
                                 <mat-form-field>
                                     <mat-label>End Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="eddp" 
-                                    formControlName="endedDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="eddp"
+                                        formControlName="endedDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="eddp"></mat-datepicker-toggle>
-                                    <mat-datepicker #eddp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, eddp,i, 
-                                                    educationArray,'endedDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #eddp startView="multi-year" (monthSelected)="setMonthAndYear($event, eddp,i, 
+                                                    educationArray,'endedDate')" panelClass="month-picker">
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="delete-btn-conatiner">
-                                <button (click)="deleteFormArrayElements(educationArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                                <button (click)="deleteFormArrayElements(educationArray,i)" type="button"
+                                    mat-stroked-button color="warn"> Delete</button>
                             </div>
                         </div>
                     </ng-container>
@@ -158,35 +171,30 @@
                                 </mat-form-field>
                             </div>
                             <div class="row">
-                                
+
                                 <mat-form-field>
                                     <mat-label>Started Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="sdp" formControlName="startDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="sdp"
+                                        formControlName="startDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="sdp"></mat-datepicker-toggle>
-                                    <mat-datepicker #sdp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, sdp,i, 
-                                                    certificationArray,'startDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #sdp startView="multi-year" (monthSelected)="setMonthAndYear($event, sdp,i, 
+                                                    certificationArray,'startDate')" panelClass="month-picker">
                                     </mat-datepicker>
-                                  </mat-form-field>
+                                </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>End Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="dp" 
-                                    formControlName="endDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="dp" formControlName="endDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-                                    <mat-datepicker #dp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, dp,i, 
-                                                    certificationArray,'endDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp,i, 
+                                                    certificationArray,'endDate')" panelClass="month-picker">
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="delete-btn-conatiner">
-                                <button (click)="deleteFormArrayElements(certificationArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                                <button (click)="deleteFormArrayElements(certificationArray,i)" type="button"
+                                    mat-stroked-button color="warn"> Delete</button>
                             </div>
                         </div>
                     </ng-container>
@@ -202,7 +210,7 @@
 
                 <div>
                     <button type="button" mat-stroked-button matStepperPrevious color="primary">Back</button>
-                    <button  type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
+                    <button type="button" mat-stroked-button color="accent" matStepperNext>Next</button>
                 </div>
             </div>
         </mat-step>
@@ -219,7 +227,8 @@
                                 <mat-label>Skills {{i+1}}</mat-label>
                                 <input matInput placeholder="Django" [formControlName]="i">
                             </mat-form-field>
-                            <button type="button" mat-flat-button color="warn" (click)="deleteFormArrayElements(skillsArray,i)">Delete</button>
+                            <button type="button" mat-flat-button color="warn"
+                                (click)="deleteFormArrayElements(skillsArray,i)">Delete</button>
                         </ng-container>
                         <div>
                             <button type="button" mat-flat-button (click)="addSkills()" color="primary">Add
@@ -237,7 +246,7 @@
                                     <mat-label>Title</mat-label>
                                     <input matInput placeholder="Python Developer" formControlName="position">
                                 </mat-form-field>
-                                
+
                                 <mat-form-field>
                                     <mat-label>Company Name</mat-label>
                                     <input matInput placeholder="Jo4Tech" formControlName="companyName">
@@ -247,15 +256,12 @@
                             <div class="row">
                                 <mat-form-field>
                                     <mat-label>Start Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="xsdp" 
-                                    formControlName="startDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="xsdp"
+                                        formControlName="startDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="xsdp"></mat-datepicker-toggle>
-                                    <mat-datepicker #xsdp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, xsdp,i, 
-                                                    experienceArray,'startDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #xsdp startView="multi-year" (monthSelected)="setMonthAndYear($event, xsdp,i, 
+                                                    experienceArray,'startDate')" panelClass="month-picker">
                                     </mat-datepicker>
                                 </mat-form-field>
                                 <!-- <mat-form-field>
@@ -264,20 +270,17 @@
                                 </mat-form-field> -->
                                 <mat-form-field>
                                     <mat-label>Start Date</mat-label>
-                                    <input placeholder="date" matInput [matDatepicker]="xedp" 
-                                    formControlName="endDate" >
+                                    <input placeholder="date" matInput [matDatepicker]="xedp" formControlName="endDate">
                                     <mat-hint>MM/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="xedp"></mat-datepicker-toggle>
-                                    <mat-datepicker #xedp
-                                                    startView="multi-year"
-                                                    (monthSelected)="setMonthAndYear($event, xedp,i, 
-                                                    experienceArray,'endDate')"
-                                                    panelClass="month-picker">
+                                    <mat-datepicker #xedp startView="multi-year" (monthSelected)="setMonthAndYear($event, xedp,i, 
+                                                    experienceArray,'endDate')" panelClass="month-picker">
                                     </mat-datepicker>
                                 </mat-form-field>
                             </div>
                             <div class="delete-btn-conatiner">
-                                <button (click)="deleteFormArrayElements(experienceArray,i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                                <button (click)="deleteFormArrayElements(experienceArray,i)" type="button"
+                                    mat-stroked-button color="warn"> Delete</button>
                             </div>
                         </div>
                     </ng-container>
@@ -314,7 +317,8 @@
                                 </section>
                             </div>
                             <div class="delete-btn-conatiner">
-                                <button (click)="deleteFormArrayElements(knownLanguageArray, i)" type="button" mat-stroked-button color="warn"> Delete</button>
+                                <button (click)="deleteFormArrayElements(knownLanguageArray, i)" type="button"
+                                    mat-stroked-button color="warn"> Delete</button>
                             </div>
                         </div>
                     </ng-container>
