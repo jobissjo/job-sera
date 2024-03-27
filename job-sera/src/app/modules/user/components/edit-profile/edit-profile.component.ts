@@ -150,17 +150,23 @@ export class EditProfileComponent {
     }, 50)
 
     // update the form is edit Mode or Update Mode
-    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res => {
-      if (res) {
-        this.updateMode = true;
-        console.log(res);
-        this.currentProfileId = res.profileId ?? '';
-        this.updateUserDetailForm(res);
+    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe({
+      next: res => {
+        if (res) {
+          this.updateMode = true;
+          console.log(res);
+          this.currentProfileId = res.profileId ?? '';
+          this.updateUserDetailForm(res);
+          this.isLoading = false;
+        }
+        else {
+          this.updateMode = false;
+          this.isLoading = false;
+        }
+      },
+      error: err=> {
         this.isLoading = false;
-      }
-      else {
         this.updateMode = false;
-        this.isLoading = false;
       }
     })
   }
