@@ -1,5 +1,5 @@
 export interface JobDetails{
-    title:string,
+    jobTitle:string,
     companyName:string,
     experience:string,
     qualifications: string[],

@@ -19,7 +19,9 @@ export class AuthService {
   timeFunctionId: any;
   currentUserIdSub  = new BehaviorSubject<string>('');
 
-
+  newSignUp(){
+    
+  }
   signUp(email: string, password: string) {
     const user = { email: email, password: password, returnSecureToken: true };
     return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.apiKey,

@@ -12,7 +12,7 @@ export class JobsListComponent implements OnInit{
   jobSearchService = inject(JobSearchService);
   jobDetails:JobDetails[] = []
   ngOnInit(){
-    this.jobSearchService.fetchTasks()
+    // this.jobSearchService.fetchTasks()
     this.jobSearchService.jobObs$.subscribe((res:JobDetails[])=>{
       this.jobDetails = res
       console.log(this.jobDetails);
@@ -20,6 +20,8 @@ export class JobsListComponent implements OnInit{
         this.onSelectedJob(this.jobDetails[0])
       
     })
+
+    this.jobSearchService.getAllJobs()
   };
 
   onSelectedJob(jobDetail:JobDetails){

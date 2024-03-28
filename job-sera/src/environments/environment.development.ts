@@ -1,3 +1,3 @@
 export const environment = {
-    fastApiMainUrl: ''
+    fastApiMainUrl: 'http://127.0.0.1:8000/'
 };

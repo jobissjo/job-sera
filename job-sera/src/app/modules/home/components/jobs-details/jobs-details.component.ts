@@ -19,9 +19,6 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
       this.selectedJob = response;
     })
   }
-  onCreateJobClicked() {
-    this.jobSearchService.createJobDetails();
-  }
 
   ngOnDestroy() {
     this.selectedJobSub$.unsubscribe()

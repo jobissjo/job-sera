@@ -19,7 +19,7 @@
     <p>Total Review Rating: {{ selectedCompany.totalReviewRating }}</p>
     <div *ngFor="let opening of selectedCompany.openings">
       <h3>Job Openings</h3>
-      <mat-card-title>{{opening.title}}</mat-card-title>
+      <mat-card-title>{{opening.jobTitle}}</mat-card-title>
       <mat-card-subtitle>{{opening.experience}}</mat-card-subtitle>
       <mat-card-subtitle>{{opening.salary}}</mat-card-subtitle>
       <mat-card-subtitle>{{opening.location}}</mat-card-subtitle>
