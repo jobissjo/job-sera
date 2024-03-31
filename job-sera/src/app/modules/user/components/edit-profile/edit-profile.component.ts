@@ -13,6 +13,7 @@ import { UserProfileService } from '../../service/user-profile.service';
 import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
 import { EducationType, UserDetail } from '../../models/my-jobs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
 
 const moment = _moment || _rollupMoment;
 
@@ -77,10 +78,10 @@ export class EditProfileComponent {
         heading: ['',],
         email: { value: this.currentUser.email, disabled: true },
         phoneNumber: ['', Validators.required],
-        dob:['', Validators.required],
-        gender:['', Validators.required],
+        dob: ['', Validators.required],
+        gender: ['', Validators.required],
         socialMediaLink: ['', Validators.required],
-        
+
         githubLink: [''],
         country: ['', Validators.required],
         state: ['', Validators.required],
@@ -153,22 +154,23 @@ export class EditProfileComponent {
     this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe({
       next: res => {
         if (res) {
+          console.log("successful man🤡🤡");
+          
           this.updateMode = true;
-          console.log(res);
-          this.currentProfileId = res.profileId ?? '';
+          this.currentProfileId = res.profileId
           this.updateUserDetailForm(res);
           this.isLoading = false;
         }
-        else {
-          this.updateMode = false;
-          this.isLoading = false;
-        }
       },
-      error: err=> {
+      error: _err => {
+        console.log("user not found");
+        
         this.isLoading = false;
         this.updateMode = false;
-      }
-    })
+      }})
+
+
+
   }
 
 
@@ -176,7 +178,7 @@ export class EditProfileComponent {
 
 
 
-  private updateUserDetailForm(user: UserDetail) {
+  private updateUserDetailForm(user: UserProfileModel) {
     this.userDetail.get('personalDetail')?.patchValue(user.personalDetail);
     this.userDetail.get('otherPreference')?.patchValue(user.otherPreference);
 
@@ -252,12 +254,13 @@ export class EditProfileComponent {
   }
   onClickCreateUserProfile() {
     if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
-      const userProfile: UserDetail = {
+      const userProfile: UserProfileModel = {
         ...this.userDetail.value
       };
+      console.log(this.userDetail.value, userProfile);
+
       const user = this.currentUser;
       userProfile.personalDetail.email = user.email;
-      userProfile.userId = this.authService.currentUserIdSub.getValue();
       userProfile.profileId = this.currentProfileId
       if (this.updateMode) {
         this.userProfileService.updateProfile(userProfile);
@@ -268,7 +271,7 @@ export class EditProfileComponent {
 
     }
     else {
-      console.log(this.userDetail.value);
+      console.log("Form is not valid🤡🤡", this.userDetail.value);
 
     }
   }

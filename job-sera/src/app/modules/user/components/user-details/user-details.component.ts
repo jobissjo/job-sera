@@ -19,11 +19,11 @@ export class UserDetailsComponent {
   constructor(private activeRoute: ActivatedRoute, private router: Router,
     private userProfileService:UserProfileService, private authService:AuthService) { }
   ngOnInit() {
-    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res=> {
-      if(res){
-        this.userDetails = res;
-      }
-    })
+    // this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res=> {
+    //   if(res){
+    //     this.userDetails = res;
+    //   }
+    // })
    
     this.sectionToFocus = this.activeRoute.snapshot.queryParams['section'];
 

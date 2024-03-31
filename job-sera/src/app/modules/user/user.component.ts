@@ -1,49 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/Models/user.type';
 import { CustomDialogComponent } from 'src/app/shared/components/custom-dialog/custom-dialog.component';
 import { AuthService } from '../auth/services/auth.service';
+import { ResponseUserModel } from 'src/app/shared/Models/auth.types';
+
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
-  constructor(private router:Router, private dialogue:MatDialog,
-    private authService:AuthService){}
-  user:User = {
-    name:'Jobi tobi',
-    email:'jobisj@gmail.com',
-    phoneNumber:1234567890,
-    gender:'male',
-    location:'kanniya kumari, Tamil Nadu'
+export class UserComponent implements OnInit {
+  constructor(private router: Router, 
+    private dialogue: MatDialog,
+    private authService: AuthService) { }
+  user!: ResponseUserModel;
+  ngOnInit() {
+    this.user = this.authService.userSubFA$.getValue()
   }
 
-  routeToChangePwd(){
+  routeToChangePwd() {
     this.router.navigate(['auth', 'change-password'])
   }
 
-  routeToEditProfile(){
+  routeToEditProfile() {
     this.router.navigate(['user', 'edit-profile'])
   }
 
-  onClickLogout(){
+  onClickLogout() {
     const dialogRef = this.dialogue.open(CustomDialogComponent, {
       width: '300px',
       enterAnimationDuration: '100ms',
       exitAnimationDuration: '100ms',
-      data: {title: "Confirm to Logout?", message: "Are you really want to logout"}
+      data: { title: "Confirm to Logout?", message: "Are you really want to logout" }
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if(res){
-       this.authService.signOut();
-       this.router.navigate([''])
-        
+      if (res) {
+        this.authService.signOut();
+        this.router.navigate([''])
+
       }
-      else{
+      else {
         console.log("unsuccessful result");
       }
     })

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { AuthResponse, CreateUserModel, ResponseUserModel, TokenResponse } from '../Models/authResponse.model';
+import { AuthResponse, } from '../Models/authResponse.model';
 import { UserFireResponse } from '../Models/userFireResponse.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+import { CreateUserModel, ResponseUserModel, TokenResponse } from 'src/app/shared/Models/auth.types';
 
 @Injectable({
   providedIn: 'root'
@@ -154,7 +155,8 @@ export class AuthService {
           this.storeTokenInLs(res.access_token);
           this.getCurrentUser(res);
           this.loggedInSub$.next(true);
-          this.router.navigate(['user'])
+          this.router.navigate(['user']);
+          
         },
         error: err => {
           console.error(err);
@@ -182,9 +184,13 @@ export class AuthService {
       next:res => {
         console.log(res);
         this.userSubFA$.next(res);
+        this.currentUserIdSub.next(res.id);
+        // this.currentUserIdSub.
         return res;
       },
-      error:err => {
+      error:_err => {
+        console.log("failed man you");
+        
         return false;
       }
     })
@@ -209,9 +215,10 @@ export class AuthService {
     if(token){
       const myObj:TokenResponse = {access_token :token, token_type: "Bearer"}
       this.getCurrentUser(myObj)
-    }
-      
+    }  
   }
+
+
 
 }
 
