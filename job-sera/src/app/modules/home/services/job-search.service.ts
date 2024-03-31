@@ -16,7 +16,7 @@ export class JobSearchService {
 
 
   getAllJobs(){
-    this.http.get<JobDetails[]>(`${environment.fastApiMainUrl}jobs/`).subscribe(res=>{
+    this.http.get<JobDetails[]>(`${environment.fastApiMainUrl}/jobs/`).subscribe(res=>{
       this.jobObs$.next(res)
       
     })

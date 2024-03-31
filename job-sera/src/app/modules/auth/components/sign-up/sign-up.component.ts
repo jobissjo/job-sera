@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+import { Role } from '../../Models/Enums';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,18 +36,21 @@ export class SignUpComponent {
 
   onFormSubmit() {
     if (this.signupForm.valid) {
-      const { username, email, password, cPassword } = this.signupForm.value;
-      if (password == cPassword) {
-        this.authService.signUp(email, password).subscribe({
-          next: _res => {
-            this.handleMsgService.successMessage("User created for " + username, "User Created")
-            this.signupForm.reset();
-            this.router.navigate([''])
-          },
-          error: err => {
-            this.handleMsgService.errorMessage(err, "Error")
-          }
-        })
+      const { cPassword, ...formObj } = this.signupForm.value;
+      if (formObj.password == cPassword) {
+        // this.authService.signUp(email, password).subscribe({
+        //   next: _res => {
+        //     this.handleMsgService.successMessage("User created for " + username, "User Created")
+        //     this.signupForm.reset();
+        //     this.router.navigate([''])
+        //   },
+        //   error: err => {
+        //     this.handleMsgService.errorMessage(err, "Error")
+        //   }
+        // })
+        formObj.role = Role.USER
+        formObj.active = true;
+        this.authService.signUpInFA(formObj)
         this.isLoading = true
         this.hideProgressBar();
       }
@@ -80,3 +84,4 @@ export class SignUpComponent {
   }
 
 }
+

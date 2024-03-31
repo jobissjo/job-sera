@@ -1,26 +1,34 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { AuthResponse } from '../Models/authResponse.model';
+import { AuthResponse, CreateUserModel, ResponseUserModel, TokenResponse } from '../Models/authResponse.model';
 import { UserFireResponse } from '../Models/userFireResponse.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private handleMsgService: HandleMessageService) { }
   private apiKey: string = 'AIzaSyAdkex8qVnKhQBbgl_ehfuOpOCzspBoDrU';
+
+  userFA:ResponseUserModel = {id: '', username:'', email:'', role:'', active:false};
+  userSubFA$ = new BehaviorSubject<ResponseUserModel>(this.userFA);
+
 
   user = new UserFireResponse('dummy@mail.com', '32423', '1234', new Date());
   userSub$ = new BehaviorSubject<UserFireResponse>(this.user);
+
+
   loggedInSub$ = new BehaviorSubject<boolean>(false);
   timeFunctionId: any;
-  currentUserIdSub  = new BehaviorSubject<string>('');
+  currentUserIdSub = new BehaviorSubject<string>('');
 
-  newSignUp(){
-    
+  newSignUp() {
+
   }
   signUp(email: string, password: string) {
     const user = { email: email, password: password, returnSecureToken: true };
@@ -32,6 +40,7 @@ export class AuthService {
           return this.handleCreateUser(res)
         }))
   }
+
 
   signIn(email: string, password: string) {
     const user = { email: email, password: password, returnSecureToken: true };
@@ -119,4 +128,92 @@ export class AuthService {
     return this.loggedInSub$.getValue();
   }
 
+  /// For FastApi Login
+
+  signInFA(email: string, password: string) {
+
+    let username: string = email.split('@')[0]
+    if (!username) {
+      console.warn("username can't find");
+      return
+    }
+    const formData = new HttpParams()
+      .set('grant_type', '')
+      .set('username', username)
+      .set('password', password)
+      .set('scope', '')
+      .set('client_id', '')
+      .set('client_secret', '');
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+
+    this.http.post<TokenResponse>(`${environment.fastApiMainUrl}/token`, formData.toString(), { headers })
+      .subscribe({
+        next: res => {
+          this.storeTokenInLs(res.access_token);
+          this.getCurrentUser(res);
+          this.loggedInSub$.next(true);
+          this.router.navigate(['user'])
+        },
+        error: err => {
+          console.error(err);
+        }
+      });
+  }
+
+  signUpInFA(data: CreateUserModel) {
+
+
+    this.http.post(`${environment.fastApiMainUrl}/users`, data).subscribe({
+      next: res => {
+        console.log(res);
+        this.handleMsgService.successMessage("User Created Successfully", "User Created");
+        this.router.navigate(['auth', 'sign-in']);
+      }
+    })
+  }
+
+  getCurrentUser(headerInfo: TokenResponse) {
+    const headers = new HttpHeaders({
+      'Authorization': `${headerInfo.token_type} ${headerInfo.access_token}`
+    })
+    this.http.get<ResponseUserModel>(`${environment.fastApiMainUrl}/users/me`, { headers: headers }).subscribe({
+      next:res => {
+        console.log(res);
+        this.userSubFA$.next(res);
+        return res;
+      },
+      error:err => {
+        return false;
+      }
+    })
+  }
+
+  storeTokenInLs(token: string) {
+    localStorage.setItem('token', JSON.stringify(token))
+  }
+
+  getTokenInLs() {
+    let localRes = localStorage.getItem('token')
+    if (!localRes) {
+      console.warn("You are not authenticated yet");
+      return;
+    }
+    const token: string = JSON.parse(localRes)
+    return token
+  }
+
+  isEmployerAuthenticated(){
+    let token = this.getTokenInLs()
+    if(token){
+      const myObj:TokenResponse = {access_token :token, token_type: "Bearer"}
+      this.getCurrentUser(myObj)
+    }
+      
+  }
+
 }
+
+
+

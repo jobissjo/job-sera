@@ -14,10 +14,16 @@ export class HeaderComponent {
   constructor(private router:Router, private authService:AuthService){}
 
   ngOnInit(){
-    this.authService.userSub$.subscribe({
+    this.authService.userSubFA$.subscribe({
       next: res => {
-        if (res.email !== 'dummy@mail.com'){
+        if (res.active){
+          console.log("i am here");
+          
           this.isLogin = true;
+        }
+        else{
+          console.log("i am not authenticated");
+          
         }
       }
     })

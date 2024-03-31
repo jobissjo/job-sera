@@ -31,19 +31,20 @@ export class SignInComponent implements OnInit {
 
     if (this.signInForm.valid) {
       const { email, password } = this.signInForm.value;
-      this.authService.signIn(email, password).subscribe({
-        next: (res) => {
-          this.handleMsgService.successMessage("User is successfully logged in", "Login Success");
-          this.router.navigate(['user']);
-          console.log(res);
+      this.authService.signInFA(email, password)
+      // this.authService.signIn(email, password).subscribe({
+      //   next: (res) => {
+      //     this.handleMsgService.successMessage("User is successfully logged in", "Login Success");
+      //     this.router.navigate(['user']);
+      //     console.log(res);
           
 
-        },
-        error: err => {
-          this.handleMsgService.errorMessage(err, "Login Error")
+      //   },
+      //   error: err => {
+      //     this.handleMsgService.errorMessage(err, "Login Error")
 
-        }
-      })
+      //   }
+      // })
       this.isLoading = true;
       this.hideProgressBar()
     }

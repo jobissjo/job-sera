@@ -22,3 +22,7 @@ export const canActivateLogin = () => {
 export const canActivateChildLogin = () => {
     return canActivateLogin()
 }
+
+export const canActivateEmployer = () => {
+    
+}
