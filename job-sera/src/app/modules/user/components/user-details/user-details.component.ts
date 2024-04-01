@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileService } from '../../service/user-profile.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import * as moment from 'moment';
+import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
 
 
 @Component({
@@ -13,7 +14,7 @@ import * as moment from 'moment';
 })
 export class UserDetailsComponent {
 
-  userDetails!: UserDetail;
+  userDetails!: UserProfileModel;
 
   sectionToFocus: string = '';
   constructor(private activeRoute: ActivatedRoute, private router: Router,
@@ -24,7 +25,9 @@ export class UserDetailsComponent {
     //     this.userDetails = res;
     //   }
     // })
-   
+   this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe(res => {
+    this.userDetails = res;
+   })
     this.sectionToFocus = this.activeRoute.snapshot.queryParams['section'];
 
     setTimeout(() => {

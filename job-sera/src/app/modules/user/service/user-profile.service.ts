@@ -19,6 +19,9 @@ export class UserProfileService {
   // currentProfileIdSub$ = new BehaviorSubject<string>('')
   createUserProfile(user: UserProfileModel) {
     let headers = this.getHeader()
+    // headers.set()
+    console.log(headers);
+    
     return this.http.post(`${environment.fastApiMainUrl}/user-profile`, user, {headers:headers}).subscribe((res) => {    
       this.handleMsgService.successMessage(
         "User profile details are successfully update",

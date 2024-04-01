@@ -18,7 +18,9 @@ export class UserComponent implements OnInit {
     private authService: AuthService) { }
   user!: ResponseUserModel;
   ngOnInit() {
-    this.user = this.authService.userSubFA$.getValue()
+    this.authService.userSubFA$.subscribe(res => {
+      this.user = res;
+    })
   }
 
   routeToChangePwd() {

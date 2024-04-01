@@ -27,7 +27,7 @@ export class CompanyDetailService {
     openings: [
       {
         jobTitle: "Data Analyst",
-        companyName: "Data Analytics Co.",
+        company: "Data Analytics Co.",
         experience: "2+ years",
         qualifications: ["Bachelor's degree in Statistics or related field", "Proficiency in SQL and Python"],
         salary: "$60,000 - $80,000",

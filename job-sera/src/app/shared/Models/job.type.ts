@@ -1,6 +1,6 @@
 export interface JobDetails{
     jobTitle:string,
-    companyName:string,
+    company:string,
     experience:string,
     qualifications: string[],
     salary:string,

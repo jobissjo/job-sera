@@ -18,7 +18,8 @@ export class AdditionalInfoComponent {
   platforms:{value:string, viewValue:string}[]= [
     {value:'youtube', viewValue: "YouTube"},
     {value:'facebook', viewValue: 'Facebook'},
-    {value:'googleSearch', viewValue:'Google Search'}
+    {value:'googleSearch', viewValue:'Google Search'},
+    {value:'other', viewValue: 'Other'}
   ]
 
   submitEmit(){

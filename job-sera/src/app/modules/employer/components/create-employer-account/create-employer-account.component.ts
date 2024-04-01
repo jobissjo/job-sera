@@ -1,6 +1,8 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
+import { EmployerService } from '../../services/employer.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-create-employer-account',
@@ -9,11 +11,13 @@ import { MatTabGroup } from '@angular/material/tabs';
 })
 export class CreateEmployerAccountComponent implements OnInit {
   employerForm!: FormGroup;
+  updateMode : boolean = false;
   personalInformation!: FormGroup;
   companyInformation!: FormGroup;
   additionalInformation!: FormGroup;
   @ViewChild('tabGroup') tabGroup !:MatTabGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private employerService:EmployerService,
+    private authService:AuthService) {
 
   }
 
@@ -59,6 +63,19 @@ export class CreateEmployerAccountComponent implements OnInit {
     this.personalInformation = <FormGroup>this.employerForm.get('personalInformation');
     this.companyInformation = <FormGroup>this.employerForm.get('companyInformation');
     this.additionalInformation = <FormGroup>this.employerForm.get('additionalInformation');
+
+    this.employerService.getEmployerById(this.authService.currentUserIdSub.getValue()).subscribe({
+      next: res => {
+        this.updateMode = true;
+      },
+      error: err => {
+        this.updateMode = false;
+      }
+    })
+  }
+
+  updateEmployerForm(){
+    
   }
 
   goToNextTab(tabLabel:string){

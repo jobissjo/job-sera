@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { EmployerProfileType } from '../Models/employer.model';
+import { AuthService } from '../../auth/services/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployerService {
 
-  constructor() { }
+  constructor(private authService:AuthService, private http:HttpClient) { }
   private employer: EmployerProfileType = {
     personalInformation: {
       firstName: 'John',
@@ -46,6 +49,20 @@ export class EmployerService {
 
   getEmployer(){
     return this.employer;
+  }
+
+  getEmployerById(id:string){
+    let headers = this.getHeader();
+    return this.http.get(`${environment.fastApiMainUrl}/employer/${id}`, {headers})
+  }
+
+  private getHeader(){
+    let token = this.authService.getTokenInLs()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return headers
   }
 
 }
