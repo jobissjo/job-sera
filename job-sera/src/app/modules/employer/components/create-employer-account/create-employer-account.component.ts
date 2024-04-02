@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
 import { EmployerService } from '../../services/employer.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { CreateEmployerProfile } from 'src/app/shared/Models/employer.types';
 
 @Component({
   selector: 'app-create-employer-account',
@@ -64,8 +65,9 @@ export class CreateEmployerAccountComponent implements OnInit {
     this.companyInformation = <FormGroup>this.employerForm.get('companyInformation');
     this.additionalInformation = <FormGroup>this.employerForm.get('additionalInformation');
 
-    this.employerService.getEmployerById(this.authService.currentUserIdSub.getValue()).subscribe({
-      next: res => {
+    this.authService.isAuthenticated() && this.employerService.getEmployerById(this.authService.currentUserIdSub.getValue()).subscribe({
+      next: res => { 
+        // res.hasOwnProperty
         this.updateMode = true;
       },
       error: err => {
@@ -96,7 +98,13 @@ export class CreateEmployerAccountComponent implements OnInit {
 
   onFormSubmit(){
     
-    console.log("Form Submitted",this.employerForm.value);
+    let employerValue : CreateEmployerProfile = this.employerForm.value
+
+    if(this.employerForm.valid){
+      if (employerValue.personalInformation.password == employerValue.personalInformation.cPassword){
+        
+      }
+    }
     
   }
 }

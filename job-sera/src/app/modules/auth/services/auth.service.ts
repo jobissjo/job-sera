@@ -167,11 +167,17 @@ export class AuthService {
   signUpInFA(data: CreateUserModel) {
 
 
-    this.http.post(`${environment.fastApiMainUrl}/users`, data).subscribe({
+    return this.http.post<ResponseUserModel>(`${environment.fastApiMainUrl}/users`, data).subscribe({
       next: res => {
         console.log(res);
         this.handleMsgService.successMessage("User Created Successfully", "User Created");
-        this.router.navigate(['auth', 'sign-in']);
+        if (res.role == "user"){
+          this.router.navigate(['auth', 'sign-in']);
+        }
+        else{
+          this.currentUserIdSub.next(res.id)
+        }
+        
       }
     })
   }
