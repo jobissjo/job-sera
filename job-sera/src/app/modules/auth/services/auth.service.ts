@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 import { CreateUserModel, ResponseUserModel, TokenResponse } from 'src/app/shared/Models/auth.types';
+import { Role } from '../Models/Enums';
 
 @Injectable({
   providedIn: 'root'
@@ -155,8 +156,19 @@ export class AuthService {
           this.storeTokenInLs(res.access_token);
           this.getCurrentUser(res);
           this.loggedInSub$.next(true);
-          this.router.navigate(['user']);
+          console.log(Role.EMPLOYER, Role.USER, this.userSubFA$.getValue());
           
+          setTimeout(()=> {
+            if (this.userSubFA$.getValue().role == 'user'){
+              console.log("user");
+              this.router.navigate(['user']);
+            }
+            else if(this.userSubFA$.getValue().role == 'employer'){
+              console.log("success");
+              
+              this.router.navigate(['employer', 'profile']);
+            }
+          }, 1000)
         },
         error: err => {
           console.error(err);
@@ -165,21 +177,23 @@ export class AuthService {
   }
 
   signUpInFA(data: CreateUserModel) {
+    console.log(data);
+    
 
-
-    return this.http.post<ResponseUserModel>(`${environment.fastApiMainUrl}/users`, data).subscribe({
-      next: res => {
-        console.log(res);
-        this.handleMsgService.successMessage("User Created Successfully", "User Created");
-        if (res.role == "user"){
-          this.router.navigate(['auth', 'sign-in']);
-        }
-        else{
-          this.currentUserIdSub.next(res.id)
-        }
+    return this.http.post<ResponseUserModel>(`${environment.fastApiMainUrl}/users`, data)
+    // .subscribe({
+    //   next: res => {
+    //     console.log(res);
+    //     this.handleMsgService.successMessage("User Created Successfully", "User Created");
+    //     if (res.role == "user"){
+    //       this.router.navigate(['auth', 'sign-in']);
+    //     }
+    //     else{
+    //       this.currentUserIdSub.next(res.id)
+    //     }
         
-      }
-    })
+    //   }
+    // })
   }
 
   getCurrentUser(headerInfo: TokenResponse) {

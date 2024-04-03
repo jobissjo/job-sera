@@ -102,7 +102,7 @@ export class CreateEmployerAccountComponent implements OnInit {
 
     if(this.employerForm.valid){
       if (employerValue.personalInformation.password == employerValue.personalInformation.cPassword){
-        
+        this.employerService.createEmployer(employerValue)
       }
     }
     

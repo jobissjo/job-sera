@@ -50,7 +50,15 @@ export class SignUpComponent {
         // })
         formObj.role = Role.USER
         formObj.active = true;
-        this.authService.signUpInFA(formObj)
+        this.authService.signUpInFA(formObj).subscribe({
+          next:res => {
+            this.router.navigate(['auth', 'sign-in']);
+          },
+          error:err => {
+            console.warn(err);
+            
+          }
+        })
         this.isLoading = true
         this.hideProgressBar();
       }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { EmployerService } from '../../services/employer.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-login-employer',
@@ -8,7 +10,7 @@ import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 })
 export class LoginEmployerComponent {
   
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder, private authSer:AuthService){}
   loginEmployerForm!:FormGroup;
 
   ngOnInit(){
@@ -18,6 +20,9 @@ export class LoginEmployerComponent {
     })
   }
   login(){
-
+    if(this.loginEmployerForm.valid){
+      const {email, password}= this.loginEmployerForm.value
+      this.authSer.signInFA(email, password)
+    }
   }
 }

@@ -53,7 +53,7 @@ export class EmployerService {
     return this.employer;
   }
 
-  splitForCreateAccEMployer(profile: CreateEmployerProfile){
+  private splitForCreateAccEMployer(profile: CreateEmployerProfile){
     const {personalInformation, companyInformation, additionalInformation} = profile;
     // delete personalInformation.cPassword
     const {cPassword, password,...modifiedPersonalInfo} = personalInformation;
@@ -65,15 +65,41 @@ export class EmployerService {
       password: password
     }
 
-    this.authService.signUpInFA(createUserModel)
-    const newEmployerInfo:EmployerProfile = {personalInformation:modifiedPersonalInfo, companyInformation, additionalInformation}
+    this.authService.signUpInFA(createUserModel).subscribe({
+      next:res =>{
+        console.log(res);
+        this.authService.signInFA(modifiedPersonalInfo.email, password)
+        setTimeout(()=> {
+          const newEmployerInfo:EmployerProfile = {employer_id:res.id, 
+            personalInformation:modifiedPersonalInfo, 
+            companyInformation, additionalInformation
+          }
+          this.createEmployerAcc(newEmployerInfo)
+        },2000)
+      },
+      error:err =>{
+        console.warn(err);
+        
+      }
+    })
+    
+  }
+
+  private  createEmployerAcc(profile:EmployerProfile){
+    let headers = this.getHeader();
+    console.log("headers", headers);
+    console.log("profile", profile);
+    
+    
+    return this.http.post(`${environment.fastApiMainUrl}/employer/`, profile, {headers:headers}).subscribe(res =>{
+      console.log(res);
+      
+    })
   }
 
   createEmployer(profile:CreateEmployerProfile){
-    let headers = this.getHeader();
-    this.splitForCreateAccEMployer(profile)
-    const {employerObj} = {employerObj:'asdf'}
-    // this.http.post<ResponseEmployerProfile>(`${environment.fastApiMainUrl}/employer`,employerObj ,{headers})
+    
+    return this.splitForCreateAccEMployer(profile)
   }
 
   getEmployerById(id:string){
