@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CreateEmployerProfile, EmployerProfile, ResponseEmployerProfile } from 'src/app/shared/Models/employer.types';
 import { CreateUserModel } from 'src/app/shared/Models/auth.types';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -104,7 +105,18 @@ export class EmployerService {
 
   getEmployerById(id:string){
     let headers = this.getHeader();
-    return this.http.get<ResponseEmployerProfile>(`${environment.fastApiMainUrl}/employer/${id}`, {headers})
+    return this.http.get<ResponseEmployerProfile>(`${environment.fastApiMainUrl}/employer/${id}`, {headers}).pipe(map((res)=> {
+      const {employer_id,personalInformation,companyInformation,additionalInformation} = res;
+
+      const correctedRes:EmployerProfile = {
+        employer_id,
+        personalInformation:personalInformation[0],
+        companyInformation:companyInformation[0],
+        additionalInformation:additionalInformation[0]
+      }
+
+      return correctedRes;
+    }))
   }
 
   private getHeader(){

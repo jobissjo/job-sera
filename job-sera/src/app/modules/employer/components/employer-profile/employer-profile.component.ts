@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { EmployerProfileType } from '../../Models/employer.model';
 import { EmployerService } from '../../services/employer.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { EmployerProfile } from 'src/app/shared/Models/employer.types';
 
 @Component({
   selector: 'app-employer-profile',
@@ -8,11 +9,32 @@ import { EmployerService } from '../../services/employer.service';
   styleUrls: ['./employer-profile.component.scss']
 })
 export class EmployerProfileComponent {
-  employer!:EmployerProfileType;
-  constructor(private employerService:EmployerService){
+  employer!:EmployerProfile;
+  constructor(private employerService:EmployerService, private authService:AuthService){
 
   }
   ngOnInit(){
-    this.employer = this.employerService.getEmployer()
+    // this.employer = this.employerService.getEmployer()
+    let employer_id = this.authService.currentUserIdSub.getValue()
+    this.employerService.getEmployerById(employer_id).subscribe({
+      next: res => {
+        this.employer = res;
+        console.log(res);
+        
+        
+      },
+      error: err => {
+        console.log(err);
+        
+      }
+    })
+  }
+
+  redirectToCreateJob(){
+    
+  }
+
+  logout(){
+    
   }
 }

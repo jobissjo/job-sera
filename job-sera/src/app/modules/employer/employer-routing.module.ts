@@ -5,13 +5,14 @@ import { CreateEmployerAccountComponent } from './components/create-employer-acc
 import { LoginEmployerComponent } from './components/login-employer/login-employer.component';
 import { CreateJobComponent } from './components/create-job/create-job.component';
 import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
+import { canActivateEmployer } from 'src/app/shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: EmployerComponent },
   { path: 'create-employer', component: CreateEmployerAccountComponent },
   { path: 'login-employer', component: LoginEmployerComponent },
-  { path: 'profile', component: EmployerProfileComponent},
-  { path: 'create-job', component: CreateJobComponent },
+  { path: 'profile', component: EmployerProfileComponent, canActivate:[canActivateEmployer]},
+  { path: 'create-job', component: CreateJobComponent , canActivate:[canActivateEmployer]},
 
 ];
 

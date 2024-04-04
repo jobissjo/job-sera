@@ -1,26 +1,53 @@
-<mat-card>
-    <mat-card-header>
-      <mat-card-title>User Details</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div>
-        <p><strong>Personal Information:</strong></p>
-        <p>First Name: {{ employer.personalInformation.firstName }}</p>
-        <p>Last Name: {{ employer.personalInformation.lastName }}</p>
-        <p>Username: {{ employer.personalInformation.username }}</p>
-        <!-- Add other personal information fields -->
-      </div>
-      <div>
-        <p><strong>Company Information:</strong></p>
-        <p>Company Name: {{ employer.companyInformation.companyName }}</p>
-        <p>Industry: {{ employer.companyInformation.industry }}</p>
-        <!-- Add other company information fields -->
-      </div>
-      <div>
-        <p><strong>Additional Information:</strong></p>
-        <p>Hear About Us: {{ employer.additionalInformation.hearAboutUs }}</p>
-        <!-- Add other additional information fields -->
-      </div>
-    </mat-card-content>
-  </mat-card>
-  
+<div class="employer-dashboard">
+  <div class="dashboard-options">
+    <h3>Dashboard</h3>
+    <ul>
+      <li><a routerLink="/employer/profile">Profile</a></li>
+      <li><a routerLink="/employer/create-job">Create Job</a></li>
+      <li><a routerLink="/employer/job-applications">Job Applications</a></li>
+      <li><a routerLink="/employer/job-openings">Job Details</a></li>
+      <li><a routerLink="/employer/create-company">Create Company</a></li>
+      <li><a routerLink="/employer/notification">Notifications</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+      <!-- Add more options as needed -->
+    </ul>
+  </div>
+  <div class="employer-profile">
+    <mat-card class="employer-profile-card" *ngIf="employer;else loader">
+      <mat-card-header>
+        <mat-card-title>Employer Profile</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="user-pic">
+          <img src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="Anonymous User Icon">
+        </div>
+        <div class="personal-information">
+          <p><strong>Personal Information:</strong></p>
+          <p>{{employer.personalInformation.firstName}} {{employer.personalInformation.lastName}}</p>
+          <p>Username: {{employer.personalInformation.username}}</p>
+          <p>Email: {{employer.personalInformation.email}}</p>
+          <p>PhoneNumber: {{employer.personalInformation.phoneNumber}}</p>
+          <p>Position: {{employer.personalInformation.position}}</p>
+          <p>socialMediaLink: {{employer.personalInformation.socialMediaLink}}</p>
+          <!-- Add other personal information fields -->
+        </div>
+        <div class="company-information">
+          <p><strong>Company Information:</strong></p>
+          <p>Company Name: {{employer.companyInformation.companyName}}</p>
+          <p>Industry: {{employer.companyInformation.industry}}</p>
+          <p>Website: {{employer.companyInformation.companyWebsite}}</p>
+          <p>website: {{employer.companyInformation.companyWebsite}}</p>
+          <!-- Add other company information fields -->
+        </div>
+        <div class="additional-information">
+          <p><strong>Additional Information:</strong></p>
+          <p>Hear About Us: {{employer.additionalInformation.hearAboutUs}}</p>
+          <!-- Add other additional information fields -->
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <ng-template #loader>
+      <mat-spinner></mat-spinner>
+    </ng-template>
+  </div>
+</div>

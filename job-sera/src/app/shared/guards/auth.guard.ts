@@ -24,5 +24,15 @@ export const canActivateChildLogin = () => {
 }
 
 export const canActivateEmployer = () => {
-    
+    const authService = inject(AuthService);
+    const handleMsgService = inject(HandleMessageService);
+    const router = inject(Router);
+
+    if(authService.isEmployerLoggedIn()){
+        return true;
+    }else {
+        router.navigate(['employer/login-employer']);
+        handleMsgService.warningMessage("Access Denied to this page", "Employer Login Required")
+        return false;
+    }
 }

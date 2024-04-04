@@ -12,6 +12,10 @@ import { AdditionalInfoComponent } from './components/additional-info/additional
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateJobComponent } from './components/create-job/create-job.component';
 import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
+import { JobApplicationsComponent } from './components/job-applications/job-applications.component';
+import { JobOpeningsComponent } from './components/job-openings/job-openings.component';
+import { CreateCompanyComponent } from './components/create-company/create-company.component';
+import { EmployerNotificationComponent } from './components/employer-notification/employer-notification.component';
 
 
 @NgModule({
@@ -24,6 +28,10 @@ import { EmployerProfileComponent } from './components/employer-profile/employer
     AdditionalInfoComponent,
     CreateJobComponent,
     EmployerProfileComponent,
+    JobApplicationsComponent,
+    JobOpeningsComponent,
+    CreateCompanyComponent,
+    EmployerNotificationComponent,
   ],
   imports: [
     CommonModule,

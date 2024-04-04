@@ -127,7 +127,11 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.loggedInSub$.getValue();
+    return this.userSubFA$.getValue().role == 'user';
+  }
+
+  isEmployerLoggedIn(){
+    return this.userSubFA$.getValue().role == 'employer';
   }
 
   /// For FastApi Login
