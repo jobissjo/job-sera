@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class HeaderComponent {
   isLogin:boolean = false;
+  isEmployerLogin:boolean = false;
   notificationCount:number = 5;
   @ViewChild('mainTitle') mainTitle!:ElementRef<HTMLSpanElement>
   constructor(private router:Router, private authService:AuthService){}
@@ -18,8 +19,13 @@ export class HeaderComponent {
       next: res => {
         if (res.active){
           console.log("i am here");
+          if(res.role == 'employer'){
+            this.isEmployerLogin = true;
+          }
+          else{
+            this.isLogin = true;
+          }
           
-          this.isLogin = true;
         }
         else{
           console.log("i am not authenticated");
