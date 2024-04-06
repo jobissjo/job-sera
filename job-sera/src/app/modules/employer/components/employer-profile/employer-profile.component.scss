@@ -66,3 +66,9 @@
 .additional-information p {
   margin: 5px 0;
 }
+
+.listitem{
+  &:hover{
+    background-color: #333;
+  }
+}

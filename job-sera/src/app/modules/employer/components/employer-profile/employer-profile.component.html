@@ -1,7 +1,7 @@
 <div class="employer-dashboard">
   <div class="dashboard-options">
     <h3>Dashboard</h3>
-    <ul>
+    <!-- <ul>
       <li><a routerLink="/employer/profile">Profile</a></li>
       <li><a routerLink="/employer/create-job">Create Job</a></li>
       <li><a routerLink="/employer/job-applications">Job Applications</a></li>
@@ -9,8 +9,22 @@
       <li><a routerLink="/employer/create-company">Create Company</a></li>
       <li><a routerLink="/employer/notification">Notifications</a></li>
       <li><a (click)="logout()">Logout</a></li>
-      <!-- Add more options as needed -->
-    </ul>
+    
+    </ul> -->
+
+    <mat-list role="list">
+      <mat-list-item role="listitem"><a routerLink="/employer/profile">Profile</a></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem"><a routerLink="/employer/create-job">Create Job</a></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem"><a routerLink="/employer/job-applications">Job Applications</a></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem"><a routerLink="/employer/create-company">Create Company</a></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item role="listitem"><a routerLink="/employer/notification">Notifications</a></mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    
   </div>
   <div class="employer-profile">
     <mat-card class="employer-profile-card" *ngIf="employer;else loader">

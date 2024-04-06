@@ -22,6 +22,15 @@ export class JobSearchService {
     })
   }
 
+  createJob(){
+    this.http.post(`${environment.fastApiMainUrl}/jobs/`, {},{}).subscribe({
+      next:res => {
+        console.log(res);
+        
+      }
+    })
+  }
+
   onClickedJob() {
 
   }
