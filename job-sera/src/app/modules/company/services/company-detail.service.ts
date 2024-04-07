@@ -34,6 +34,7 @@ export class CompanyDetailService {
         location: "New York, NY",
         jobType: "Full-time",
         shift: "Day",
+        skills:['django','dfs'],
         description: ["We are looking for a skilled Data Analyst to join our team.", "The ideal candidate will have experience with data visualization and analysis."],
     },
     

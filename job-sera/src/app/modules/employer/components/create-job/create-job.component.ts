@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { JobSearchService } from 'src/app/modules/home/services/job-search.service';
+import { JobDetails } from 'src/app/shared/Models/job.type';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+// import { EmployerService } from '../../services/employer.service';
 
 @Component({
   selector: 'app-create-job',
@@ -15,7 +20,9 @@ export class CreateJobComponent {
   responsibilityArray!:FormArray;
   descriptionArray!:FormArray;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private authService:AuthService,
+    private jobService:JobSearchService, private handleMsgService:HandleMessageService
+  ) {
     this.createJobForm = this._formBuilder.group({
       jobTitle: ['', [Validators.required]],
       company: ['', [Validators.required]],
@@ -23,25 +30,38 @@ export class CreateJobComponent {
       description: this._formBuilder.array([]),
       shift:[''],
       jobType:[''],
-      salary: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      salary: ['', [Validators.required]],
       experience:['', Validators.required],
-      qualification: this._formBuilder.array([]),
+      qualifications: this._formBuilder.array([]),
       skills: this._formBuilder.array([]),
       responsibilities:this._formBuilder.array([]),
     });
   }
-
+// responsibilities
   ngOnInit(){
-    this.qualificationArray = <FormArray> this.createJobForm.get('qualification');
+    this.qualificationArray = <FormArray> this.createJobForm.get('qualifications');
     this.skillsArray = <FormArray> this.createJobForm.get('skills')
     this.responsibilityArray = <FormArray> this.createJobForm.get('responsibilities');
     this.descriptionArray = <FormArray> this.createJobForm.get('description');
   }
 
   onCreateJobSubmit(){
-    console.log(this.createJobForm.value);
+    debugger
+    console.log(this.createJobForm.value,
+       this.createJobForm.valid, this.createJobForm);
     if(this.createJobForm.valid){
+
       console.log("Form is valid");
+      let employerId:string = this.authService.currentUserIdSub.getValue();
+      console.log(employerId);
+      
+      if(!employerId){
+        this.handleMsgService.warningMessage("Not getting a employer id, make sure you logged in","Unknown Error")
+        return;
+      }
+      const jobPost : JobDetails = {...this.createJobForm.value, employerId:employerId};
+
+      this.jobService.createJob(jobPost)
       
     }
   }

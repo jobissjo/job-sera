@@ -1,0 +1,48 @@
+.job-postings {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .job-details {
+    width: 50%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+  }
+  
+  .job-details h2 {
+    margin-top: 0;
+  }
+  
+  .details {
+    margin-bottom: 20px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .actions button {
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .job-details {
+      width: 90%;
+    }
+  }
+  

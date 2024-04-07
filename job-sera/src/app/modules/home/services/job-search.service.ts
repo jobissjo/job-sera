@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JobDetails } from 'src/app/shared/Models/job.type';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, of } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -22,13 +22,21 @@ export class JobSearchService {
     })
   }
 
-  createJob(){
-    this.http.post(`${environment.fastApiMainUrl}/jobs/`, {},{}).subscribe({
+  createJob(data:JobDetails){
+    console.log("job detail", data);
+    
+    let headers = this.getHeader();
+    this.http.post(`${environment.fastApiMainUrl}/jobs/`, data,{headers:headers}).subscribe({
       next:res => {
         console.log(res);
         
       }
     })
+  }
+
+  getJobsByEmployerId(employerId:string){
+    let headers = this.getHeader();
+    return this.http.get<JobDetails[]>(`${environment.fastApiMainUrl}/jobs/employer/${employerId}`, {headers:headers})
   }
 
   onClickedJob() {
@@ -37,5 +45,14 @@ export class JobSearchService {
 
   onSelectedJob(jobDetails:JobDetails){
     this.selectedJobObs$.next(jobDetails);
+  }
+
+  private getHeader(){
+    let token = this.authService.getTokenInLs()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return headers
   }
 }

@@ -65,4 +65,7 @@ export class HeaderComponent {
   clickToUser():void{
     this.router.navigate(['user'])
   }
+  onClickLogout(){
+    this.authService.signOutInFA()
+  }
 }

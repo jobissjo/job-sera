@@ -88,6 +88,17 @@ export class AuthService {
     }
   }
 
+  signOutInFA() {
+    this.loggedInSub$.next(false);
+
+    localStorage.removeItem('token');
+    this.router.navigate([''])
+
+    // if (this.timeFunctionId) {
+    //   clearTimeout(this.timeFunctionId)
+    // }
+  }
+
   private handleCreateUser(res: AuthResponse) {
     const expiresInTs = new Date().getTime() + res.expiresIn * 1000;
     const expiresIn = new Date(expiresInTs);

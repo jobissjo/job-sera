@@ -8,20 +8,22 @@ export interface JobDetails {
     jobType: string,
     shift: string,
     description: string[],
-    additionalDetails?: string[]
+    additionalDetails?: string[];
+    skills:string[]
+    employerId?: string;
 }
 
-interface JobPosting {
-    jobTitle: string;
-    company: string;
-    location: string;
-    description: string[];
-    salary: string;
-    shift: string;
-    jobType: string;
-    experience: string;
-    qualifications: string[];
-    additionalDetails: string[];
-    skills:string[]
-    employerId: string;
-}
+// interface JobPosting {
+//     jobTitle: string;
+//     company: string;
+//     location: string;
+//     description: string[];
+//     salary: string;
+//     shift: string;
+//     jobType: string;
+//     experience: string;
+//     qualifications: string[];
+//     additionalDetails: string[];
+//     skills:string[]
+//     employerId: string;
+// }

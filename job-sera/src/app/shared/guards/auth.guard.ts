@@ -31,8 +31,8 @@ export const canActivateEmployer = () => {
     if(authService.isEmployerLoggedIn()){
         return true;
     }else {
-        // router.navigate(['employer/login-employer']);
-        // handleMsgService.warningMessage("Access Denied to this page", "Employer Login Required")
-        return true;
+        router.navigate(['employer/login-employer']);
+        handleMsgService.warningMessage("Access Denied to this page", "Employer Login Required")
+        return false;
     }
 }
