@@ -11,7 +11,10 @@
           </mat-form-field>
       
           <div class="file-input">
-            <input type="file" (change)="onFileSelected($event)" #fileInput hidden>
+            <div class="file-label">
+              <label for="file">Resume</label>
+            </div>
+            <input class="file" type="file" (change)="onFileSelected($event)" #fileInput hidden>
             <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
             <span>{{ fileName }}</span>
           </div>
@@ -28,11 +31,18 @@
           <div>
             <mat-form-field appearance="fill" class="form-filed"> 
                 <mat-label>Cover Letter</mat-label>
-                <textarea placeholder="write something" matInput formControlName="coverLetter"></textarea>
+                <textarea placeholder="write something ..." matInput formControlName="coverLetter"></textarea>
+              </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field appearance="fill" class="form-filed"> 
+                <mat-label>Please list 2-3 dates and time ranges that you could do an interview</mat-label>
+                <textarea placeholder="12 Feb (10am), 14 Feb (2pm)" matInput formControlName="interviewDates"></textarea>
               </mat-form-field>
           </div>
       
-          <button mat-raised-button color="primary" type="submit" [disabled]="jobApplicationForm.invalid">Submit</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="jobApplicationForm.invalid">Continue</button>
         </form>
       </div>
       

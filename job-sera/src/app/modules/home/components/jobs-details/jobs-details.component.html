@@ -3,11 +3,11 @@
     <div class="title-row">
       <h1>{{ selectedJob.jobTitle }}</h1>
       <div>
-        <button mat-icon-button color="primary">
+        <button mat-icon-button (click)="onClickSaved(bookmarkBtn)" #bookmarkBtn>
           <mat-icon aria-label="Edit">bookmark</mat-icon>
         </button>
-        <button mat-icon-button color="warn">
-          <mat-icon aria-label="Delete">block</mat-icon>
+        <button mat-icon-button (click)="onClickBlock(blockBtn)" #blockBtn>
+          <mat-icon aria-label="block">block</mat-icon>
         </button>
       </div>
     </div>

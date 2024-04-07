@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     // align-items: center;
-    height: 100vh;
+    min-height: 80vh;
+    margin: 5px;
   }
   
   .job-application {
@@ -35,3 +36,6 @@
     width: 100% !important;
   }
   
+.file-label{
+  margin-right: 1rem;
+}

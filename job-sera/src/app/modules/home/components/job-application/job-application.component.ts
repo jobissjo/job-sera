@@ -18,11 +18,13 @@ export class JobApplicationComponent {
       resume: [null, Validators.required],
       highQualification: ['', Validators.required],
       experience: [0, Validators.required],
-      coverLetter: ['', Validators.required]
+      coverLetter: ['',],
+      interviewDates:['']
     });
   }
   submitJobApplication(){
-
+    console.log(this.jobApplicationForm.value);
+    
   }
 
   onFileSelected(event: any) {

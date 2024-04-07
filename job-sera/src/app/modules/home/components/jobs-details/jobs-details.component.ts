@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, inject } from '@angular/core';
 import { JobDetails } from 'src/app/shared/Models/job.type';
 import { JobSearchService } from '../../services/job-search.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatButton, MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-jobs-details',
@@ -28,5 +29,12 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
 
   goToJobApplicationPage(){
     this.route.navigate(['job-application'])
+  }
+
+  onClickBlock(iconButton:MatIconButton){
+    iconButton.color = 'warn'
+  }
+  onClickSaved(bookmarkBtn:MatIconButton){
+    bookmarkBtn.color = 'primary'
   }
 }

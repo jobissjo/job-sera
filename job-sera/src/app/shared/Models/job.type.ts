@@ -13,6 +13,20 @@ export interface JobDetails {
     employerId?: string;
 }
 
+export interface JobApplicationAns {
+    ableToCommute: boolean;
+    resume: File; // Specify the type as File
+    highQualification: string;
+    experience: number;
+    coverLetter: string;
+    interviewDates: string;
+  }
+export interface JobApplication extends JobApplicationAns{
+  name:string,
+  phoneNumber:string,
+  email:string,
+  
+}
 // interface JobPosting {
 //     jobTitle: string;
 //     company: string;

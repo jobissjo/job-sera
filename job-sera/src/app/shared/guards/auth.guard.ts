@@ -14,7 +14,7 @@ export const canActivateLogin = () => {
         return true;
     } else {
         router.navigate(['auth/sign-in']);
-        handleMsgService.warningMessage("Access Denied to this page", "Login Required")
+        handleMsgService.warningMessage("Access Denied to this page, login required for this page", "Login Required")
         return false;
     }
 }
