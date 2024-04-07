@@ -90,7 +90,7 @@ export class AuthService {
 
   signOutInFA() {
     this.loggedInSub$.next(false);
-
+    this.userSubFA$.next(this.userFA)
     localStorage.removeItem('token');
     this.router.navigate([''])
 

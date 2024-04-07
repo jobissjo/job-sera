@@ -5,7 +5,7 @@
   <!-- <button mat-button (click)="routeToJobs()">Jobs</button> -->
   
   <span class="example-spacer"></span>
-  <button *ngIf="!isEmployerLogin" mat-icon-button class="notification-icon" aria-label="Notification-icon"
+  <button *ngIf="isLogin && !isEmployerLogin" mat-icon-button class="notification-icon" aria-label="Notification-icon"
    (click)="routeToNotification()" >
     <mat-icon [matBadge]="notificationCount" matBadgeColor="primary" aria-hidden="false" >notifications</mat-icon>
   </button>

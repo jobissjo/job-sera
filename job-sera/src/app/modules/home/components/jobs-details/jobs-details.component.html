@@ -1,6 +1,17 @@
 <div class="job-details-conatiner">
   <div class="job-details" *ngIf="selectedJob; else noSelectedJob">
-    <h1>{{ selectedJob.jobTitle }}</h1>
+    <div class="title-row">
+      <h1>{{ selectedJob.jobTitle }}</h1>
+      <div>
+        <button mat-icon-button color="primary">
+          <mat-icon aria-label="Edit">bookmark</mat-icon>
+        </button>
+        <button mat-icon-button color="warn">
+          <mat-icon aria-label="Delete">block</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
     <p>{{ selectedJob.company }}</p>
     <p>{{ selectedJob.salary }}</p>
     <p>{{ selectedJob.location }}</p>
@@ -21,6 +32,16 @@
     <ul>
       <li *ngFor="let detail of selectedJob.additionalDetails">{{ detail }}</li>
     </ul>
+    <mat-divider></mat-divider>
+    <div class="job-detail-footer" >
+      <button mat-stroked-button color="primary" (click)="goToJobApplicationPage()">
+        Apply Now
+      </button>
+      <button mat-stroked-button >
+        <mat-icon color="warn" mat-icon-button aria-label="Delete">flag</mat-icon>
+        report job
+      </button>
+    </div>
   </div>
   
 <ng-template #noSelectedJob>

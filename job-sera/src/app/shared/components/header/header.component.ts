@@ -29,7 +29,8 @@ export class HeaderComponent {
         }
         else{
           console.log("i am not authenticated");
-          
+          this.isLogin = false;
+          this.isEmployerLogin = false;
         }
       }
     })

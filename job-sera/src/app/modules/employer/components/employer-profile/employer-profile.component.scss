@@ -26,8 +26,15 @@
   color: #333;
 }
 
-.dashboard-options ul li a:hover {
+.dashboard-options {
   color: #007bff;
+  a{
+    text-decoration: none;
+
+    &:hover{
+      background-color: #333;
+    }
+  }
 }
 
 .employer-profile {
@@ -67,8 +74,11 @@
   margin: 5px 0;
 }
 
-.listitem{
+.mat-list-item{
   &:hover{
     background-color: #333;
   }
+}
+.dashboard-options{
+  
 }

@@ -9,6 +9,7 @@ import { JobsDetailsComponent } from './components/jobs-details/jobs-details.com
 import { JobSearchComponent } from './components/job-search/job-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { JobApplicationComponent } from './components/job-application/job-application.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AngularMaterialModule } from 'src/app/shared/module/angular-material/an
     HomeComponent,
     JobsListComponent,
     JobsDetailsComponent,
-    JobSearchComponent
+    JobSearchComponent,
+    JobApplicationComponent
   ],
   imports: [
     CommonModule,

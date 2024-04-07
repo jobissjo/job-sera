@@ -1,0 +1,39 @@
+<div class="job-application-container">
+    <div class="job-application">
+        <h1>Job Application</h1>
+        <form [formGroup]="jobApplicationForm" (ngSubmit)="submitJobApplication()">
+          <mat-form-field appearance="fill" class="form-filed">
+            <mat-label>Are you able to commute to work in person?</mat-label>
+            <mat-select formControlName="ableToCommute" >
+              <mat-option value="true">Yes</mat-option>
+              <mat-option value="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+          <div class="file-input">
+            <input type="file" (change)="onFileSelected($event)" #fileInput hidden>
+            <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+            <span>{{ fileName }}</span>
+          </div>
+          <mat-form-field appearance="fill" class="form-filed">
+            <mat-label>Highest Qualification</mat-label>
+            <input placeholder="bachelor" matInput formControlName="highQualification">
+          </mat-form-field>
+          <div>
+          <mat-form-field appearance="fill" class="form-filed">
+            <mat-label>Years of Experience</mat-label>
+            <input placeholder="1" type="number" matInput formControlName="experience">
+          </mat-form-field>
+        </div>
+          <div>
+            <mat-form-field appearance="fill" class="form-filed"> 
+                <mat-label>Cover Letter</mat-label>
+                <textarea placeholder="write something" matInput formControlName="coverLetter"></textarea>
+              </mat-form-field>
+          </div>
+      
+          <button mat-raised-button color="primary" type="submit" [disabled]="jobApplicationForm.invalid">Submit</button>
+        </form>
+      </div>
+      
+</div>
