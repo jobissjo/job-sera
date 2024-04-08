@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/shared/service/utils.service';
 
 @Component({
   selector: 'app-job-application',
@@ -10,7 +12,7 @@ export class JobApplicationComponent {
 
   jobApplicationForm!: FormGroup;
   fileName: string = '';
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router:Router, private utilService:UtilsService) { }
 
   ngOnInit(): void {
     this.jobApplicationForm = this.fb.group({
@@ -23,7 +25,12 @@ export class JobApplicationComponent {
     });
   }
   submitJobApplication(){
-    console.log(this.jobApplicationForm.value);
+    if(this.jobApplicationForm.valid){
+      this.router.navigate(['job-application','review']);
+      setTimeout(()=> {
+        this.utilService.onSubmitAnswer(this.jobApplicationForm.value)
+      }, 300)
+    }
     
   }
 

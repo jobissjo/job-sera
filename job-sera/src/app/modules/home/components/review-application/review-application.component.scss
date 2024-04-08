@@ -1,0 +1,43 @@
+.job-application-review {
+    max-width: 600px;
+    margin: 0 auto;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .title-row{
+        display: flex;
+        justify-content: space-between;
+    }
+  
+    .applicant-details,
+    .application-answers {
+      margin-bottom: 30px;
+  
+      h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        margin-bottom: 5px;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+
+  .spinner-container {
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    // don't add align-item , i don't want
+    // align-items: center;
+  }

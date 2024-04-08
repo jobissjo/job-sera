@@ -1,31 +1,31 @@
 export interface JobDetails {
-    jobTitle: string,
-    company: string,
-    experience: string,
-    qualifications: string[],
-    salary: string,
-    location: string,
-    jobType: string,
-    shift: string,
-    description: string[],
-    additionalDetails?: string[];
-    skills:string[]
-    employerId?: string;
+  jobTitle: string,
+  company: string,
+  experience: string,
+  qualifications: string[],
+  salary: string,
+  location: string,
+  jobType: string,
+  shift: string,
+  description: string[],
+  additionalDetails?: string[];
+  skills: string[]
+  employerId?: string;
 }
 
 export interface JobApplicationAns {
-    ableToCommute: boolean;
-    resume: File; // Specify the type as File
-    highQualification: string;
-    experience: number;
-    coverLetter: string;
-    interviewDates: string;
-  }
-export interface JobApplication extends JobApplicationAns{
-  name:string,
-  phoneNumber:string,
-  email:string,
-  
+  ableToCommute: boolean;
+  resume: File; // Specify the type as File
+  highQualification: string;
+  experience: number;
+  coverLetter: string;
+  interviewDates: string;
+}
+export interface JobApplication extends JobApplicationAns {
+  name: string;
+  phoneNumber: string;
+  email: string;
+  location: string;
 }
 // interface JobPosting {
 //     jobTitle: string;
