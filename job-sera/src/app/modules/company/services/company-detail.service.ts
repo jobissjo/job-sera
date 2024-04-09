@@ -26,6 +26,7 @@ export class CompanyDetailService {
     ],
     openings: [
       {
+        id:'123',
         jobTitle: "Data Analyst",
         company: "Data Analytics Co.",
         experience: "2+ years",

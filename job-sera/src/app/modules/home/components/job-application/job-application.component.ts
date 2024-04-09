@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from 'src/app/shared/service/utils.service';
 
 @Component({
@@ -11,8 +11,12 @@ import { UtilsService } from 'src/app/shared/service/utils.service';
 export class JobApplicationComponent {
 
   jobApplicationForm!: FormGroup;
+  jobId:string = ''
   fileName: string = '';
-  constructor(private fb: FormBuilder, private router:Router, private utilService:UtilsService) { }
+  constructor(private fb: FormBuilder,
+     private router:Router, 
+    private utilService:UtilsService,
+    private activeRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.jobApplicationForm = this.fb.group({
@@ -23,13 +27,17 @@ export class JobApplicationComponent {
       coverLetter: ['',],
       interviewDates:['']
     });
+    this.activeRoute.params.subscribe((params) => {
+      this.jobId  = params['id'];
+    })
   }
   submitJobApplication(){
-    if(this.jobApplicationForm.valid){
-      this.router.navigate(['job-application','review']);
-      setTimeout(()=> {
-        this.utilService.onSubmitAnswer(this.jobApplicationForm.value)
-      }, 300)
+    if(this.jobApplicationForm.valid && this.jobId){
+      this.router.navigate(['job-application', this.jobId,'review']);
+      
+        
+        this.utilService.onSubmitAnswer(this.jobApplicationForm.value, this.jobId)
+
     }
     
   }

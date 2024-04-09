@@ -27,8 +27,8 @@ export class JobsDetailsComponent implements OnInit, OnDestroy {
     this.selectedJobSub$.unsubscribe()
   }
 
-  goToJobApplicationPage(){
-    this.route.navigate(['job-application'])
+  goToJobApplicationPage(id:string){
+    this.route.navigate(['job-application', id])
   }
 
   onClickBlock(iconButton:MatIconButton){

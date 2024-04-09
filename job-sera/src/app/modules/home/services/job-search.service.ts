@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JobDetails } from 'src/app/shared/Models/job.type';
+import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
@@ -22,7 +22,7 @@ export class JobSearchService {
     })
   }
 
-  createJob(data:JobDetails){
+  createJob(data:CreateJobDetails){
     console.log("job detail", data);
     
     let headers = this.getHeader();

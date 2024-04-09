@@ -5,8 +5,8 @@
           <mat-form-field appearance="fill" class="form-filed">
             <mat-label>Are you able to commute to work in person?</mat-label>
             <mat-select formControlName="ableToCommute" >
-              <mat-option value="true">Yes</mat-option>
-              <mat-option value="false">No</mat-option>
+              <mat-option [value]="true">Yes</mat-option>
+              <mat-option [value]="false">No</mat-option>
             </mat-select>
           </mat-form-field>
       

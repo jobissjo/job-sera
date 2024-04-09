@@ -11,18 +11,25 @@ export class UtilsService {
   jobApplicantSub$ = new Subject<JobApplication>()
   constructor(private authService: AuthService) { }
 
-  onSubmitAnswer(jobAns: JobApplicationAns) {
+  onSubmitAnswer(jobAns: JobApplicationAns, jobId: string) {
     let user = this.authService.userSubFA$.getValue();
     const jobApplication: JobApplication = {
       ...jobAns,
       name: user.username,
       email: user.email,
       location: '',
-      phoneNumber:'0987654321'
+      phoneNumber: '0987654321',
+      jobId: jobId,
+      userId:user.id
     }
-    this.jobApplicantSub$.next(jobApplication);
-
-    console.log(jobApplication);
+    console.log("Type", typeof jobApplication.ableToCommute);
     
+    setTimeout(() => {
+
+      this.jobApplicantSub$.next(jobApplication);
+
+      console.log(jobApplication);
+    },200)
+
   }
 }

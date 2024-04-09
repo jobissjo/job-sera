@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobSearchService } from 'src/app/modules/home/services/job-search.service';
-import { JobDetails } from 'src/app/shared/Models/job.type';
+import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 // import { EmployerService } from '../../services/employer.service';
 
@@ -59,7 +59,7 @@ export class CreateJobComponent {
         this.handleMsgService.warningMessage("Not getting a employer id, make sure you logged in","Unknown Error")
         return;
       }
-      const jobPost : JobDetails = {...this.createJobForm.value, employerId:employerId};
+      const jobPost : CreateJobDetails = {...this.createJobForm.value, employerId:employerId};
 
       this.jobService.createJob(jobPost)
       

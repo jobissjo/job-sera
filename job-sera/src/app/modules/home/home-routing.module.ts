@@ -9,7 +9,7 @@ const routes: Routes = [
   {path:'', component:HomeComponent},
   {path:'home', component:HomeComponent},
   {path:'job-application/:id', component:JobApplicationComponent,canActivate:[canActivateLogin]},
-  {path:'job-application/review', component:ReviewApplicationComponent,canActivate:[canActivateLogin]}
+  {path:'job-application/:id/review', component:ReviewApplicationComponent,canActivate:[canActivateLogin]}
 ];
 
 @NgModule({

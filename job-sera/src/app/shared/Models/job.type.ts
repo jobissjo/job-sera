@@ -1,4 +1,4 @@
-export interface JobDetails {
+export interface BasicJobDetails {
   jobTitle: string,
   company: string,
   experience: string,
@@ -10,6 +10,14 @@ export interface JobDetails {
   description: string[],
   additionalDetails?: string[];
   skills: string[]
+  
+}
+export interface JobDetails extends BasicJobDetails{
+  id:string
+}
+
+export interface CreateJobDetails extends BasicJobDetails{
+  
   employerId?: string;
 }
 
@@ -26,6 +34,8 @@ export interface JobApplication extends JobApplicationAns {
   phoneNumber: string;
   email: string;
   location: string;
+  jobId:string;
+  userId:string
 }
 // interface JobPosting {
 //     jobTitle: string;
