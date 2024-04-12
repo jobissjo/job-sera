@@ -21,14 +21,21 @@ export interface CreateJobDetails extends BasicJobDetails{
   employerId?: string;
 }
 
-export interface JobApplicationAns {
+export interface JobApplicationAnswers{
   ableToCommute: boolean;
-  resume: File; // Specify the type as File
   highQualification: string;
   experience: number;
   coverLetter: string;
   interviewDates: string;
 }
+export interface JobApplicationAns extends JobApplicationAnswers{
+  
+  resume: File; 
+  
+}
+
+
+
 export interface JobApplication extends JobApplicationAns {
   name: string;
   phoneNumber: string;
@@ -36,6 +43,8 @@ export interface JobApplication extends JobApplicationAns {
   location: string;
   jobId:string;
   userId:string
+
+  [key: string]: string | boolean | number|File;
 }
 // interface JobPosting {
 //     jobTitle: string;
