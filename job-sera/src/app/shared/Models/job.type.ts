@@ -16,6 +16,11 @@ export interface JobDetails extends BasicJobDetails{
   id:string
 }
 
+export interface SavedJobs extends BasicJobDetails{
+  jobId:string
+  userId:string
+}
+
 export interface CreateJobDetails extends BasicJobDetails{
   
   employerId?: string;

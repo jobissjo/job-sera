@@ -10,7 +10,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'job-sera';
   authService:AuthService = inject(AuthService);
   ngOnInit(): void {
-    this.authService.autoLogin()
+    this.authService.autoLoginInFA()
   }
 
   ngOnDestroy(): void {

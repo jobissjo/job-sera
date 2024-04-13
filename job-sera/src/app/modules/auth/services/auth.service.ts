@@ -211,6 +211,14 @@ export class AuthService {
     // })
   }
 
+  autoLoginInFA(){
+    let token = this.getTokenInLs();
+    if(token){
+      let tokenResponse :TokenResponse = {access_token:token,token_type: "Bearer"}
+      this.getCurrentUser(tokenResponse)
+    }
+  }
+
   getCurrentUser(headerInfo: TokenResponse) {
     const headers = new HttpHeaders({
       'Authorization': `${headerInfo.token_type} ${headerInfo.access_token}`
@@ -243,6 +251,15 @@ export class AuthService {
     }
     const token: string = JSON.parse(localRes)
     return token
+  }
+
+  getHeader(){
+    let token = this.getTokenInLs()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return headers
   }
 
   isEmployerAuthenticated(){
