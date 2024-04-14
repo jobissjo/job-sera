@@ -51,17 +51,3 @@ export interface JobApplication extends JobApplicationAns {
 
   [key: string]: string | boolean | number|File;
 }
-// interface JobPosting {
-//     jobTitle: string;
-//     company: string;
-//     location: string;
-//     description: string[];
-//     salary: string;
-//     shift: string;
-//     jobType: string;
-//     experience: string;
-//     qualifications: string[];
-//     additionalDetails: string[];
-//     skills:string[]
-//     employerId: string;
-// }

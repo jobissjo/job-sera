@@ -80,6 +80,7 @@ export class AuthService {
 
   signOut() {
     this.loggedInSub$.next(false);
+    // this.currentUserIdSub.next()
     localStorage.removeItem('user');
     this.router.navigate([''])
 
@@ -215,7 +216,7 @@ export class AuthService {
     let token = this.getTokenInLs();
     if(token){
       let tokenResponse :TokenResponse = {access_token:token,token_type: "Bearer"}
-      this.getCurrentUser(tokenResponse)
+      this.getCurrentUser(tokenResponse);
     }
   }
 
@@ -228,7 +229,7 @@ export class AuthService {
         console.log(res);
         this.userSubFA$.next(res);
         this.currentUserIdSub.next(res.id);
-        // this.currentUserIdSub.
+        this.loggedInSub$.next(true)
         return res;
       },
       error:_err => {

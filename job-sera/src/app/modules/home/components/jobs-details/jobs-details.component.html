@@ -1,9 +1,9 @@
-<div class="job-details-conatiner">
+<div class="job-details-conatiner" #detailsContainer>
   <div class="job-details" *ngIf="selectedJob; else noSelectedJob">
     <div class="title-row">
       <h1>{{ selectedJob.jobTitle }}</h1>
       <div>
-        <button mat-icon-button (click)="onClickSaved(bookmarkBtn)" #bookmarkBtn>
+        <button mat-icon-button (click)="onClickSaved(selectedJob, bookmarkBtn)" #bookmarkBtn>
           <mat-icon aria-label="Edit">bookmark</mat-icon>
         </button>
         <button mat-icon-button (click)="onClickBlock(blockBtn)" #blockBtn>

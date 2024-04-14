@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        this.authService.signOut();
+        this.authService.signOutInFA();
         this.router.navigate([''])
 
       }
