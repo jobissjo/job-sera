@@ -33,6 +33,10 @@ export class JobSearchService {
       }
     })
   }
+  getJobsById(id:string){
+    let headers = this.getHeader();
+    return this.http.get<JobDetails>(`${environment.fastApiMainUrl}/jobs/${id}`, {headers:headers})
+  }
 
   getJobsByEmployerId(employerId:string){
     let headers = this.getHeader();

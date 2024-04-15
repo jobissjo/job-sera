@@ -62,6 +62,9 @@ export class HeaderComponent {
   resetCursor(): void {
     this.mainTitle?.nativeElement.classList.remove('hand-pointer');
   }
+  routeToEmployerProfile(){
+    this.router.navigate(['employer', 'profile'])
+  }
 
   clickToUser():void{
     this.router.navigate(['user'])

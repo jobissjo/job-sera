@@ -18,9 +18,9 @@
   <button *ngIf="isLogin" mat-icon-button class="example-icon" aria-label="Auth icon" (click)="clickToUser()">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <!-- <button *ngIf="isEmployerLogin" mat-icon-button>
-    <mat-icon>logout</mat-icon>
-  </button> -->
+  <button *ngIf="isEmployerLogin" mat-icon-button (click)="routeToEmployerProfile()">
+    <mat-icon>assignment_ind</mat-icon>
+  </button>
   <button *ngIf="isEmployerLogin" mat-icon-button (click)="onClickLogout()">
     <mat-icon>logout</mat-icon>
   </button>

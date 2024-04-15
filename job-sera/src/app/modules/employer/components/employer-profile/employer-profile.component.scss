@@ -2,11 +2,6 @@
   display: flex;
 }
 
-.dashboard-options {
-  width: 200px;
-  padding: 20px;
-  background-color: #f8f9fa;
-}
 
 .dashboard-options h3 {
   margin-bottom: 10px;
@@ -27,13 +22,18 @@
 }
 
 .dashboard-options {
+  width: 200px;
+  padding: 20px;
+  background-color: #f8f9fa;
   color: #007bff;
+  .list-item{
+    &:hover{
+      background-color: #a1a1a1;
+      cursor: pointer;
+    }
+  }
   a{
     text-decoration: none;
-
-    &:hover{
-      background-color: #333;
-    }
   }
 }
 

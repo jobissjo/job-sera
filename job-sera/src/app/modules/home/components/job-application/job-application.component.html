@@ -1,6 +1,13 @@
 <div class="job-application-container">
     <div class="job-application">
         <h1>Job Application</h1>
+        <mat-card class="job-detail-info" *ngIf="jobDetails">
+          <mat-card-header>
+            <mat-card-title>{{jobDetails.jobTitle}}</mat-card-title>
+            <mat-card-subtitle>{{jobDetails.company}}</mat-card-subtitle>
+            <mat-card-subtitle>{{jobDetails.location}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
         <form [formGroup]="jobApplicationForm" (ngSubmit)="submitJobApplication()">
           <mat-form-field appearance="fill" class="form-filed">
             <mat-label>Are you able to commute to work in person?</mat-label>

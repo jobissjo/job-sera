@@ -8,6 +8,7 @@
             <mat-card-title>{{ job.company }}</mat-card-title>
             <mat-card-subtitle>{{ job.jobTitle }}</mat-card-subtitle>
         </mat-card-header>
+        <mat-divider></mat-divider>
         <mat-card-content>
             <p>{{ job.description }}</p>
             <p>{{ job.location }}</p>
@@ -15,8 +16,8 @@
             <!-- Display other job details here -->
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>Apply Job</button>
-            <button mat-button (click)="onDeleteClick(job.id)">Delete Job</button>
+            <button mat-button (click)="onClickApply(job.id)" color="primary">Apply Job</button>
+            <button mat-button (click)="onDeleteClick(job.id)" color="warn">Delete Job</button>
         </mat-card-actions>
     </mat-card>
 
