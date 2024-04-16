@@ -36,10 +36,10 @@
       <div class="title-row">
         <h2>{{ job.jobTitle }}</h2>
         <div class="actions">
-          <button mat-icon-button color="primary" (click)="editJob(job)">
+          <button mat-icon-button color="primary" (click)="editJob(job.id)">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteJob(job)">
+          <button mat-icon-button color="warn" (click)="deleteJob(job.id)">
             <mat-icon aria-label="Delete">delete</mat-icon>
           </button>
         </div>

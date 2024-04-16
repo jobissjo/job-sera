@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { User } from 'src/app/shared/Models/user.type';
 import { CustomDialogComponent } from 'src/app/shared/components/custom-dialog/custom-dialog.component';
 import { AuthService } from '../auth/services/auth.service';
 import { ResponseUserModel } from 'src/app/shared/Models/auth.types';

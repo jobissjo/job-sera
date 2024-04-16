@@ -1,37 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
-import { NotificationEnum, NotificationType } from 'src/app/shared/Models/notification.type';
+import { NotificationType } from 'src/app/shared/Models/user-notification.types';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserNotificationService } from 'src/app/shared/service/user-notification.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { UserProfileService } from '../../service/user-profile.service';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
 
 })
-export class NotificationsComponent {
+export class NotificationsComponent implements OnInit {
 
-  notifications: NotificationType[] = [
-    {
-      notificationId: "1234",
-      title: "You've invited to apply",
-      message: "Hi Jobi, We found your CV and thought you would be a great match for the following job.",
-      from: "User 1",
-      date: "2024-02-02",
-      position: "Python Developer",
-      type: NotificationEnum.JobRecommendation
 
-    },
-    {
-      notificationId: '1224',
-      title: "Haven't heard back?",
-      message: "This is notification 2.",
-      from: "User 2",
-      date: "2024-02-03",
-      position: "Python Developer",
-      type: NotificationEnum.MessageToEmployer
-    },
-  ];
+  notifications: NotificationType[] = [];
+  userId:string = '';
+  constructor(private dialogue: MatDialog, private _snackBar: MatSnackBar,
+    private notifyService: UserNotificationService,
+    private authService: AuthService,
+    private userService: UserProfileService) { }
+  ngOnInit(): void {
+
+    
+    this.userId = this.authService.currentUserIdSub.getValue();
+    this.getNotification()
+  }
+
+  getNotification(){
+    
+    this.userService.getProfileByUserId(this.userId).subscribe({
+      next: res => {
+        this.notifyService.get_notification_by_position(res.personalDetail.heading).subscribe(res => {
+          this.notifications = res;
+        })
+      },
+      error: err=>{
+        this.notifications = [];
+      }
+    })
+  }
 
   daysAgoFn(date: string): number {
     let jobDate = new Date(date);
@@ -43,12 +52,12 @@ export class NotificationsComponent {
     return Math.floor(diffInMilliSeconds / msToDays);
   }
 
-  constructor(private dialogue: MatDialog, private _snackBar: MatSnackBar) { }
+
   showUsefulCardFooter: boolean = true;
   usefulSelected: string[] = []
 
   deleteNotification(notification: NotificationType) {
-    let selectedNotificationId = notification.notificationId;
+    let selectedNotificationId = notification.id;
     const dialogRef = this.dialogue.open(DeleteNotificationDialog, {
       width: '300px',
       enterAnimationDuration: '100ms',
@@ -57,8 +66,18 @@ export class NotificationsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        let index = this.notifications.findIndex(notifi => notifi.notificationId == selectedNotificationId);
-        this.notifications.splice(index, 1)
+        // let index = this.notifications.findIndex(notifi => notifi.id == selectedNotificationId);
+        // this.notifications.splice(index, 1)
+        console.log(selectedNotificationId, this.userId);
+        
+        this.notifyService.delete_user_notification(selectedNotificationId, this.userId).subscribe({
+          next:res => {
+            this.getNotification()
+          },
+          error:err => {
+            // this
+          }
+        })
       }
 
     })
@@ -69,24 +88,10 @@ export class NotificationsComponent {
   openSnackBar(message: string, action: string, notification: NotificationType) {
     this._snackBar.open(message, action);
     this.showUsefulCardFooter = false;
-    this.usefulSelected.push(notification.notificationId);
+    this.usefulSelected.push(notification.id);
     console.log(this.usefulSelected);
   }
 
-  // sortByDate(notifications: NotificationType[]): NotificationType[] {
-  //   return notifications.sort((a, b) => {
-  //     const dateA = new Date(a.date); // Create Date objects for each notification
-  //     const dateB = new Date(b.date);
-  
-  //     // Ensure proper date comparison by handling invalid dates gracefully
-  //     if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
-  //       console.warn('Invalid date encountered during notification sorting. ' +
-  //                   'Notifications with invalid dates will be placed at the end.');
-  //       return 0; // Place notifications with invalid dates at the end
-  //     }
-  
-  //     return dateB.getTime() - dateA.getTime(); // Sort in descending order (latest first)
-  //   });
 
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobSearchService } from 'src/app/modules/home/services/job-search.service';
 import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
@@ -19,9 +20,12 @@ export class CreateJobComponent {
   skillsArray!:FormArray;
   responsibilityArray!:FormArray;
   descriptionArray!:FormArray;
-
+  updateJobId:string = '';
+  updateMode:boolean = false;
+  jobDetails!:JobDetails;
   constructor(private _formBuilder: FormBuilder, private authService:AuthService,
-    private jobService:JobSearchService, private handleMsgService:HandleMessageService
+    private jobService:JobSearchService, private handleMsgService:HandleMessageService,
+    private activeRoute:ActivatedRoute
   ) {
     this.createJobForm = this._formBuilder.group({
       jobTitle: ['', [Validators.required]],
@@ -43,8 +47,48 @@ export class CreateJobComponent {
     this.skillsArray = <FormArray> this.createJobForm.get('skills')
     this.responsibilityArray = <FormArray> this.createJobForm.get('responsibilities');
     this.descriptionArray = <FormArray> this.createJobForm.get('description');
+
+    setTimeout(()=>{
+      this.activeRoute.queryParamMap.subscribe(res=>{
+        console.log("i am here", res, res.get('update-job-id'));
+        
+        this.updateJobId = res.get('update-job-id') ?? '';
+        if(this.updateJobId){
+          this.updateMode = true;
+          this.jobService.getJobsById(this.updateJobId).subscribe({
+            next:res => {
+              this.jobDetails = res;
+              this.updateJobForUpdateMode();
+              console.log("update mode way");
+              
+            }
+          })
+        }
+        else{
+          this.updateMode = false;
+        }
+      })
+    }, 200)
   }
 
+  updateJobForUpdateMode(){
+    console.log(this.jobDetails);
+    
+    const {qualifications,skills, description, responsibilities, ...otherDetails} = this.jobDetails;
+    this.createJobForm.patchValue(otherDetails);
+    qualifications.forEach(qualification => {
+      this.addQualification(qualification)
+    })
+    skills.forEach(skill => {
+      this.addSkill(skill)
+    })
+    description.forEach(desc=> {
+      this.addDescription(desc)
+    })
+    responsibilities?.forEach(res=> {
+      this.addResponsibility(res)
+    })
+  }
   onCreateJobSubmit(){
     debugger
     console.log(this.createJobForm.value,
@@ -61,14 +105,18 @@ export class CreateJobComponent {
       }
       const jobPost : CreateJobDetails = {...this.createJobForm.value, employerId:employerId};
 
-      this.jobService.createJob(jobPost)
+      if(!this.updateMode){
+        this.jobService.createJob(jobPost)
+      }else{
+        // this.jobService.
+      }
       
     }
   }
 
-  addQualification(){
+  addQualification(value:string = ''){
     this.qualificationArray.push(
-      new FormControl('', Validators.required)
+      new FormControl(value, Validators.required)
     )
   }
 
@@ -76,9 +124,9 @@ export class CreateJobComponent {
     this.qualificationArray.removeAt(index);
   }
 
-  addSkill(){
+  addSkill(value:string = ''){
     this.skillsArray.push(
-      new FormControl('', Validators.required)
+      new FormControl(value, Validators.required)
     )
   }
 
@@ -86,9 +134,9 @@ export class CreateJobComponent {
     this.skillsArray.removeAt(index);
   }
 
-  addResponsibility(){
+  addResponsibility(value:string = ''){
     this.responsibilityArray.push(
-      new FormControl('', Validators.required)
+      new FormControl(value, Validators.required)
     )
   }
 
@@ -96,9 +144,9 @@ export class CreateJobComponent {
     this.responsibilityArray.removeAt(index)
   }
 
-  addDescription(){
+  addDescription(value:string = ''){
     this.descriptionArray.push(
-      new FormControl('', Validators.required)
+      new FormControl(value, Validators.required)
     )
   }
 

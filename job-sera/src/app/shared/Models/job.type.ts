@@ -8,7 +8,7 @@ export interface BasicJobDetails {
   jobType: string,
   shift: string,
   description: string[],
-  additionalDetails?: string[];
+  responsibilities?: string[];
   skills: string[]
   
 }
@@ -48,6 +48,4 @@ export interface JobApplication extends JobApplicationAns {
   location: string;
   jobId:string;
   userId:string
-
-  [key: string]: string | boolean | number|File;
 }
