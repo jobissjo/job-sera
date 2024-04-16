@@ -1,1 +1,25 @@
-<p>job-applications works!</p>
+<div class="job-postings">
+    <h1>Job Openings</h1>
+    <div class="row" *ngIf="jobPostings.length">
+        <div *ngFor="let job of jobPostings" class="job-details">
+            <div class="title-row">
+                <h2>{{ job.jobTitle }}</h2>
+            </div>
+            <div class="details">
+                <p><strong>Company:</strong> {{ job.company }}</p>
+                <p><strong>Experience:</strong> {{ job.experience }}</p>
+                <p><strong>Salary:</strong> {{ job.salary }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                <p><strong>Job Type:</strong> {{ job.jobType }}</p>
+                <p><strong>Shift:</strong> {{ job.shift }}</p>
+                <p><strong>Description:</strong> {{ job.description }}</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="no-job-openings" *ngIf="jobPostings.length === 0">
+        <p>No job found.</p>
+       
+    </div>
+</div>

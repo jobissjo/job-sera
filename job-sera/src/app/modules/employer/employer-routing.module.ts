@@ -9,6 +9,7 @@ import { canActivateEmployer } from 'src/app/shared/guards/auth.guard';
 import { JobOpeningsComponent } from './components/job-openings/job-openings.component';
 import { JobApplicationsComponent } from './components/job-applications/job-applications.component';
 import { EmployerNotificationComponent } from './components/employer-notification/employer-notification.component';
+import { CreateCompanyComponent } from './components/create-company/create-company.component';
 
 const routes: Routes = [
   { path: '', component: EmployerComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'create-job', component: CreateJobComponent , canActivate:[canActivateEmployer]},
   {path: 'job-openings', component:JobOpeningsComponent, canActivate:[canActivateEmployer]},
   {path:'job-applications', component:JobApplicationsComponent, canActivate:[canActivateEmployer]},
-  {path: 'notification', component:EmployerNotificationComponent, canActivate:[canActivateEmployer]}
+  {path: 'notification', component:EmployerNotificationComponent, canActivate:[canActivateEmployer]},
+  {path: 'create-company', component:CreateCompanyComponent, canActivate:[canActivateEmployer]}
 ];
 
 @NgModule({

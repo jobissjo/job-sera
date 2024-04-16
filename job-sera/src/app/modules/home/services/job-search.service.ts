@@ -38,8 +38,14 @@ export class JobSearchService {
     console.log("job detail", data);
 
     let headers = this.getHeader();
-    this.http.put(`${environment.fastApiMainUrl}/jobs/${jobId}`, data, {headers:headers})
+    return this.http.put(`${environment.fastApiMainUrl}/jobs/${jobId}`, data, {headers:headers})
   }
+
+  deleteJobById(jobId:string){
+    let headers = this.getHeader();
+    return this.http.delete(`${environment.fastApiMainUrl}/jobs/${jobId}`, {headers:headers})
+  }
+
   getJobsById(id:string){
     let headers = this.getHeader();
     return this.http.get<JobDetails>(`${environment.fastApiMainUrl}/jobs/${id}`, {headers:headers})

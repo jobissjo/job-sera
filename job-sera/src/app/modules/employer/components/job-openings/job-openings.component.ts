@@ -27,6 +27,9 @@ export class JobOpeningsComponent implements OnInit {
     this.jobService.getJobsByEmployerId(empId).subscribe({
       next: res => {
         this.jobPostings = res
+      },
+      error:err => {
+        this.jobPostings = []
       }
     })
   }
@@ -38,6 +41,9 @@ export class JobOpeningsComponent implements OnInit {
       }
     })
 
+  }
+  routerToCreateJob(){
+    this.route.navigate(['employer', 'create-job'])
   }
 
   deleteJob(jobId: string) {
@@ -55,7 +61,16 @@ export class JobOpeningsComponent implements OnInit {
     dialog.afterClosed().subscribe(res => {
       if (res) {
         console.log(res);
-
+        this.jobService.deleteJobById(jobId).subscribe({
+          next:res=> {
+            console.log(res);
+            
+          },
+          error:err=> {
+            console.log(err);
+            
+          }
+        })
       }
       else {
         console.log(res);

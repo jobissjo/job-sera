@@ -14,7 +14,6 @@ import { HandleMessageService } from 'src/app/shared/service/handle-message.serv
 })
 export class CreateJobComponent {
  
-
   createJobForm:FormGroup;
   qualificationArray!:FormArray;
   skillsArray!:FormArray;
@@ -60,7 +59,6 @@ export class CreateJobComponent {
               this.jobDetails = res;
               this.updateJobForUpdateMode();
               console.log("update mode way");
-              
             }
           })
         }
@@ -103,12 +101,22 @@ export class CreateJobComponent {
         this.handleMsgService.warningMessage("Not getting a employer id, make sure you logged in","Unknown Error")
         return;
       }
+      
       const jobPost : CreateJobDetails = {...this.createJobForm.value, employerId:employerId};
-
       if(!this.updateMode){
+        
         this.jobService.createJob(jobPost)
       }else{
-        // this.jobService.
+        this.jobService.updateJob(this.updateJobId, jobPost).subscribe({
+          next:res=>{
+            console.log(res);
+            
+          },
+          error:err=> {
+            console.warn(err);
+            
+          }
+        })
       }
       
     }

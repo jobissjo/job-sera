@@ -127,7 +127,7 @@
             <div>
                 <button type="button" color="primary" mat-button matStepperPrevious>Back</button>
                 <!-- <button type="button" color="warn" mat-button (click)="stepper.reset()">Reset</button> -->
-                <button type="submit" color="warn" mat-button >Submit</button>
+                <button type="submit" color="warn" mat-button >{{updateMode ? 'Update': 'Submit'}}</button>
             </div>
         </mat-step>
     </mat-stepper>
