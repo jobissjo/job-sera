@@ -22,6 +22,8 @@ export class JobApplicationsComponent {
     this.jobService.getJobsByEmployerId(empId).subscribe({
       next: res => {
         this.jobPostings = res
+        console.log("from job-applications", res, this.jobPostings);
+        
       },
       error:err => {
         this.jobPostings = []

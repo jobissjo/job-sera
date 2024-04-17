@@ -42,10 +42,18 @@ export interface JobApplicationAns extends JobApplicationAnswers{
 
 
 export interface JobApplication extends JobApplicationAns {
+  company:string;
+  role:string;
   name: string;
   phoneNumber: string;
   email: string;
   location: string;
   jobId:string;
   userId:string
+  status:string
+}
+
+export interface ResponseJobApplication extends JobApplication{
+  id:string
+  appliedOn:string
 }

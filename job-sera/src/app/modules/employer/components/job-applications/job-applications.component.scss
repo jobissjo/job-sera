@@ -1,13 +1,25 @@
-.job-postings {
-    width: 45%;
-    margin: 1rem;
+h1{
+    text-align: center;
 }
 
-.job-details {
-    width: 90%;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px;
+.job-applications{
+    display: flex;
 }
+.job-applications{
+    width: 95vw;
+}
+.jobs,.job-applicants {
+    width: 100%;
+}
+
+.job-postings-container, .job-applicants-container {
+    width: 47%;
+    height: 80vh; 
+    overflow-y: auto;
+}
+
+.job-applications {
+    display: flex;
+    justify-content: space-between;
+}
+

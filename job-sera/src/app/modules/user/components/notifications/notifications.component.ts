@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
-import { NotificationType } from 'src/app/shared/Models/user-notification.types';
+import { NotificationType, ResponseNotification } from 'src/app/shared/Models/user-notification.types';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserNotificationService } from 'src/app/shared/service/user-notification.service';
@@ -15,7 +15,7 @@ import { UserProfileService } from '../../service/user-profile.service';
 export class NotificationsComponent implements OnInit {
 
 
-  notifications: NotificationType[] = [];
+  notifications: ResponseNotification[] = [];
   userId:string = '';
   constructor(private dialogue: MatDialog, private _snackBar: MatSnackBar,
     private notifyService: UserNotificationService,
@@ -25,19 +25,20 @@ export class NotificationsComponent implements OnInit {
 
     
     this.userId = this.authService.currentUserIdSub.getValue();
-    this.getNotification()
+    this.notifyService.notificationSub.subscribe({
+      next:res=>{
+        this.notifications = res;
+      }
+    })
+    this.getNotification();
   }
 
   getNotification(){
     
     this.userService.getProfileByUserId(this.userId).subscribe({
       next: res => {
-        this.notifyService.get_notification_by_position(res.personalDetail.heading).subscribe(res => {
-          this.notifications = res;
-        })
-      },
-      error: err=>{
-        this.notifications = [];
+        this.notifyService.get_notification_by_position(res.personalDetail.heading)
+
       }
     })
   }
@@ -56,7 +57,7 @@ export class NotificationsComponent implements OnInit {
   showUsefulCardFooter: boolean = true;
   usefulSelected: string[] = []
 
-  deleteNotification(notification: NotificationType) {
+  deleteNotification(notification: ResponseNotification) {
     let selectedNotificationId = notification.id;
     const dialogRef = this.dialogue.open(DeleteNotificationDialog, {
       width: '300px',
@@ -85,7 +86,7 @@ export class NotificationsComponent implements OnInit {
 
   }
 
-  openSnackBar(message: string, action: string, notification: NotificationType) {
+  openSnackBar(message: string, action: string, notification: ResponseNotification) {
     this._snackBar.open(message, action);
     this.showUsefulCardFooter = false;
     this.usefulSelected.push(notification.id);

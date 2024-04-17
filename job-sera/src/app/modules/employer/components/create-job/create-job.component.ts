@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobSearchService } from 'src/app/modules/home/services/job-search.service';
 import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
@@ -24,7 +24,7 @@ export class CreateJobComponent {
   jobDetails!:JobDetails;
   constructor(private _formBuilder: FormBuilder, private authService:AuthService,
     private jobService:JobSearchService, private handleMsgService:HandleMessageService,
-    private activeRoute:ActivatedRoute
+    private activeRoute:ActivatedRoute, private route:Router
   ) {
     this.createJobForm = this._formBuilder.group({
       jobTitle: ['', [Validators.required]],
@@ -110,7 +110,7 @@ export class CreateJobComponent {
         this.jobService.updateJob(this.updateJobId, jobPost).subscribe({
           next:res=>{
             console.log(res);
-            
+            this.route.navigate(['employer', 'job-openings'])
           },
           error:err=> {
             console.warn(err);

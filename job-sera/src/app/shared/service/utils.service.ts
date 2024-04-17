@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { JobApplication, JobApplicationAns } from '../Models/job.type';
+import { JobApplication, JobApplicationAns, JobDetails } from '../Models/job.type';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Injectable({
@@ -9,18 +9,23 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 export class UtilsService {
 
   jobApplicantSub$ = new Subject<JobApplication>()
+  selectedJobApplicants$ = new Subject<JobApplication[]>()
   constructor(private authService: AuthService) { }
 
-  onSubmitAnswer(jobAns: JobApplicationAns, jobId: string) {
+  onSubmitAnswer(jobAns: JobApplicationAns, jobs: JobDetails) {
     let user = this.authService.userSubFA$.getValue();
+    
     const jobApplication: JobApplication = {
       ...jobAns,
       name: user.username,
       email: user.email,
       location: '',
       phoneNumber: '0987654321',
-      jobId: jobId,
-      userId:user.id
+      jobId: jobs.id,
+      userId:user.id,
+      role:jobs.jobTitle,
+      company:jobs.company,
+      status: 'Applied'
     }
     console.log("Type", typeof jobApplication.ableToCommute);
     
@@ -31,5 +36,9 @@ export class UtilsService {
       console.log(jobApplication);
     },200)
 
+  }
+
+  onSelectedJobApplicants(jobApplications:JobApplication[]){
+    this.selectedJobApplicants$.next(jobApplications)
   }
 }

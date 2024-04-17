@@ -46,7 +46,7 @@ export class JobApplicationComponent {
       this.router.navigate(['job-application', this.jobId, 'review']);
 
 
-      this.utilService.onSubmitAnswer(this.jobApplicationForm.value, this.jobId)
+      this.utilService.onSubmitAnswer(this.jobApplicationForm.value, this.jobDetails)
 
     }
 

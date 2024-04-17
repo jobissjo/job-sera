@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NotificationType } from 'src/app/shared/Models/user-notification.types';
+import { ResponseNotification } from 'src/app/shared/Models/user-notification.types';
 
 @Component({
   selector: 'app-employer-notification',
@@ -7,7 +7,7 @@ import { NotificationType } from 'src/app/shared/Models/user-notification.types'
   styleUrls: ['./employer-notification.component.scss']
 })
 export class EmployerNotificationComponent {
-  notifications: NotificationType[] = [];
+  notifications: ResponseNotification[] = [];
   userId:string = '';
   usefulSelected:string[] = []
 }

@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MyJobs } from '../../models/my-jobs';
+import { JobApplicationService } from 'src/app/shared/service/job-application.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { JobApplication, ResponseJobApplication } from 'src/app/shared/Models/job.type';
 
 @Component({
   selector: 'app-my-jobs',
@@ -7,30 +10,29 @@ import { MyJobs } from '../../models/my-jobs';
   styleUrls: ['./my-jobs.component.scss',
     './../../styles/user-styles.scss']
 })
-export class MyJobsComponent {
+export class MyJobsComponent implements OnInit{
 
   showUpdateStatus:boolean = false;
-  updateJobStatus!:MyJobs;
-
-  appliedJobs: MyJobs[] = [
-    {
-      status: "Applied", company: "Whatever company",
-      position: "Python Developer", place: "Chennai, Tamilnadu",
-      appliedCount: 50, appliedOn: "Feb 01"
-    },
-    {
-      status: "Applied", company: "Mentor Thesis",
-      position: "Python Programmer", place: "Kanyakumari, Tamilnadu",
-      appliedCount: 70,  appliedOn: "Feb 04"
-    },
-    {
-      status: "Applied", company: "Inmakes infotech pvt ltd",
-      position: "Full Stack Developer", place:"Kochi, Kerala",
-      appliedCount:43, appliedOn: "Feb 03"
-    }
+  updateJobStatus!:ResponseJobApplication;
+  constructor(private jobApplicationSer:JobApplicationService, private authSer:AuthService){}
+  appliedJobs: ResponseJobApplication[] = [
+    
   ]
+  ngOnInit(): void {
+    let userId = this.authSer.currentUserIdSub.getValue()
+    this.jobApplicationSer.getJobApplicationByUserId(userId).subscribe({
+      next: res => {
+        console.log(res);
+        
+        this.appliedJobs = res;
+      },
+      error: err => {
+        console.log(err);
 
-  clickUpdateStatus(job: MyJobs){
+      }
+    })
+  }
+  clickUpdateStatus(job: ResponseJobApplication){
     this.showUpdateStatus = true;
     this.updateJobStatus = job;
   }

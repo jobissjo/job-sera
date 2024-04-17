@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 import { JobApplicationComponent } from './components/job-application/job-application.component';
 import { ReviewApplicationComponent } from './components/review-application/review-application.component';
+import { SubmitApplicationComponent } from './components/submit-application/submit-application.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReviewApplicationComponent } from './components/review-application/revi
     JobsDetailsComponent,
     JobSearchComponent,
     JobApplicationComponent,
-    ReviewApplicationComponent
+    ReviewApplicationComponent,
+    SubmitApplicationComponent
   ],
   imports: [
     CommonModule,

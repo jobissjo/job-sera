@@ -6,7 +6,9 @@ export interface NotificationType {
     position: string;
     companyName: string;
     deleteOrResponded: string[];
+    
+}
+export interface ResponseNotification extends NotificationType{
     id: string;
     createdDate: string;
 }
-

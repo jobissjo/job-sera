@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="detail-card" *ngFor="let applicant of jobApplicants">
+      <h2>{{ applicant.name }}</h2>
+      <p><strong>Email:</strong> {{ applicant.email }}</p>
+      <p><strong>Phone Number:</strong> {{ applicant.phoneNumber }}</p>
+      <p><strong>Location:</strong> {{ applicant.location }}</p>
+      <p><strong>Job ID:</strong> {{ applicant.jobId }}</p>
+      <p><strong>User ID:</strong> {{ applicant.userId }}</p>
+      <p><strong>Able to Commute:</strong> {{ applicant.ableToCommute ? 'Yes' : 'No' }}</p>
+      <p><strong>High Qualification:</strong> {{ applicant.highQualification }}</p>
+      <p><strong>Experience:</strong> {{ applicant.experience }}</p>
+      <p><strong>Cover Letter:</strong> {{ applicant.coverLetter }}</p>
+      <p><strong>Interview Dates:</strong> {{ applicant.interviewDates }}</p>
+    </div>
+    <div *ngIf="!jobApplicants.length" class="no-detail-card">
+        <h3>No application for this jobs</h3>
+    </div>
+  </div>
+  
