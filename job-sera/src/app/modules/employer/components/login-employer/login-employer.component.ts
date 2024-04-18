@@ -15,14 +15,14 @@ export class LoginEmployerComponent {
 
   ngOnInit(){
     this.loginEmployerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
   }
   login(){
     if(this.loginEmployerForm.valid){
-      const {email, password}= this.loginEmployerForm.value
-      this.authSer.signInFA(email, password)
+      const {username, password}= this.loginEmployerForm.value
+      this.authSer.signInFA(username, password)
     }
   }
 }

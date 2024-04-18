@@ -232,7 +232,7 @@ export class EditProfileComponent {
     if (section == 'education' || section == 'certification') {
       this.goToNextStep();
     }
-    else if (section == 'experience' || section == 'language') {
+    else if (section == 'skills' || section == 'experience' || section == 'language') {
       this.goToNextStep();
       this.goToNextStep();
     }
@@ -253,6 +253,7 @@ export class EditProfileComponent {
     this.stepper.next();
   }
   onClickCreateUserProfile() {
+    debugger
     if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
       const userProfile: UserProfileModel = {
         ...this.userDetail.value

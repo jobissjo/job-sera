@@ -6,6 +6,7 @@ import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,13 @@ import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
 export class UserProfileService {
 
   constructor(private http: HttpClient, private handleMsgService: HandleMessageService,
-    private authSer:AuthService) { }
+    private authSer:AuthService, private router:Router) { }
   private url: string = "https://job-sera-default-rtdb.firebaseio.com/";
 
   // currentProfileIdSub$ = new BehaviorSubject<string>('')
   createUserProfile(user: UserProfileModel) {
     let headers = this.getHeader()
-    // headers.set()
-    console.log(headers);
+    console.log(user);
     
     return this.http.post(`${environment.fastApiMainUrl}/user-profile`, user, {headers:headers}).subscribe((res) => {    
       this.handleMsgService.successMessage(
@@ -52,10 +52,15 @@ export class UserProfileService {
     const profileId = userDetail.profileId;
     let headers = this.getHeader()
     return this.http.put(`${environment.fastApiMainUrl}/user-profile/${profileId}`,userDetail, {headers:headers}).subscribe((res) => {
+
       this.handleMsgService.successMessage(
         "User profile details are successfully update",
         "Profile Updated"
       )
+
+      setTimeout(()=>{
+        this.router.navigate(['user', 'user-details'])
+      }, 200)
     })
   }
 

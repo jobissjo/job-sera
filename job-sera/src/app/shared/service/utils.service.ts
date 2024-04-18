@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { JobApplication, JobApplicationAns, JobDetails } from '../Models/job.type';
+import { JobApplication, JobApplicationAns, JobDetails, ResponseJobApplication } from '../Models/job.type';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 export class UtilsService {
 
   jobApplicantSub$ = new Subject<JobApplication>()
-  selectedJobApplicants$ = new Subject<JobApplication[]>()
+  selectedJobApplicants$ = new Subject<ResponseJobApplication[]>()
   constructor(private authService: AuthService) { }
 
   onSubmitAnswer(jobAns: JobApplicationAns, jobs: JobDetails) {
@@ -38,7 +38,7 @@ export class UtilsService {
 
   }
 
-  onSelectedJobApplicants(jobApplications:JobApplication[]){
+  onSelectedJobApplicants(jobApplications:ResponseJobApplication[]){
     this.selectedJobApplicants$.next(jobApplications)
   }
 }

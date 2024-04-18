@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private handleMsgService: HandleMessageService) { }
   private apiKey: string = 'AIzaSyAdkex8qVnKhQBbgl_ehfuOpOCzspBoDrU';
 
-  userFA:ResponseUserModel = {id: '', username:'', email:'', role:'', active:false};
+  userFA: ResponseUserModel = { id: '', username: '', email: '', role: '', active: false };
   userSubFA$ = new BehaviorSubject<ResponseUserModel>(this.userFA);
 
 
@@ -29,65 +29,30 @@ export class AuthService {
   timeFunctionId: any;
   currentUserIdSub = new BehaviorSubject<string>('');
 
-  newSignUp() {
+  changePassword(oldPassword: string, new_password: string) {
+    let params = new HttpParams();
+    params = params.append('old_password', oldPassword)
+    params = params.append('new_password', new_password)
 
-  }
-  signUp(email: string, password: string) {
-    const user = { email: email, password: password, returnSecureToken: true };
-    return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.apiKey,
-      user).pipe(catchError(err => {
-        return this.handleError(err)
-      }),
-        tap((res) => {
-          return this.handleCreateUser(res)
-        }))
-  }
+    let headers = this.getHeader();
 
-
-  signIn(email: string, password: string) {
-    const user = { email: email, password: password, returnSecureToken: true };
-    return this.http.post<AuthResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + this.apiKey,
-      user).pipe(catchError(err => {
-        return this.handleError(err)
-      }),
-        tap((res) => {
-          this.handleCreateUser(res);
-        }))
+    this.http.put<{message:string}>(`${environment.fastApiMainUrl}/users/me/change-password/`,{},
+      { params: params, headers:headers }).subscribe({
+        next:res=>{
+          console.log(res.message);
+          this.handleMsgService.successMessage("Your password is changed successfully", "Password Changed")
+          setTimeout(()=> {
+            this.router.navigate(['user'])
+          },500)
+          
+        },
+        error:err=>{
+          console.log(err);
+          
+        }
+      })
   }
 
-  autoLogin() {
-    let user = localStorage.getItem('user');
-
-    if (user) {
-      let parsedUser = JSON.parse(user);
-      const userObj = new UserFireResponse(parsedUser.email, parsedUser.id, parsedUser._token, parsedUser._expiresIn);
-
-      if (userObj.token) {
-        this.userSub$.next(userObj)
-        this.loggedInSub$.next(true);
-        const expiresIn = parsedUser._expiresIn - new Date().getTime();
-        this.autoLogout(expiresIn)
-
-      }
-    }
-  }
-
-  autoLogout(expiresIn: number) {
-    this.timeFunctionId = setTimeout(() => {
-      this.signOut()
-    }, expiresIn)
-  }
-
-  signOut() {
-    this.loggedInSub$.next(false);
-    // this.currentUserIdSub.next()
-    localStorage.removeItem('user');
-    this.router.navigate([''])
-
-    if (this.timeFunctionId) {
-      clearTimeout(this.timeFunctionId)
-    }
-  }
 
   signOutInFA() {
     this.loggedInSub$.next(false);
@@ -95,24 +60,10 @@ export class AuthService {
     localStorage.removeItem('token');
     this.router.navigate([''])
 
-    // if (this.timeFunctionId) {
-    //   clearTimeout(this.timeFunctionId)
-    // }
-  }
-
-  private handleCreateUser(res: AuthResponse) {
-    const expiresInTs = new Date().getTime() + res.expiresIn * 1000;
-    const expiresIn = new Date(expiresInTs);
-    const user = new UserFireResponse(res.email, res.localId, res.idToken, expiresIn);
-
-    this.userSub$.next(user);
-    this.loggedInSub$.next(true);
-    console.log("response from handle user", res);
-    this.currentUserIdSub.next(res.localId);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.autoLogout(res.expiresIn * 1000)
 
   }
+
+
 
 
 
@@ -142,19 +93,19 @@ export class AuthService {
     return this.userSubFA$.getValue().role == 'user';
   }
 
-  isEmployerLoggedIn(){
+  isEmployerLoggedIn() {
     return this.userSubFA$.getValue().role == 'employer';
   }
 
   /// For FastApi Login
 
-  signInFA(email: string, password: string) {
-
-    let username: string = email.split('@')[0]
+  signInFA(username: string, password: string) {
     if (!username) {
       console.warn("username can't find");
       return
     }
+    
+    
     const formData = new HttpParams()
       .set('grant_type', '')
       .set('username', username)
@@ -162,7 +113,7 @@ export class AuthService {
       .set('scope', '')
       .set('client_id', '')
       .set('client_secret', '');
-
+      console.log(username, password, formData);
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -173,28 +124,31 @@ export class AuthService {
           this.getCurrentUser(res);
           this.loggedInSub$.next(true);
           console.log(Role.EMPLOYER, Role.USER, this.userSubFA$.getValue());
-          
-          setTimeout(()=> {
-            if (this.userSubFA$.getValue().role == 'user'){
+
+          setTimeout(() => {
+            this.handleMsgService.successMessage("You successfully logged in","Login Successful")
+            if (this.userSubFA$.getValue().role == 'user') {
               console.log("user");
               this.router.navigate(['user']);
             }
-            else if(this.userSubFA$.getValue().role == 'employer'){
+            else if (this.userSubFA$.getValue().role == 'employer') {
               console.log("success");
-              
-              this.router.navigate(['employer', 'profile']);
+
+              setTimeout(()=> {
+                this.router.navigate(['employer', 'profile'])
+              },1000);
             }
           }, 1000)
         },
         error: err => {
-          console.error(err);
+          this.handleMsgService.errorMessage("Your username or email invalid","Login Failed")
         }
       });
   }
 
   signUpInFA(data: CreateUserModel) {
     console.log(data);
-    
+
 
     return this.http.post<ResponseUserModel>(`${environment.fastApiMainUrl}/users`, data)
     // .subscribe({
@@ -207,15 +161,15 @@ export class AuthService {
     //     else{
     //       this.currentUserIdSub.next(res.id)
     //     }
-        
+
     //   }
     // })
   }
 
-  autoLoginInFA(){
+  autoLoginInFA() {
     let token = this.getTokenInLs();
-    if(token){
-      let tokenResponse :TokenResponse = {access_token:token,token_type: "Bearer"}
+    if (token) {
+      let tokenResponse: TokenResponse = { access_token: token, token_type: "Bearer" }
       this.getCurrentUser(tokenResponse);
     }
   }
@@ -225,16 +179,16 @@ export class AuthService {
       'Authorization': `${headerInfo.token_type} ${headerInfo.access_token}`
     })
     this.http.get<ResponseUserModel>(`${environment.fastApiMainUrl}/users/me`, { headers: headers }).subscribe({
-      next:res => {
+      next: res => {
         console.log(res);
         this.userSubFA$.next(res);
         this.currentUserIdSub.next(res.id);
         this.loggedInSub$.next(true)
         return res;
       },
-      error:_err => {
+      error: _err => {
         console.log("failed man you");
-        
+
         return false;
       }
     })
@@ -254,7 +208,7 @@ export class AuthService {
     return token
   }
 
-  getHeader(){
+  getHeader() {
     let token = this.getTokenInLs()
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -263,12 +217,12 @@ export class AuthService {
     return headers
   }
 
-  isEmployerAuthenticated(){
+  isEmployerAuthenticated() {
     let token = this.getTokenInLs()
-    if(token){
-      const myObj:TokenResponse = {access_token :token, token_type: "Bearer"}
+    if (token) {
+      const myObj: TokenResponse = { access_token: token, token_type: "Bearer" }
       this.getCurrentUser(myObj)
-    }  
+    }
   }
 
 

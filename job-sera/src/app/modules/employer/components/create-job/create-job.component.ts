@@ -110,7 +110,8 @@ export class CreateJobComponent {
         this.jobService.updateJob(this.updateJobId, jobPost).subscribe({
           next:res=>{
             console.log(res);
-            this.route.navigate(['employer', 'job-openings'])
+            this.route.navigate(['employer', 'job-openings']);
+            this.handleMsgService.successMessage("Job details updated successfully", "Job Details Updated")
           },
           error:err=> {
             console.warn(err);

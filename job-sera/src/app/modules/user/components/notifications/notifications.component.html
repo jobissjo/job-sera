@@ -23,7 +23,7 @@
 
                 <div class="btn-container">
                     <button type="button" mat-stroked-button color="primary"
-                        *ngIf="notification.notificationType == 'job-invitation';else msgEmployerBtn">
+                        *ngIf="notification.notificationType == 'job-invitation';else msgEmployerBtn" (click)="routeToJobDetail(notification.jobId)">
                         View Jobs <mat-icon>arrow_forward</mat-icon>
                     </button>
 

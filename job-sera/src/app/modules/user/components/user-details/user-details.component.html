@@ -1,5 +1,6 @@
-<div class="user-details" *ngIf="userDetails">
-    <h2>User Details</h2>
+<h2>User Details</h2>
+<div class="user-details" *ngIf="userDetails; else noDetails">
+    
 
     <div class="section" id="education">
         <div class="heading-with-edit-icon">
@@ -96,3 +97,19 @@
         </ul>
     </div>
 </div>
+
+<ng-template #noDetails >
+    <div class="no-details-container">
+        <mat-card class="no-details">
+            <mat-card-header>
+                <mat-card-title>No Details</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-card-subtitle>No details found in this page, you can edit the profile</mat-card-subtitle>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-stroked-button color="primary" (click)="gotoEditProfile()">Edit Profile</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</ng-template>

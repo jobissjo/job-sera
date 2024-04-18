@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
   }
   ngOnInit() {
     this.signInForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     })
   }
@@ -30,21 +30,9 @@ export class SignInComponent implements OnInit {
   onSubmitForm() {
 
     if (this.signInForm.valid) {
-      const { email, password } = this.signInForm.value;
-      this.authService.signInFA(email, password)
-      // this.authService.signIn(email, password).subscribe({
-      //   next: (res) => {
-      //     this.handleMsgService.successMessage("User is successfully logged in", "Login Success");
-      //     this.router.navigate(['user']);
-      //     console.log(res);
-          
-
-      //   },
-      //   error: err => {
-      //     this.handleMsgService.errorMessage(err, "Login Error")
-
-      //   }
-      // })
+      const { username, password } = this.signInForm.value;
+      this.authService.signInFA(username, password)
+      
       this.isLoading = true;
       this.hideProgressBar()
     }

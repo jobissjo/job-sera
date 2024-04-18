@@ -51,4 +51,8 @@ export class UserDetailsComponent {
 
     this.router.navigate(['user', 'edit-profile'], { queryParams: { 'section': section } })
   }
+
+  gotoEditProfile(){
+    this.router.navigate(['user','edit-profile'])
+  }
 }

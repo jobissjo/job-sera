@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobApplication, ResponseJobApplication } from '../Models/job.type';
@@ -7,6 +7,7 @@ import { UtilsService } from './utils.service';
 import { Router } from '@angular/router';
 import { UserNotificationService } from './user-notification.service';
 import { NotificationType } from '../Models/user-notification.types';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,9 @@ export class JobApplicationService {
 
   createJobApplication(jobApplication: JobApplication) {
     let headers = this.getHeader();
-
+    if (!jobApplication.resume) {
+      return;
+    }
     const { resume, ...otherDetails } = jobApplication;
 
     const formData = new FormData();
@@ -76,13 +79,13 @@ export class JobApplicationService {
             // response
             let notification: NotificationType = {
               notificationType: 'job-application',
-              title:"Haven't heard back?",
+              title: "Haven't heard back?",
               message: 'Message the employer to stand out from the crowd',
               jobId: response.jobId,
               position: response.role,
               companyName: response.company,
               deleteOrResponded: [],
-              userId:response.userId
+              userId: response.userId
             }
             this.notifyService.createUserNotification(notification)
             this.router.navigate(['submit-application', response.id])
@@ -91,12 +94,25 @@ export class JobApplicationService {
     })
   }
 
-  uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-    return this.http.post('http://localhost:8000/files/', formData).subscribe(res => {
-      console.log(res);
+  private blobToFile(blob: Blob, fileName: string): File {
+    // Create a new File object from the provided Blob
+    const file = new File([blob], fileName, { type: blob.type });
+    return file;
+  }
 
-    });
+
+  getResume(path: string) {
+
+    let params = new HttpParams();
+    params = params.append('file_path', path)
+    return this.http.get(`${environment.fastApiMainUrl}/job-application/get_resume`, {
+      params: params,
+      responseType: 'blob'
+    })
+      .pipe(
+        map(blob => {
+          return this.blobToFile(blob, `${path}.pdf`)
+        })
+      );
   }
 }

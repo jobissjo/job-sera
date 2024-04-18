@@ -6,14 +6,12 @@ import { AuthService } from './modules/auth/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'job-sera';
   authService:AuthService = inject(AuthService);
   ngOnInit(): void {
     this.authService.autoLoginInFA()
   }
 
-  ngOnDestroy(): void {
-    this.authService.signOut()
-  }
+ 
 }

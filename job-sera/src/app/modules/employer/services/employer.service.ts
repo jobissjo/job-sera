@@ -6,13 +6,16 @@ import { environment } from 'src/environments/environment';
 import { CreateEmployerProfile, EmployerProfile, ResponseEmployerProfile } from 'src/app/shared/Models/employer.types';
 import { CreateUserModel } from 'src/app/shared/Models/auth.types';
 import { map } from 'rxjs';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployerService {
 
-  constructor(private authService:AuthService, private http:HttpClient) { }
+  constructor(private authService:AuthService, private http:HttpClient,
+    private handleMsgService:HandleMessageService
+  ) { }
   private employer: EmployerProfileType = {
     personalInformation: {
       firstName: 'John',
@@ -69,7 +72,7 @@ export class EmployerService {
     this.authService.signUpInFA(createUserModel).subscribe({
       next:res =>{
         console.log(res);
-        this.authService.signInFA(modifiedPersonalInfo.email, password)
+        this.authService.signInFA(modifiedPersonalInfo.username, password)
         setTimeout(()=> {
           const newEmployerInfo:EmployerProfile = {employer_id:res.id, 
             personalInformation:modifiedPersonalInfo, 
@@ -94,7 +97,7 @@ export class EmployerService {
     
     return this.http.post(`${environment.fastApiMainUrl}/employer/`, profile, {headers:headers}).subscribe(res =>{
       console.log(res);
-      
+      this.handleMsgService.successMessage("Your employer profile created successfully😍😍","Employer Profile created")
     })
   }
 

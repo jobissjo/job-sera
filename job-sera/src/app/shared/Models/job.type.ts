@@ -35,7 +35,7 @@ export interface JobApplicationAnswers{
 }
 export interface JobApplicationAns extends JobApplicationAnswers{
   
-  resume: File; 
+  resume?: File; 
   
 }
 
@@ -56,4 +56,5 @@ export interface JobApplication extends JobApplicationAns {
 export interface ResponseJobApplication extends JobApplication{
   id:string
   appliedOn:string
+  resumePath:string
 }

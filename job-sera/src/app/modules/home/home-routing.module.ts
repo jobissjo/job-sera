@@ -13,7 +13,7 @@ const routes: Routes = [
   {path:'job-application/:id', component:JobApplicationComponent,canActivate:[canActivateLogin]},
   {path:'job-application/:id/review', component:ReviewApplicationComponent,canActivate:[canActivateLogin]},
   {path: 'submit-application/:id', component:SubmitApplicationComponent, canActivate:[canActivateLogin]},
-  {path: 'job-detail:id', component:JobSeparateDetailComponent, canActivate:[canActivateLogin]}
+  {path: 'job-detail/:id', component:JobSeparateDetailComponent, canActivate:[canActivateLogin]}
 ];
 
 @NgModule({

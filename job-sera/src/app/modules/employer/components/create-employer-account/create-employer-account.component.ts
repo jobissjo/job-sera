@@ -1,9 +1,10 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
 import { EmployerService } from '../../services/employer.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CreateEmployerProfile } from 'src/app/shared/Models/employer.types';
+import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 
 @Component({
   selector: 'app-create-employer-account',
@@ -18,20 +19,20 @@ export class CreateEmployerAccountComponent implements OnInit {
   additionalInformation!: FormGroup;
   @ViewChild('tabGroup') tabGroup !:MatTabGroup;
   constructor(private fb: FormBuilder, private employerService:EmployerService,
-    private authService:AuthService) {
+    private authService:AuthService, private handleMsgSer:HandleMessageService) {
 
   }
 
   ngOnInit() {
     this.employerForm = this.fb.group({
       personalInformation: this.fb.group({
-        firstName: [''],
+        firstName: ['',[Validators.required]],
         lastName: [''],
-        username: [''],
-        email: [''],
-        phoneNumber: [''],
-        password: [''],
-        cPassword: [''],
+        username: ['', [Validators.required]],
+        email: ['', [Validators.email]],
+        phoneNumber: ['',[Validators.required]],
+        password: ['', [Validators.required]],
+        cPassword: ['', [Validators.required]],
         position: [''],
         socialMediaLink: [''],
         gender:['']
@@ -104,6 +105,12 @@ export class CreateEmployerAccountComponent implements OnInit {
       if (employerValue.personalInformation.password == employerValue.personalInformation.cPassword){
         this.employerService.createEmployer(employerValue)
       }
+      else{
+        this.handleMsgSer.warningMessage("Your password and confirm password is not matched","Password Not Matched")
+      }
+    }
+    else{
+      this.handleMsgSer.warningMessage("Form is not valid, make sure you enter all the details correctly","Form is not Valid")
     }
     
   }

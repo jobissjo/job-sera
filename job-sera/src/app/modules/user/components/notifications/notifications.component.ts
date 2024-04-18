@@ -67,6 +67,12 @@ export class NotificationsComponent implements OnInit {
     this.router.navigate(['user', 'send-message', jobId])
   }
 
+  routeToJobDetail(jobId:string){
+    console.log("jobId",jobId);
+    
+    this.router.navigate(['job-detail',  jobId])
+  }
+
   daysAgoFn(date: string): number {
     let jobDate = new Date(date);
     let currentDate = new Date();

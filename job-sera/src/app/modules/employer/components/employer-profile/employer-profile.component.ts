@@ -15,7 +15,9 @@ export class EmployerProfileComponent {
   }
   ngOnInit(){
     // this.employer = this.employerService.getEmployer()
-    let employer_id = this.authService.currentUserIdSub.getValue()
+    let employer_id = this.authService.currentUserIdSub.getValue();
+    console.log(employer_id);
+    
     this.employerService.getEmployerById(employer_id).subscribe({
       next: res => {
         this.employer = res;
