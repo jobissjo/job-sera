@@ -19,6 +19,7 @@
                 <mat-card-title>{{notification.title}}</mat-card-title>
                 <p>{{notification.message}}</p>
                 <mat-card-subtitle class="subtitle">{{notification.position}}</mat-card-subtitle>
+                <mat-card-subtitle class="subtitle">{{notification.companyName}}</mat-card-subtitle>
 
                 <div class="btn-container">
                     <button type="button" mat-stroked-button color="primary"
@@ -27,7 +28,7 @@
                     </button>
 
                     <ng-template #msgEmployerBtn>
-                        <button mat-stroked-button color="primary" type="button">
+                        <button mat-stroked-button color="primary" type="button" (click)="routeToSendMessage(notification.jobId)">
                             Send Message <mat-icon>arrow_forward</mat-icon>
                         </button>
                     </ng-template>

@@ -12,6 +12,7 @@ import { AngularMaterialModule } from 'src/app/shared/module/angular-material/an
 import { JobApplicationComponent } from './components/job-application/job-application.component';
 import { ReviewApplicationComponent } from './components/review-application/review-application.component';
 import { SubmitApplicationComponent } from './components/submit-application/submit-application.component';
+import { JobSeparateDetailComponent } from './components/job-separate-detail/job-separate-detail.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SubmitApplicationComponent } from './components/submit-application/subm
     JobSearchComponent,
     JobApplicationComponent,
     ReviewApplicationComponent,
-    SubmitApplicationComponent
+    SubmitApplicationComponent,
+    JobSeparateDetailComponent
   ],
   imports: [
     CommonModule,

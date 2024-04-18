@@ -14,6 +14,7 @@ import { UpdateStatusComponent } from './components/update-status/update-status.
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { ToastrModule } from 'ngx-toastr';
 import { IgxDialogModule } from 'igniteui-angular';
+import { SendMsgEmployerComponent } from './components/send-msg-employer/send-msg-employer.component';
 
 
 
@@ -26,7 +27,8 @@ import { IgxDialogModule } from 'igniteui-angular';
     SavedJobsComponent,
     MyJobDetailsComponent,
     UpdateStatusComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    SendMsgEmployerComponent
   ],
   imports: [
     CommonModule,

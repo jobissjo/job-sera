@@ -37,13 +37,13 @@ export class JobApplicationService {
 
   getJobApplicationByJobId(jobId: string) {
     console.log(jobId);
-    
+
     let headers = this.getHeader();
     return this.http.get<ResponseJobApplication[]>(`${environment.fastApiMainUrl}/job-application/job/${jobId}`).subscribe({
       next: res => {
         this.utilService.onSelectedJobApplicants(res)
         console.log(res);
-        
+
       },
       error: err => {
         console.log(err);
@@ -71,19 +71,22 @@ export class JobApplicationService {
         console.log(res);
 
         const data = { ...otherDetails, resumePath: res.filename }
-        this.http.post<ResponseJobApplication>(`${environment.fastApiMainUrl}/job-application`, data, { headers: headers }).subscribe(response => {
-          // response
-          let notification: NotificationType = {
-            notificationType: '', title: 'string',
-            message: 'string',
-            jobId: 'string',
-            position: 'string',
-            companyName: 'string',
-            deleteOrResponded: []
-          }
-          this.notifyService.createUserNotification(notification)
-          this.router.navigate(['submit-application', response.id])
-        })
+        this.http.post<ResponseJobApplication>(`${environment.fastApiMainUrl}/job-application`, data,
+          { headers: headers }).subscribe(response => {
+            // response
+            let notification: NotificationType = {
+              notificationType: 'job-application',
+              title:"Haven't heard back?",
+              message: 'Message the employer to stand out from the crowd',
+              jobId: response.jobId,
+              position: response.role,
+              companyName: response.company,
+              deleteOrResponded: [],
+              userId:response.userId
+            }
+            this.notifyService.createUserNotification(notification)
+            this.router.navigate(['submit-application', response.id])
+          })
       }
     })
   }

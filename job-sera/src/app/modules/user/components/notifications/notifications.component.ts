@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
-import { NotificationType, ResponseNotification } from 'src/app/shared/Models/user-notification.types';
+import { MatDialog,  MatDialogModule, MatDialogRef,  } from '@angular/material/dialog';
+import { ResponseNotification } from 'src/app/shared/Models/user-notification.types';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserNotificationService } from 'src/app/shared/service/user-notification.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -16,31 +17,54 @@ export class NotificationsComponent implements OnInit {
 
 
   notifications: ResponseNotification[] = [];
-  userId:string = '';
+  
+
+  userId: string = '';
   constructor(private dialogue: MatDialog, private _snackBar: MatSnackBar,
     private notifyService: UserNotificationService,
     private authService: AuthService,
-    private userService: UserProfileService) { }
+    private userService: UserProfileService,
+    private router:Router) { }
   ngOnInit(): void {
 
-    
+
     this.userId = this.authService.currentUserIdSub.getValue();
+
+    // job-invitation-notification
     this.notifyService.notificationSub.subscribe({
-      next:res=>{
-        this.notifications = res;
+      next: res => {
+        this.notifications = [...this.notifications, ...res];
+        this.notifyService.notificationCountSub.next(this.notifications.length);
       }
     })
+
+    // job-application-notification
+    this.notifyService.notificationJobApplySub.subscribe({
+      next: res => {
+        this.notifications = [...this.notifications, ...res];
+        this.notifyService.notificationCountSub.next(this.notifications.length);
+      }
+    })
+
     this.getNotification();
+    this.getNotificationByUserId()
   }
 
-  getNotification(){
+  getNotificationByUserId(){
+    this.notifyService.get_notification_by_userId(this.userId)
+  }
+
+  getNotification() {
     
     this.userService.getProfileByUserId(this.userId).subscribe({
       next: res => {
         this.notifyService.get_notification_by_position(res.personalDetail.heading)
-
       }
     })
+  }
+
+  routeToSendMessage(jobId:string){
+    this.router.navigate(['user', 'send-message', jobId])
   }
 
   daysAgoFn(date: string): number {
@@ -58,6 +82,7 @@ export class NotificationsComponent implements OnInit {
   usefulSelected: string[] = []
 
   deleteNotification(notification: ResponseNotification) {
+    debugger
     let selectedNotificationId = notification.id;
     const dialogRef = this.dialogue.open(DeleteNotificationDialog, {
       width: '300px',
@@ -67,18 +92,22 @@ export class NotificationsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // let index = this.notifications.findIndex(notifi => notifi.id == selectedNotificationId);
-        // this.notifications.splice(index, 1)
         console.log(selectedNotificationId, this.userId);
-        
-        this.notifyService.delete_user_notification(selectedNotificationId, this.userId).subscribe({
-          next:res => {
-            this.getNotification()
-          },
-          error:err => {
-            // this
-          }
-        })
+        if (!notification.userId) {
+          console.log("no user id");
+          
+          this.notifyService.delete_user_notification(selectedNotificationId, this.userId).subscribe({
+            next: res => {
+              this.getNotification()
+            },
+            error: err => {
+              this.getNotification()
+            }
+          })
+        }else{
+          this.notifyService.delete_notification_by_userId(selectedNotificationId, this.userId)
+        }
+
       }
 
     })

@@ -38,10 +38,10 @@ export class HeaderComponent {
       }
     })
 
-    this.notifyService.notificationSub.subscribe({
+    this.notifyService.notificationCountSub.subscribe({
       next:res =>{
         
-        this.notificationCount = res.length
+        this.notificationCount = res
       }
     })
   }
