@@ -1,4 +1,3 @@
-import { Moment } from "moment";
 
 export interface MyJobs {
   status: string,
@@ -42,8 +41,8 @@ interface OtherPreference{
 export interface EducationType {
   level: string;
   fieldOfStudy: string;
-  startedDate: Moment;
-  endedDate: Moment;
+  startedDate: Date;
+  endedDate: Date;
 }
 
 interface CertificationType {

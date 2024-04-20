@@ -3,10 +3,11 @@ import { EmployerProfileType } from '../Models/employer.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { CreateEmployerProfile, EmployerProfile, ResponseEmployerProfile } from 'src/app/shared/Models/employer.types';
+import { CompanyInformation, CreateEmployerProfile, EmployerProfile, ExactFastApiEmployerProfileResponse, ResponseEmployerProfile } from 'src/app/shared/Models/employer.types';
 import { CreateUserModel } from 'src/app/shared/Models/auth.types';
 import { map } from 'rxjs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { HandleMessageService } from 'src/app/shared/service/handle-message.serv
 export class EmployerService {
 
   constructor(private authService:AuthService, private http:HttpClient,
-    private handleMsgService:HandleMessageService
+    private handleMsgService:HandleMessageService, private router:Router
   ) { }
   private employer: EmployerProfileType = {
     personalInformation: {
@@ -106,15 +107,26 @@ export class EmployerService {
     return this.splitForCreateAccEMployer(profile)
   }
 
+  updateEmployer(profile_id:string,profile:EmployerProfile){
+    let headers = this.getHeader();
+    return this.http.put(`${environment.fastApiMainUrl}/employer/${profile_id}`, profile, {headers:headers}).subscribe(res=>{
+      this.handleMsgService.successMessage("Your employer profile Update successfully😍😍","Employer Profile Updated")
+      this.router.navigate(['employer', 'profile'])
+      
+    })
+  }
+
   getEmployerById(id:string){
     let headers = this.getHeader();
-    return this.http.get<ResponseEmployerProfile>(`${environment.fastApiMainUrl}/employer/${id}`, {headers}).pipe(map((res)=> {
+    return this.http.get<ExactFastApiEmployerProfileResponse>(`${environment.fastApiMainUrl}/employer/${id}`, {headers}).pipe(map((res)=> {
       const {employer_id,personalInformation,companyInformation,additionalInformation} = res;
-
+      const companyInfo = companyInformation[0];
+      const {address, ...otherInfo} = companyInfo;
+      let newCompany: CompanyInformation = {...otherInfo, address:address[0]}
       const correctedRes:EmployerProfile = {
         employer_id,
         personalInformation:personalInformation[0],
-        companyInformation:companyInformation[0],
+        companyInformation:newCompany,
         additionalInformation:additionalInformation[0]
       }
 

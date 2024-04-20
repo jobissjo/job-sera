@@ -25,6 +25,10 @@
       <mat-divider></mat-divider>
       <a routerLink="/employer/job-openings"><mat-list-item class="list-item" role="listitem">Job Openings</mat-list-item></a>
       <mat-divider></mat-divider>
+      <a [routerLink]="['/employer/update-employer']" [queryParams]="{ profile_id: employerId }" queryParamsHandling="merge">
+        <mat-list-item class="list-item" role="listitem">Update Profile</mat-list-item>
+      </a>
+      <mat-divider></mat-divider>
     </mat-list>
     
   </div>
@@ -52,8 +56,7 @@
           <p>Company Name: {{employer.companyInformation.companyName}}</p>
           <p>Industry: {{employer.companyInformation.industry}}</p>
           <p>Website: {{employer.companyInformation.companyWebsite}}</p>
-          <p>website: {{employer.companyInformation.companyWebsite}}</p>
-          <!-- Add other company information fields -->
+          <p>Social Media Link: {{employer.companyInformation.socialMediaLink}}</p>
         </div>
         <div class="additional-information">
           <p><strong>Additional Information:</strong></p>

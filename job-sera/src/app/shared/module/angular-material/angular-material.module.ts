@@ -19,7 +19,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MatCommonModule } from '@angular/material/core';
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -58,11 +57,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCommonModule,
-    MatMomentDateModule,
     MatSnackBarModule,
     MatProgressBarModule,
     MatProgressSpinnerModule
-    
   ]
 })
 export class AngularMaterialModule { }

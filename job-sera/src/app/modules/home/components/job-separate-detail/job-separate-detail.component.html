@@ -2,34 +2,26 @@
     <h1>Job Details</h1>
     <div class="job-details" *ngIf="selectedJob; else noSelectedJob">
         <div class="title-row">
-            <h1>{{ selectedJob.jobTitle }}</h1>
-            <!-- <div>
-          <button mat-icon-button (click)="onClickSaved(selectedJob, bookmarkBtn)" #bookmarkBtn>
-            <mat-icon aria-label="Edit">bookmark</mat-icon>
-          </button>
-          <button mat-icon-button (click)="onClickBlock(blockBtn)" #blockBtn>
-            <mat-icon aria-label="block">block</mat-icon>
-          </button>
-        </div> -->
+            <h2>{{ selectedJob.jobTitle }}</h2>
+            <p>{{ selectedJob.company }}</p>
+            <p>{{ selectedJob.location }}</p>
         </div>
-        <mat-divider></mat-divider>
-        <p>{{ selectedJob.company }}</p>
-        <p>{{ selectedJob.salary }}</p>
-        <p>{{ selectedJob.location }}</p>
+        <mat-divider></mat-divider> 
+        <p>{{ selectedJob.salary }}</p> 
         <p>{{ selectedJob.jobType }}</p>
         <p>{{ selectedJob.shift }}</p>
-
+        <mat-divider></mat-divider>
         <h2>Description:</h2>
         <ul>
             <li *ngFor="let description of selectedJob.description">{{ description }}</li>
         </ul>
-
+        <mat-divider></mat-divider>
         <h2>Qualifications:</h2>
         <ul>
             <li *ngFor="let qualification of selectedJob.qualifications">{{ qualification }}</li>
         </ul>
-
-        <h2>Additional Details:</h2>
+        <mat-divider></mat-divider>
+        <h2>Responsibilities:</h2>
         <ul>
             <li *ngFor="let detail of selectedJob.responsibilities">{{ detail }}</li>
         </ul>

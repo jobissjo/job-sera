@@ -26,8 +26,6 @@ export class NotificationsComponent implements OnInit {
     private userService: UserProfileService,
     private router:Router) { }
   ngOnInit(): void {
-
-
     this.userId = this.authService.currentUserIdSub.getValue();
 
     // job-invitation-notification
@@ -35,6 +33,7 @@ export class NotificationsComponent implements OnInit {
       next: res => {
         this.notifications = [...this.notifications, ...res];
         this.notifyService.notificationCountSub.next(this.notifications.length);
+        this.sortTheNotification();
       }
     })
 
@@ -43,11 +42,18 @@ export class NotificationsComponent implements OnInit {
       next: res => {
         this.notifications = [...this.notifications, ...res];
         this.notifyService.notificationCountSub.next(this.notifications.length);
+        this.sortTheNotification();
       }
     })
 
     this.getNotification();
     this.getNotificationByUserId()
+  }
+
+  sortTheNotification(){
+    this.notifications.sort((a, b) => {
+      return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
+    });
   }
 
   getNotificationByUserId(){

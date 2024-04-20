@@ -18,6 +18,8 @@ import { CreateCompanyComponent } from './components/create-company/create-compa
 import { EmployerNotificationComponent } from './components/employer-notification/employer-notification.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobApplicantsComponent } from './components/job-applicants/job-applicants.component';
+import { UpdateEmployerComponent } from './components/update-employer/update-employer.component';
+import { UpdatePersonalComponent } from './components/update-personal/update-personal.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { JobApplicantsComponent } from './components/job-applicants/job-applican
     EmployerNotificationComponent,
     JobsComponent,
     JobApplicantsComponent,
+    UpdateEmployerComponent,
+    UpdatePersonalComponent,
   ],
   imports: [
     CommonModule,

@@ -14,7 +14,7 @@ interface PersonalInformationCreate extends PersonalInformation{
     password:string
 }
 
-interface CompanyInformation {
+interface CompanyInfo {
     companyName: string;
     companySize: string;
     companyPhoneNumber: string;
@@ -23,7 +23,15 @@ interface CompanyInformation {
     businessType: string;
     companyWebsite: string;
     desc: string;
+    
+}
+
+export interface CompanyInformation extends CompanyInfo{
     address:CompanyAddress
+}
+
+interface FastApiCompanyEmp extends CompanyInfo{
+    address:CompanyAddress[]
 }
 
 interface AdditionalInformation {
@@ -37,6 +45,13 @@ interface CompanyAddress{
     state:string;
     country:string;
     postalCode:string
+}
+
+export interface ExactFastApiEmployerProfileResponse{
+    employer_id: string;
+    personalInformation: PersonalInformation[];
+    companyInformation: FastApiCompanyEmp[];
+    additionalInformation: AdditionalInformation[];
 }
 export interface ResponseEmployerProfile {
     employer_id: string;

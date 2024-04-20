@@ -10,21 +10,22 @@ import { JobApplication, ResponseJobApplication } from 'src/app/shared/Models/jo
   styleUrls: ['./my-jobs.component.scss',
     './../../styles/user-styles.scss']
 })
-export class MyJobsComponent implements OnInit{
+export class MyJobsComponent implements OnInit {
 
-  showUpdateStatus:boolean = false;
-  updateJobStatus!:ResponseJobApplication;
-  constructor(private jobApplicationSer:JobApplicationService, private authSer:AuthService){}
+  showUpdateStatus: boolean = false;
+  updateJobStatus!: ResponseJobApplication;
+  constructor(private jobApplicationSer: JobApplicationService, private authSer: AuthService) { }
   appliedJobs: ResponseJobApplication[] = [
-    
+
   ]
   ngOnInit(): void {
     let userId = this.authSer.currentUserIdSub.getValue()
     this.jobApplicationSer.getJobApplicationByUserId(userId).subscribe({
       next: res => {
         console.log(res);
-        
+
         this.appliedJobs = res;
+        this.sortTheJobApplication()
       },
       error: err => {
         console.log(err);
@@ -32,14 +33,21 @@ export class MyJobsComponent implements OnInit{
       }
     })
   }
-  clickUpdateStatus(job: ResponseJobApplication){
+
+  sortTheJobApplication(){
+    this.appliedJobs.sort((a, b) => {
+      return new Date(b.appliedOn).getTime() - new Date(a.appliedOn).getTime();
+    });
+  }
+  
+  clickUpdateStatus(job: ResponseJobApplication) {
     this.showUpdateStatus = true;
     this.updateJobStatus = job;
   }
 
-  closeUpdateStatus(){
+  closeUpdateStatus() {
     this.showUpdateStatus = false;
   }
-  
+
 
 }

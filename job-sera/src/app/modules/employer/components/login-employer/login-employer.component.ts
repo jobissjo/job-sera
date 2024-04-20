@@ -15,7 +15,7 @@ export class LoginEmployerComponent {
 
   ngOnInit(){
     this.loginEmployerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
   }

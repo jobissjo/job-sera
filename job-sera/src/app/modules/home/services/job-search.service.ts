@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { environment } from 'src/environments/environment';
@@ -14,10 +14,11 @@ import { HandleMessageService } from 'src/app/shared/service/handle-message.serv
 export class JobSearchService {
 
   jobObs$ = new Subject<JobDetails[]>();
+  searchResultJobs = new Subject<JobDetails[]>();
   selectedJobObs$ = new Subject<JobDetails>();
   constructor(private http: HttpClient, private authService: AuthService,
-    private notifyService: UserNotificationService, private route:Router,
-  private handleMsgService:HandleMessageService) { }
+    private notifyService: UserNotificationService, private route: Router,
+    private handleMsgService: HandleMessageService) { }
 
 
 
@@ -37,18 +38,36 @@ export class JobSearchService {
         console.log(res);
         let notification: NotificationType = {
           notificationType: 'job-invitation',
-          title:"Job Invitation?",
+          title: "Job Invitation?",
           message: 'You are invited to apply for this page? check this out?',
           jobId: res.id,
           position: res.jobTitle,
           companyName: res.company,
           deleteOrResponded: [],
-          userId:''
+          userId: ''
         }
         this.handleMsgService.successMessage("job created successfully", "Job Created")
         this.notifyService.createUserNotification(notification);
         this.route.navigate(['employer', 'job-openings'])
       }
+    })
+  }
+
+  searchJobs(jobTitle: string, location: string, experience:string) {
+
+    let params = new HttpParams()
+    params = params.append('job_title',jobTitle);
+    params = params.append('location',location);
+    params = params.append('experience',experience);
+
+    this.http.get<JobDetails[]>(`${environment.fastApiMainUrl}/jobs/search-result/`, {params:params}).subscribe({
+      next:res=>{
+        this.searchResultJobs.next(res)
+        
+      },
+      error:_err=> {
+        this.searchResultJobs.next([])
+      },
     })
   }
 

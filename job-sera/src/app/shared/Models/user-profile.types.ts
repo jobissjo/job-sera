@@ -20,8 +20,8 @@ interface OtherPreference {
 interface EducationType {
     level: string;
     fieldOfStudy: string;
-    startedDate: string;
-    endedDate: string;
+    startedDate: Date;
+    endedDate: Date;
 }
 
 interface CertificationType {
@@ -29,15 +29,15 @@ interface CertificationType {
     certificateId: string;
     mode: string;
     institution: string;
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
 }
 
 interface Experience {
     position: string;
     companyName: string;
-    startDate: string;
-    endDate: string;
+    startDate: Date;
+    endDate: Date;
 }
 
 interface Language {

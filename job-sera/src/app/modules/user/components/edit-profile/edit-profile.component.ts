@@ -1,45 +1,26 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { NativeDateAdapter } from '@angular/material/core';
 import { MatStepper } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import * as _moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
 import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
-import { EducationType, UserDetail } from '../../models/my-jobs';
+import { EducationType } from '../../models/my-jobs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
+import { ResponseUserModel } from 'src/app/shared/Models/auth.types';
+import { DatePipe } from '@angular/common';
 
-const moment = _moment || _rollupMoment;
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'MM/YYYY',
-  },
-  display: {
-    dateInput: 'MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+
+
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },]
+  providers: [DatePipe]
 })
 export class EditProfileComponent {
 
@@ -58,14 +39,15 @@ export class EditProfileComponent {
   knownLanguageArray!: FormArray;
   preferredLocationArray!: FormArray;
 
-  private currentUser: UserFireResponse = this.authService.userSub$.getValue();
+  private currentUser: ResponseUserModel = this.authService.userSubFA$.getValue();
 
 
   constructor(private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
     private handleMsgService: HandleMessageService,
     private authService: AuthService,
-    private userProfileService: UserProfileService) {
+    private userProfileService: UserProfileService,
+    private datePipe: DatePipe) {
 
   }
 
@@ -92,8 +74,8 @@ export class EditProfileComponent {
         this.fb.group({
           level: ['', Validators.required],
           fieldOfStudy: [''],
-          startedDate: [moment(), Validators.required],
-          endedDate: [moment(), Validators.required]
+          startedDate: ['', Validators.required],
+          endedDate: ['', Validators.required]
         })
       ]),
       certifications: this.fb.array([
@@ -102,8 +84,8 @@ export class EditProfileComponent {
           certificateId: [''],
           mode: ['', Validators.required],
           institution: ['', Validators.required],
-          startDate: [moment()],
-          endDate: [moment(), Validators.required]
+          startDate: ['', Validators.required],
+          endDate: ['', Validators.required]
         })
       ]),
       skills: this.fb.array([
@@ -113,8 +95,8 @@ export class EditProfileComponent {
         this.fb.group({
           position: ['', Validators.required],
           companyName: ['', Validators.required],
-          startDate: [moment(), Validators.required],
-          endDate: [moment(), Validators.required]
+          startDate: ['', Validators.required],
+          endDate: ['', Validators.required]
         })
       ]),
       knownLanguages: this.fb.array([
@@ -155,7 +137,7 @@ export class EditProfileComponent {
       next: res => {
         if (res) {
           console.log("successful man🤡🤡");
-          
+
           this.updateMode = true;
           this.currentProfileId = res.profileId
           this.updateUserDetailForm(res);
@@ -164,10 +146,11 @@ export class EditProfileComponent {
       },
       error: _err => {
         console.log("user not found");
-        
+
         this.isLoading = false;
         this.updateMode = false;
-      }})
+      }
+    })
 
 
 
@@ -253,20 +236,22 @@ export class EditProfileComponent {
     this.stepper.next();
   }
   onClickCreateUserProfile() {
-    debugger
-    if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
-      const userProfile: UserProfileModel = {
-        ...this.userDetail.value
-      };
-      console.log(this.userDetail.value, userProfile);
+    // debugger
 
+    if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
+      this.formatDatesInFormGroup(this.userDetail)
       const user = this.currentUser;
-      userProfile.personalDetail.email = user.email;
-      userProfile.profileId = this.currentProfileId
+      const userProfile: UserProfileModel = {
+        ...this.userDetail.value,
+        profileId: this.authService.currentUserIdSub.getValue()
+
+      };
+      userProfile.personalDetail.email = this.currentUser.email
       if (this.updateMode) {
         this.userProfileService.updateProfile(userProfile);
       }
       else {
+
         this.userProfileService.createUserProfile(userProfile);
       }
 
@@ -274,6 +259,23 @@ export class EditProfileComponent {
     else {
       console.log("Form is not valid🤡🤡", this.userDetail.value);
 
+    }
+  }
+
+  formatDatesInFormGroup(formGroup: FormGroup | FormArray): void {
+    for (const controlName in formGroup.controls) {
+      const control = formGroup.get(controlName);
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.formatDatesInFormGroup(control);
+      } else if (controlName === 'dob' || controlName === 'startDate' ||
+        controlName === 'endDate' || controlName === 'startedDate' || controlName === 'endedDate') {
+        // Date controls found, format the date
+        const dateValue = control?.value;
+        if (dateValue instanceof Date) {
+          const formattedDate = this.datePipe.transform(dateValue, 'yyyy-MM-dd');
+          control?.patchValue(formattedDate);
+        }
+      }
     }
   }
 
@@ -288,8 +290,8 @@ export class EditProfileComponent {
     const newEducationGroup = this.createNewFormGroup({
       level: ['', Validators.required],
       fieldOfStudy: [''],
-      startedDate: [moment(), Validators.required],
-      endedDate: [moment(), Validators.required]
+      startedDate: ['', Validators.required],
+      endedDate: ['', Validators.required]
     });
     this.educationArray.push(newEducationGroup);
   }
@@ -300,8 +302,8 @@ export class EditProfileComponent {
       certificateId: [''],
       mode: ['', Validators.required],
       institution: ['', Validators.required],
-      startDate: [moment()],
-      endDate: [moment(), Validators.required]
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
     });
     this.certificationArray.push(newCertificationGroup);
   }
@@ -329,8 +331,8 @@ export class EditProfileComponent {
     const newExperienceGroup = this.createNewFormGroup({
       position: ['', Validators.required],
       companyName: ['', Validators.required],
-      startDate: [moment(), Validators.required],
-      endDate: [moment(), Validators.required]
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
     });
     this.experienceArray.push(newExperienceGroup);
   }
@@ -353,18 +355,7 @@ export class EditProfileComponent {
   }
 
 
-  setMonthAndYear(normalizedMonthAndYear: Moment,
-    datepicker: MatDatepicker<Moment>,
-    i: number, formArray: FormArray, formControl: string) {
-
-    const currentStartDate = formArray.controls[i].get(formControl)?.value;
-    const ctrlValue = currentStartDate;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    formArray.controls[i].get(formControl)?.setValue(ctrlValue);
-    datepicker.close();
-
-  }
-
 
 }
+
+

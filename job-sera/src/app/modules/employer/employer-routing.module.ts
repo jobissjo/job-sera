@@ -10,6 +10,7 @@ import { JobOpeningsComponent } from './components/job-openings/job-openings.com
 import { JobApplicationsComponent } from './components/job-applications/job-applications.component';
 import { EmployerNotificationComponent } from './components/employer-notification/employer-notification.component';
 import { CreateCompanyComponent } from './components/create-company/create-company.component';
+import { UpdateEmployerComponent } from './components/update-employer/update-employer.component';
 
 const routes: Routes = [
   { path: '', component: EmployerComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'job-openings', component:JobOpeningsComponent, canActivate:[canActivateEmployer]},
   {path:'job-applications', component:JobApplicationsComponent, canActivate:[canActivateEmployer]},
   {path: 'notification', component:EmployerNotificationComponent, canActivate:[canActivateEmployer]},
-  {path: 'create-company', component:CreateCompanyComponent, canActivate:[canActivateEmployer]}
+  {path: 'create-company', component:CreateCompanyComponent, canActivate:[canActivateEmployer]},
+  {path: 'update-employer', component:UpdateEmployerComponent, canActivate:[canActivateEmployer]},
 ];
 
 @NgModule({

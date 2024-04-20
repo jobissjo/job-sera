@@ -1,31 +1,34 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
-import { EmployerService } from '../../services/employer.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { CreateEmployerProfile, EmployerProfile } from 'src/app/shared/Models/employer.types';
-import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
+import { EmployerProfile } from 'src/app/shared/Models/employer.types';
+import { EmployerService } from '../../services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-employer-account',
-  templateUrl: './create-employer-account.component.html',
-  styleUrls: ['./create-employer-account.component.scss']
+  selector: 'app-update-employer',
+  templateUrl: './update-employer.component.html',
+  styleUrls: ['./update-employer.component.scss']
 })
-export class CreateEmployerAccountComponent implements OnInit {
+export class UpdateEmployerComponent {
+
   employerForm!: FormGroup;
-  updateMode : boolean = false;
+  updateMode: boolean = true;
+  updateEmployerForm(form:EmployerProfile){
+    this.employerForm.patchValue(form)
+  }
+  @ViewChild('tabGroup') tabGroup !:MatTabGroup;
+  constructor(private fb:FormBuilder, private authService:AuthService, private employerService:EmployerService,
+    private activeRoute:ActivatedRoute,private route:Router
+  ){
+    
+  }
   personalInformation!: FormGroup;
   companyInformation!: FormGroup;
   additionalInformation!: FormGroup;
-  @ViewChild('tabGroup') tabGroup !:MatTabGroup;
-  constructor(private fb: FormBuilder, private employerService:EmployerService,
-    private authService:AuthService, private handleMsgSer:HandleMessageService,
-  private activeRoute:ActivatedRoute, private route:Router) {
-
-  }
-
-  ngOnInit() {
+  profileId:string = '';
+  ngOnInit(){
     this.employerForm = this.fb.group({
       personalInformation: this.fb.group({
         firstName: ['',[Validators.required]],
@@ -33,12 +36,10 @@ export class CreateEmployerAccountComponent implements OnInit {
         username: ['', [Validators.required]],
         email: ['', [Validators.email]],
         phoneNumber: ['',[Validators.required]],
-        password: ['', [Validators.required]],
-        cPassword: ['', [Validators.required]],
         position: [''],
         socialMediaLink: [''],
         gender:['']
-
+  
       }),
       companyInformation: this.fb.group({
         companyName: [''],
@@ -57,7 +58,7 @@ export class CreateEmployerAccountComponent implements OnInit {
           country: [''],
           postalCode: ['']
         })
-
+  
       }),
       additionalInformation: this.fb.group({
         hearAboutUs:[''],
@@ -68,14 +69,28 @@ export class CreateEmployerAccountComponent implements OnInit {
     this.companyInformation = <FormGroup>this.employerForm.get('companyInformation');
     this.additionalInformation = <FormGroup>this.employerForm.get('additionalInformation');
 
-    
-
-    
+    this.authService.isEmployerLoggedIn() && this.employerService.getEmployerById(this.authService.currentUserIdSub.getValue()).subscribe({
+      next: res => { 
+         
+        console.log("update mode");
+        this.activeRoute.queryParamMap.subscribe(query_res=> {
+          this.profileId = query_res.get('profile_id') ?? '';
+          if(this.profileId){
+            console.log("hello i am finally here", res);
+            this.updateMode = true;
+            this.updateEmployerForm(res)
+          }else{
+            this.route.navigate(['employer','profile'])
+          }
+        })
+        
+      },
+      error: err => {
+        this.updateMode = false;
+      }
+    })
   }
 
-  updateEmployerForm(form:EmployerProfile){
-    this.employerForm.patchValue(form)
-  }
 
   goToNextTab(tabLabel:string){
     const tabIndex = this.getTabIndexByLabel(tabLabel);
@@ -94,20 +109,13 @@ export class CreateEmployerAccountComponent implements OnInit {
   }
 
   onFormSubmit(){
-    
-    let employerValue : CreateEmployerProfile = this.employerForm.value
-
     if(this.employerForm.valid){
-      if (employerValue.personalInformation.password == employerValue.personalInformation.cPassword){
-        this.employerService.createEmployer(employerValue)
-      }
-      else{
-        this.handleMsgSer.warningMessage("Your password and confirm password is not matched","Password Not Matched")
-      }
+      console.log(this.employerForm.value);
+      
+      const data:EmployerProfile= {...this.employerForm.value, employer_id:this.profileId};
+      this.employerService.updateEmployer(this.profileId, data)
     }
-    else{
-      this.handleMsgSer.warningMessage("Form is not valid, make sure you enter all the details correctly","Form is not Valid")
-    }
+    
     
   }
 }

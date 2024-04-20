@@ -18,7 +18,7 @@ export class JobSeparateDetailComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.activeRoute.queryParamMap.subscribe(res => {
+    this.activeRoute.paramMap.subscribe(res => {
       this.jobId = res.get('id') ?? '';
       this.getCurrentJob(this.jobId)
     })
@@ -43,8 +43,8 @@ export class JobSeparateDetailComponent implements OnInit {
     }
 
   }
-  goToJobApplicationPage(id: string) {
-
+  goToJobApplicationPage(id:string){
+    this.route.navigate(['job-application', id])
   }
 
 }
