@@ -246,7 +246,10 @@ export class EditProfileComponent {
         profileId: this.authService.currentUserIdSub.getValue()
 
       };
-      userProfile.personalDetail.email = this.currentUser.email
+      userProfile.personalDetail.email = this.currentUser.email;
+
+      console.log(userProfile);
+      
       if (this.updateMode) {
         this.userProfileService.updateProfile(userProfile);
       }
@@ -342,9 +345,9 @@ export class EditProfileComponent {
     const newLanguageGroup = this.createNewFormGroup({
       language: ['', Validators.required],
       level: ['', Validators.required],
-      reading: [false, Validators.required],
-      writing: [false, Validators.required],
-      speaking: [false, Validators.required]
+      reading: [false],
+      writing: [false],
+      speaking: [false]
     });
     this.knownLanguageArray.push(newLanguageGroup);
   }
