@@ -1,1 +1,6 @@
-litestar[standard]
+uvicorn[standard]
+python-multipart
+fastapi
+passlib[bcrypt]
+python-jose[cryptography]
+sqlalchemy
