@@ -1,16 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {  FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobSearchService } from 'src/app/modules/home/services/job-search.service';
 import { CreateJobDetails, JobDetails } from 'src/app/shared/Models/job.type';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 // import { EmployerService } from '../../services/employer.service';
 
 @Component({
   selector: 'app-create-job',
   templateUrl: './create-job.component.html',
-  styleUrls: ['./create-job.component.scss']
+  styleUrls: ['./create-job.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule,AngularMaterialModule, CommonModule ]
 })
 export class CreateJobComponent {
  
@@ -22,9 +26,9 @@ export class CreateJobComponent {
   updateJobId:string = '';
   updateMode:boolean = false;
   jobDetails!:JobDetails;
-  constructor(private _formBuilder: FormBuilder, private authService:AuthService,
-    private jobService:JobSearchService, private handleMsgService:HandleMessageService,
-    private activeRoute:ActivatedRoute, private route:Router
+  constructor(private readonly _formBuilder: FormBuilder, private readonly authService:AuthService,
+    private readonly jobService:JobSearchService, private readonly handleMsgService:HandleMessageService,
+    private readonly activeRoute:ActivatedRoute, private readonly route:Router
   ) {
     this.createJobForm = this._formBuilder.group({
       jobTitle: ['', [Validators.required]],

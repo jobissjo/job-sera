@@ -1,16 +1,24 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
 import { EmployerService } from '../../services/employer.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { CreateEmployerProfile, EmployerProfile } from 'src/app/shared/Models/employer.types';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { PersonalInfoComponent } from '../personal-info/personal-info.component';
+import { CompanyInfoComponent } from '../company-info/company-info.component';
+import { AdditionalInfoComponent } from '../additional-info/additional-info.component';
 
 @Component({
   selector: 'app-create-employer-account',
   templateUrl: './create-employer-account.component.html',
-  styleUrls: ['./create-employer-account.component.scss']
+  styleUrls: ['./create-employer-account.component.scss'],
+  standalone: true,
+  imports: [AngularMaterialModule, PersonalInfoComponent,FormsModule, ReactiveFormsModule,
+    CompanyInfoComponent, AdditionalInfoComponent
+   ]
 })
 export class CreateEmployerAccountComponent implements OnInit {
   employerForm!: FormGroup;
@@ -19,9 +27,9 @@ export class CreateEmployerAccountComponent implements OnInit {
   companyInformation!: FormGroup;
   additionalInformation!: FormGroup;
   @ViewChild('tabGroup') tabGroup !:MatTabGroup;
-  constructor(private fb: FormBuilder, private employerService:EmployerService,
-    private authService:AuthService, private handleMsgSer:HandleMessageService,
-  private activeRoute:ActivatedRoute, private route:Router) {
+  constructor(private readonly fb: FormBuilder, private readonly employerService:EmployerService,
+    private readonly authService:AuthService, private readonly handleMsgSer:HandleMessageService,
+  private readonly activeRoute:ActivatedRoute, private readonly route:Router) {
 
   }
 

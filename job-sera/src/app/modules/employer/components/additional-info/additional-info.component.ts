@@ -1,11 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 
 @Component({
   selector: 'app-additional-info',
   templateUrl: './additional-info.component.html',
   styleUrls: ['./additional-info.component.scss',
-   './../../commonStyle/employer-common.styles.scss']
+   './../../commonStyle/employer-common.styles.scss'],
+   standalone: true,
+   imports: [FormsModule, ReactiveFormsModule, AngularMaterialModule, CommonModule]
 })
 export class AdditionalInfoComponent {
   @Input() additionalInformation!:FormGroup;
@@ -23,6 +27,6 @@ export class AdditionalInfoComponent {
   ]
 
   submitEmit(){
-    
+    console.log("submit emit called")
   }
 }

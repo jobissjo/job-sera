@@ -16,8 +16,8 @@ export class HeaderComponent {
   isEmployerLogin:boolean = false;
   notificationCount:number = 0;
   @ViewChild('mainTitle') mainTitle!:ElementRef<HTMLSpanElement>
-  constructor(private router:Router, private authService:AuthService,
-    private notifyService:UserNotificationService
+  constructor(private readonly router:Router, private readonly authService:AuthService,
+    private readonly notifyService:UserNotificationService
   ){}
 
   ngOnInit(){
@@ -50,6 +50,13 @@ export class HeaderComponent {
   }
   routeToAuth(){
     this.router.navigate(['auth'])
+  }
+
+  handleKeyDown(event: KeyboardEvent){
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.routeToHome();
+      event.preventDefault();
+    }
   }
 
   routeToCompany(){

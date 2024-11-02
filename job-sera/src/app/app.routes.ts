@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { canActivateChildLogin } from './shared/guards/auth.guard';
 import { authRoutes } from './modules/auth/auth.routes';
 import { homeRoutes } from './modules/home/home.routes';
+import { employerRoutes } from './modules/employer/employer.routes';
 
 export const routes: Routes = [
 
@@ -10,11 +11,11 @@ export const routes: Routes = [
         children: homeRoutes
         // loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
       },
-      {
-        path: 'jobs',
-        loadChildren: () => import('./modules/jobs/jobs.module').then(m => m.JobsModule),
+      // {
+      //   path: 'jobs',
+      //   loadChildren: () => import('./modules/jobs/jobs.module').then(m => m.JobsModule),
     
-      },
+      // },
       {
         path: 'auth',
         children: authRoutes
@@ -22,7 +23,8 @@ export const routes: Routes = [
       },
       {
         path: 'employer',
-        loadChildren: () => import('./modules/employer/employer.module').then(m => m.EmployerModule)
+        children: employerRoutes
+        // loadChildren: () => import('./modules/employer/employer.module').then(m => m.EmployerModule)
       },
       {
         path: 'company',

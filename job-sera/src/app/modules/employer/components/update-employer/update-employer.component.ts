@@ -1,15 +1,23 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTabGroup } from '@angular/material/tabs';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { EmployerProfile } from 'src/app/shared/Models/employer.types';
 import { EmployerService } from '../../services/employer.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { UpdatePersonalComponent } from '../update-personal/update-personal.component';
+import { CompanyInfoComponent } from '../company-info/company-info.component';
+import { AdditionalInfoComponent } from '../additional-info/additional-info.component';
 
 @Component({
   selector: 'app-update-employer',
   templateUrl: './update-employer.component.html',
-  styleUrls: ['./update-employer.component.scss']
+  styleUrls: ['./update-employer.component.scss'],
+  standalone: true,
+  imports: [AngularMaterialModule, FormsModule, ReactiveFormsModule, UpdatePersonalComponent,
+    CompanyInfoComponent, AdditionalInfoComponent
+  ]
 })
 export class UpdateEmployerComponent {
 
@@ -19,8 +27,9 @@ export class UpdateEmployerComponent {
     this.employerForm.patchValue(form)
   }
   @ViewChild('tabGroup') tabGroup !:MatTabGroup;
-  constructor(private fb:FormBuilder, private authService:AuthService, private employerService:EmployerService,
-    private activeRoute:ActivatedRoute,private route:Router
+  constructor(private readonly fb:FormBuilder, private readonly authService:AuthService,
+     private readonly employerService:EmployerService,
+    private readonly activeRoute:ActivatedRoute,private readonly route:Router
   ){
     
   }

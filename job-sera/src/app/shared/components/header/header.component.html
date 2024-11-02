@@ -1,5 +1,6 @@
 <mat-toolbar>
-  <span #mainTitle (click)="routeToHome()" (mouseover)="changeCursor()" (mouseout)="resetCursor()">Jobs Era</span>
+  <span #mainTitle (keydown)="handleKeyDown($event)"
+    (click)="routeToHome()" (mouseover)="changeCursor()" (mouseout)="resetCursor()" onfocus="0" onblur="0">Jobs Era</span>
   <button mat-button (click)="routeToHome()">Home</button>
   <button *ngIf="!isEmployerLogin" mat-button (click)="routeToCompany()">Companies</button>
   <!-- <button mat-button (click)="routeToJobs()">Jobs</button> -->

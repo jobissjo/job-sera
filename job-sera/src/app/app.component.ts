@@ -1,6 +1,5 @@
 import { Component,  OnInit, inject } from '@angular/core';
 import { AuthService } from './modules/auth/services/auth.service';
-import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from './shared/components/header/header.component'
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { RouterModule } from '@angular/router';

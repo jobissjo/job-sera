@@ -1,17 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { JobApplication, ResponseJobApplication } from 'src/app/shared/Models/job.type';
+import {  ResponseJobApplication } from 'src/app/shared/Models/job.type';
 import { JobApplicationService } from 'src/app/shared/service/job-application.service';
 import { UtilsService } from 'src/app/shared/service/utils.service';
 
 @Component({
   selector: 'app-job-applicants',
   templateUrl: './job-applicants.component.html',
-  styleUrls: ['./job-applicants.component.scss']
+  styleUrls: ['./job-applicants.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class JobApplicantsComponent implements OnInit {
   jobApplicants: ResponseJobApplication[] = []
 
-  constructor(private utilsService: UtilsService, private jobApplicationSer: JobApplicationService) { }
+  constructor(private readonly utilsService: UtilsService, private readonly jobApplicationSer: JobApplicationService) { }
 
   ngOnInit(): void {
     this.utilsService.selectedJobApplicants$.subscribe({
