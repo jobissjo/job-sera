@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { MyJobs } from '../../models/my-jobs';
 import { JobApplicationService } from 'src/app/shared/service/job-application.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { JobApplication, ResponseJobApplication } from 'src/app/shared/Models/job.type';
+import {  ResponseJobApplication } from 'src/app/shared/Models/job.type';
+import { UpdateStatusComponent } from '../update-status/update-status.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-jobs',
   templateUrl: './my-jobs.component.html',
   styleUrls: ['./my-jobs.component.scss',
-    './../../styles/user-styles.scss']
+    './../../styles/user-styles.scss'],
+    standalone: true,
+    imports: [UpdateStatusComponent, MatCardModule, MatDividerModule, MatIconModule, CommonModule]
 })
 export class MyJobsComponent implements OnInit {
 
   showUpdateStatus: boolean = false;
   updateJobStatus!: ResponseJobApplication;
-  constructor(private jobApplicationSer: JobApplicationService, private authSer: AuthService) { }
+  constructor(private readonly jobApplicationSer: JobApplicationService, private readonly authSer: AuthService) { }
   appliedJobs: ResponseJobApplication[] = [
 
   ]

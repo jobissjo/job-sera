@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { JobDetails } from 'src/app/shared/Models/job.type';
@@ -9,15 +12,17 @@ import { SavedJobsService } from 'src/app/shared/service/saved-jobs.service';
 @Component({
   selector: 'app-saved-jobs',
   templateUrl: './saved-jobs.component.html',
-  styleUrls: ['./saved-jobs.component.scss']
+  styleUrls: ['./saved-jobs.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, MatDividerModule, CommonModule]
 })
 export class SavedJobsComponent implements OnInit {
   savedJobs: JobDetails[] = [];
   private userId: string = '';
-  constructor(private savedJobService: SavedJobsService,
-    private authService: AuthService,
-    private dialogue: MatDialog,
-    private router: Router) {
+  constructor(private readonly savedJobService: SavedJobsService,
+    private readonly authService: AuthService,
+    private readonly dialogue: MatDialog,
+    private readonly router: Router) {
 
   }
   ngOnInit() {

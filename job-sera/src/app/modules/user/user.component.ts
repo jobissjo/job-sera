@@ -1,20 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CustomDialogComponent } from 'src/app/shared/components/custom-dialog/custom-dialog.component';
 import { AuthService } from '../auth/services/auth.service';
 import { ResponseUserModel } from 'src/app/shared/Models/auth.types';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  standalone: true,
+  imports: [
+    AngularMaterialModule, CommonModule, RouterModule
+  ]
 })
 export class UserComponent implements OnInit {
-  constructor(private router: Router, 
-    private dialogue: MatDialog,
-    private authService: AuthService) { }
+  constructor(private readonly router: Router, 
+    private readonly dialogue: MatDialog,
+    private readonly authService: AuthService) { }
   user!: ResponseUserModel;
   ngOnInit() {
     this.authService.userSubFA$.subscribe(res => {

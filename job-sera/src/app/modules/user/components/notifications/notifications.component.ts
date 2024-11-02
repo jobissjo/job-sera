@@ -7,10 +7,16 @@ import { UserNotificationService } from 'src/app/shared/service/user-notificatio
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, MatDividerModule, MatIconModule, CommonModule]
 
 })
 export class NotificationsComponent implements OnInit {
@@ -20,11 +26,11 @@ export class NotificationsComponent implements OnInit {
   
 
   userId: string = '';
-  constructor(private dialogue: MatDialog, private _snackBar: MatSnackBar,
-    private notifyService: UserNotificationService,
-    private authService: AuthService,
-    private userService: UserProfileService,
-    private router:Router) { }
+  constructor(private readonly dialogue: MatDialog, private readonly _snackBar: MatSnackBar,
+    private readonly notifyService: UserNotificationService,
+    private readonly authService: AuthService,
+    private readonly userService: UserProfileService,
+    private readonly router:Router) { }
   ngOnInit(): void {
     this.userId = this.authService.currentUserIdSub.getValue();
 

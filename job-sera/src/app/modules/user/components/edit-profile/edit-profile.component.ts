@@ -1,18 +1,21 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NativeDateAdapter } from '@angular/material/core';
-import { MatStepper } from '@angular/material/stepper';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserProfileService } from '../../service/user-profile.service';
-import { UserFireResponse } from 'src/app/modules/auth/Models/userFireResponse.model';
+
 import { EducationType } from '../../models/my-jobs';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 import { UserProfileModel } from 'src/app/shared/Models/user-profile.types';
 import { ResponseUserModel } from 'src/app/shared/Models/auth.types';
-import { DatePipe } from '@angular/common';
-
-
+import { CommonModule, DatePipe } from '@angular/common';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -20,7 +23,11 @@ import { DatePipe } from '@angular/common';
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  standalone: true,
+  imports: [MatProgressSpinnerModule, MatStepperModule, MatFormFieldModule, ReactiveFormsModule, MatDatepickerModule,
+    MatSelectModule, MatIconModule, CommonModule, MatRadioModule
+  ]
 })
 export class EditProfileComponent {
 
@@ -39,15 +46,15 @@ export class EditProfileComponent {
   knownLanguageArray!: FormArray;
   preferredLocationArray!: FormArray;
 
-  private currentUser: ResponseUserModel = this.authService.userSubFA$.getValue();
+  private readonly currentUser: ResponseUserModel = this.authService.userSubFA$.getValue();
 
 
-  constructor(private fb: FormBuilder,
-    private activeRoute: ActivatedRoute,
-    private handleMsgService: HandleMessageService,
-    private authService: AuthService,
-    private userProfileService: UserProfileService,
-    private datePipe: DatePipe) {
+  constructor(private readonly fb: FormBuilder,
+    private readonly activeRoute: ActivatedRoute,
+    private readonly handleMsgService: HandleMessageService,
+    private readonly authService: AuthService,
+    private readonly userProfileService: UserProfileService,
+    private readonly datePipe: DatePipe) {
 
   }
 
@@ -240,7 +247,7 @@ export class EditProfileComponent {
 
     if (this.userDetail.valid && this.authService.loggedInSub$.getValue()) {
       this.formatDatesInFormGroup(this.userDetail)
-      const user = this.currentUser;
+      // const user = this.currentUser;
       const userProfile: UserProfileModel = {
         ...this.userDetail.value,
         profileId: this.authService.currentUserIdSub.getValue()

@@ -1,6 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MyJobs } from '../../models/my-jobs';
 import { JobApplication } from 'src/app/shared/Models/job.type';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 interface Status {
   title: string, icon: string, color: string, status: string
 }
@@ -8,7 +9,9 @@ interface Status {
 @Component({
   selector: 'app-update-status',
   templateUrl: './update-status.component.html',
-  styleUrls: ['./update-status.component.scss']
+  styleUrls: ['./update-status.component.scss'],
+  standalone: true,
+  imports: [AngularMaterialModule, CommonModule]
 })
 export class UpdateStatusComponent {
 

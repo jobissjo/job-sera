@@ -32,13 +32,13 @@
       <mat-card-subtitle>{{selectedCompany.HRDetails.linkedInPage}}</mat-card-subtitle>
     </div>
     <div *ngIf="selectedCompany.reviews.length > 0">
-      <h3 style="display: flex; align-items: center;">Reviews ({{ selectedCompany.reviewsCount }}): <star-rating direction="ltr" [readOnly]="true"
+      <h3 class="review-heading">Reviews ({{ selectedCompany.reviewsCount }}): <star-rating direction="ltr" [readOnly]="true"
         [showHalfStars]="true" [rating]="selectedCompany.totalReviewRating"></star-rating></h3>
       <ul>
         <li *ngFor="let review of selectedCompany.reviews">
           <p><strong>{{ review.username }}</strong></p>
           <p>{{ review.reviewText }}</p>
-          <p style="display: flex; align-items: center;">Rating: <star-rating direction="ltr" [readOnly]="true"
+          <p class="rating-para">Rating: <star-rating direction="ltr" [readOnly]="true"
               [showHalfStars]="true" [rating]="review.reviewScore"></star-rating></p>
         </li>
       </ul>

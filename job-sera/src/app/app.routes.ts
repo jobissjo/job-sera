@@ -3,6 +3,8 @@ import { canActivateChildLogin } from './shared/guards/auth.guard';
 import { authRoutes } from './modules/auth/auth.routes';
 import { homeRoutes } from './modules/home/home.routes';
 import { employerRoutes } from './modules/employer/employer.routes';
+import { companyRoutes } from './modules/company/company.routes';
+import { userRoutes } from './modules/user/user.routes';
 
 export const routes: Routes = [
 
@@ -28,11 +30,13 @@ export const routes: Routes = [
       },
       {
         path: 'company',
-        loadChildren: () => import('./modules/company/company.module').then(m => m.CompanyModule)
+        children: companyRoutes
+        // loadChildren: () => import('./modules/company/company.module').then(m => m.CompanyModule)
       },
       {
         path: 'user',
-        loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
+        children: userRoutes,
+        // loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
         canActivateChild: [canActivateChildLogin]
       }
 
