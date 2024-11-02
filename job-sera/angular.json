@@ -83,7 +83,7 @@
         },
         "serve": {
           "options": {
-            "port": 3000
+            "buildTarget": "job-sera:build"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
