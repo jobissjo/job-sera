@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UtilsService } from 'src/app/shared/service/utils.service';
 import { JobSearchService } from '../../services/job-search.service';
 import { JobDetails } from 'src/app/shared/Models/job.type';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-job-application',
   templateUrl: './job-application.component.html',
-  styleUrls: ['./job-application.component.scss']
+  styleUrls: ['./job-application.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, RouterModule,
+    AngularMaterialModule, CommonModule
+  ]
 })
 export class JobApplicationComponent {
   jobDetails!:JobDetails;
   jobApplicationForm!: FormGroup;
   jobId: string = ''
   fileName: string = '';
-  constructor(private fb: FormBuilder,
-    private router: Router,
-    private utilService: UtilsService,
-    private activeRoute: ActivatedRoute,
-    private jobService: JobSearchService) { }
+  constructor(private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly utilService: UtilsService,
+    private readonly activeRoute: ActivatedRoute,
+    private readonly jobService: JobSearchService) { }
 
   ngOnInit(): void {
     this.jobApplicationForm = this.fb.group({

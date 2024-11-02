@@ -1,12 +1,14 @@
 import { Routes } from '@angular/router';
 import { canActivateChildLogin } from './shared/guards/auth.guard';
 import { authRoutes } from './modules/auth/auth.routes';
+import { homeRoutes } from './modules/home/home.routes';
 
 export const routes: Routes = [
 
     {
         path: '',
-        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+        children: homeRoutes
+        // loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
       },
       {
         path: 'jobs',

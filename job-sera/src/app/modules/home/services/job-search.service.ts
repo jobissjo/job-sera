@@ -16,9 +16,9 @@ export class JobSearchService {
   jobObs$ = new Subject<JobDetails[]>();
   searchResultJobs = new Subject<JobDetails[]>();
   selectedJobObs$ = new Subject<JobDetails>();
-  constructor(private http: HttpClient, private authService: AuthService,
-    private notifyService: UserNotificationService, private route: Router,
-    private handleMsgService: HandleMessageService) { }
+  constructor(private readonly http: HttpClient, private readonly authService: AuthService,
+    private readonly notifyService: UserNotificationService, private readonly route: Router,
+    private readonly handleMsgService: HandleMessageService) { }
 
 
 

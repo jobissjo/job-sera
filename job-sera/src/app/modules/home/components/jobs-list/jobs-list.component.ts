@@ -1,12 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { JobDetails } from 'src/app/shared/Models/job.type';
 import { JobSearchService } from '../../services/job-search.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-jobs-list',
   templateUrl: './jobs-list.component.html',
-  styleUrls: ['./jobs-list.component.scss']
+  styleUrls: ['./jobs-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class JobsListComponent implements OnInit{
   jobSearchService = inject(JobSearchService);

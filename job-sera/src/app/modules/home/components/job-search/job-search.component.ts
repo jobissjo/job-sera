@@ -1,18 +1,24 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JobSearchService } from '../../services/job-search.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-job-search',
   templateUrl: './job-search.component.html',
-  styleUrls: ['./job-search.component.scss']
+  styleUrls: ['./job-search.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, RouterModule,
+    AngularMaterialModule, CommonModule
+  ]
 })
 export class JobSearchComponent {
   searchForm!: FormGroup;
-  constructor(private jobService: JobSearchService, private authService: AuthService,
-    private route: Router
+  constructor(private readonly jobService: JobSearchService, private readonly authService: AuthService,
+    private readonly route: Router
   ) {
 
   }
