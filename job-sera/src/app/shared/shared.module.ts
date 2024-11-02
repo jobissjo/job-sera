@@ -8,8 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -17,8 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   exports:[
-    HeaderComponent,
-    FooterComponent
   ]
 })
 export class SharedModule { }

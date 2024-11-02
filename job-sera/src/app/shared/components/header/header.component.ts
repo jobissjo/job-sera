@@ -2,11 +2,14 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { UserNotificationService } from '../../service/user-notification.service';
-
+import { AngularMaterialModule } from '../../module/angular-material/angular-material.module';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone:true,
+  imports: [AngularMaterialModule,  CommonModule]
 })
 export class HeaderComponent {
   isLogin:boolean = false;

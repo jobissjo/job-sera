@@ -1,23 +1,32 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HandleMessageService } from 'src/app/shared/service/handle-message.service';
 import { Role } from '../../Models/Enums';
+import { CommonModule } from '@angular/common';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule, ReactiveFormsModule,
+    CommonModule, RouterModule,
+    AngularMaterialModule
+
+  ]
 })
 export class SignUpComponent {
 
   signupForm!: FormGroup;
   isLoading: boolean = false;
-  constructor(private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router, 
-    private handleMsgService:HandleMessageService) {
+  constructor(private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router, 
+    private readonly handleMsgService:HandleMessageService) {
 
   }
 
