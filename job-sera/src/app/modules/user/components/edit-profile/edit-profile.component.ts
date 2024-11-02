@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { AngularMaterialModule } from 'src/app/shared/module/angular-material/angular-material.module';
 
 
 
@@ -25,8 +26,8 @@ import { MatRadioModule } from '@angular/material/radio';
   styleUrls: ['./edit-profile.component.scss'],
   providers: [DatePipe],
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatStepperModule, MatFormFieldModule, ReactiveFormsModule, MatDatepickerModule,
-    MatSelectModule, MatIconModule, CommonModule, MatRadioModule
+  imports: [ ReactiveFormsModule, 
+     CommonModule, FormsModule, AngularMaterialModule
   ]
 })
 export class EditProfileComponent {
@@ -138,12 +139,14 @@ export class EditProfileComponent {
     setTimeout(() => {
       this.focusSection && this.onGoToSection(this.focusSection);
     }, 50)
-
     // update the form is edit Mode or Update Mode
-    this.userProfileService.getProfileByUserId(this.authService.currentUserIdSub.getValue()).subscribe({
+    let userId = this.authService.currentUserIdSub.getValue();
+    
+    userId && this.userProfileService.getProfileByUserId(userId).subscribe({
+      
       next: res => {
         if (res) {
-          console.log("successful man🤡🤡");
+          console.log("successful man");
 
           this.updateMode = true;
           this.currentProfileId = res.profileId
