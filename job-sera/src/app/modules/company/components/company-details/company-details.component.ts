@@ -10,7 +10,7 @@ import { StarRatingModule } from 'angular-star-rating';
   templateUrl: './company-details.component.html',
   styleUrls: ['./company-details.component.scss'],
   standalone: true,
-  imports: [AngularMaterialModule, CommonModule, StarRatingModule ]
+  imports: [AngularMaterialModule, CommonModule ]
 })
 export class CompanyDetailsComponent {
 

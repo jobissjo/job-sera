@@ -24,22 +24,30 @@
       <mat-card-subtitle>{{opening.salary}}</mat-card-subtitle>
       <mat-card-subtitle>{{opening.location}}</mat-card-subtitle>
     </div>
-    <div *ngIf="selectedCompany.HRDetails">
-      <h3>Employer Details</h3>
-      <mat-card-title>{{selectedCompany.HRDetails.name}}</mat-card-title>
-      <mat-card-subtitle>{{selectedCompany.HRDetails.email}}</mat-card-subtitle>
-      <mat-card-subtitle>{{selectedCompany.HRDetails.phoneNumber}}</mat-card-subtitle>
-      <mat-card-subtitle>{{selectedCompany.HRDetails.linkedInPage}}</mat-card-subtitle>
-    </div>
+    @if (selectedCompany.HRDetails){
+      <div >
+        <h3>Employer Details</h3>
+        <mat-card-title>{{selectedCompany.HRDetails.name}}</mat-card-title>
+        <mat-card-subtitle>{{selectedCompany.HRDetails.email}}</mat-card-subtitle>
+        <mat-card-subtitle>{{selectedCompany.HRDetails.phoneNumber}}</mat-card-subtitle>
+        <mat-card-subtitle>{{selectedCompany.HRDetails.linkedInPage}}</mat-card-subtitle>
+      </div>
+
+    }
+   
     <div *ngIf="selectedCompany.reviews.length > 0">
-      <h3 class="review-heading">Reviews ({{ selectedCompany.reviewsCount }}): <star-rating direction="ltr" [readOnly]="true"
-        [showHalfStars]="true" [rating]="selectedCompany.totalReviewRating"></star-rating></h3>
+      <h3 class="review-heading">Reviews ({{ selectedCompany.reviewsCount }}): 
+        <!-- <star-rating direction="ltr" [readOnly]="true"
+        [showHalfStars]="true" [rating]="selectedCompany.totalReviewRating"></star-rating> -->
+      </h3>
       <ul>
         <li *ngFor="let review of selectedCompany.reviews">
           <p><strong>{{ review.username }}</strong></p>
           <p>{{ review.reviewText }}</p>
-          <p class="rating-para">Rating: <star-rating direction="ltr" [readOnly]="true"
-              [showHalfStars]="true" [rating]="review.reviewScore"></star-rating></p>
+          <p class="rating-para">Rating: 
+            <!-- <star-rating direction="ltr" [readOnly]="true"
+              [showHalfStars]="true" [rating]="review.reviewScore"></star-rating> -->
+            </p>
         </li>
       </ul>
 
